@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/GameSparks/TestUI/GameSparksTestUI.unity
+- path: Assets/6. Asset Store/GameSparks/TestUI/GameSparksTestUI.unity
   isLoaded: 1
   isActive: 1
