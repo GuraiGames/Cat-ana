@@ -10,6 +10,9 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private GameObject register;
 
+    [SerializeField]
+    private GameObject loby;
+
 
 	void Awake ()
     {
@@ -17,6 +20,7 @@ public class UIManager : MonoBehaviour {
 
         AddWindow(register, "register");
 
+        AddWindow(loby, "lobby");
 	}
 
     void Start()
