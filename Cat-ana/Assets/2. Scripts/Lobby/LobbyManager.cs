@@ -8,7 +8,7 @@ using GameSparks.RT;
 public class LobbyManager : MonoBehaviour {
 
     public Button PlayBttn;
-    public Matchmaking MM_Manager;
+    // Matchmaking MM_Manager;
 
     private MatchInfo match;
 
@@ -90,7 +90,7 @@ public class LobbyManager : MonoBehaviour {
     {
         PlayBttn.onClick.AddListener(() =>
         {
-            MM_Manager.NR_4PMatchMaking();
+            //MM_Manager.NR_4PMatchMaking();
             Debug.Log("Serching For Players..");
         });
 
