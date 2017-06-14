@@ -23,6 +23,7 @@ public class LoginBttn : MonoBehaviour
                 {
                     Debug.Log("Login OK!");
                     //Go to lobby
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("Lobby");
                 }
             });
     }
