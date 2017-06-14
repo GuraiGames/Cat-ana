@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ChangeMusic : MonoBehaviour {
+public class ChangeVolume : MonoBehaviour {
 
-    private float current_volume = -1f;
+    [SerializeField] private float current_volume = -1f;
+
+    public GameObject music_obj;
+    public GameObject music_slider_obj;
 
     public void ToggleMusic()
     {
@@ -24,6 +28,10 @@ public class ChangeMusic : MonoBehaviour {
 	
     public void ScrollMusic()
     {
-
+        current_volume = music_slider_obj.GetComponent<Slider>().value;
+        if (music_obj.GetComponent<Toggle>().isOn)
+        {
+            AudioListener.volume = current_volume;            
+        }  
     }
 }
