@@ -840,12 +840,12 @@ RectTransform:
   - {fileID: 228814049}
   - {fileID: 1910970808}
   m_Father: {fileID: 648364240}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 19.400002}
-  m_SizeDelta: {x: -1469, y: -940}
+  m_AnchoredPosition: {x: -0.0000060797, y: 23.900002}
+  m_SizeDelta: {x: -989.2, y: -536.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &497057678
 MonoBehaviour:
@@ -859,7 +859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.684}
+  m_Color: {r: 1, g: 0, b: 0, a: 0.722}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -868,9 +868,9 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -981,8 +981,8 @@ RectTransform:
   - {fileID: 118867316}
   - {fileID: 1812879589}
   - {fileID: 212833292}
-  - {fileID: 497057677}
   - {fileID: 1975136441}
+  - {fileID: 497057677}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1491,6 +1491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   user_name: {fileID: 432169999}
   password: {fileID: 421373442}
+  error_text: {fileID: 228814050}
   panel: {fileID: 497057676}
   user_name_go: {fileID: 397730450}
   password_go: {fileID: 118867315}
@@ -1809,7 +1810,7 @@ GameObject:
   - component: {fileID: 1975136443}
   - component: {fileID: 1975136442}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1826,7 +1827,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 648364240}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
