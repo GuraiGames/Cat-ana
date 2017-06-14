@@ -6,20 +6,21 @@ using UnityEngine.UI;
 public class LoginBttn : MonoBehaviour
 {
 
-    public Text user_name, password, error_text;
-
-    public GameObject panel;
-    public GameObject user_name_go;
-    public GameObject password_go;
-    public GameObject register_go;
-    public GameObject login_go;
+    public Text error_text;
+    public GameObject   user_name,
+                        password,
+                        panel,
+                        user_name_go,
+                        password_go,
+                        register_go,
+                        login_go;
 
     private int panel_message;
 
     public void LoginBttnClick()
     {
-        new GameSparks.Api.Requests.AuthenticationRequest().SetUserName(user_name.text)
-            .SetPassword(password.text)
+        new GameSparks.Api.Requests.AuthenticationRequest().SetUserName(user_name.GetComponent<InputField>().text)
+            .SetPassword(password.GetComponent<InputField>().text)
             .Send((response) =>
             {
                 if (response.HasErrors)

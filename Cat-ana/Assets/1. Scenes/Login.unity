@@ -1489,9 +1489,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27cb710c96807cd43b0c90de041597c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  user_name: {fileID: 432169999}
-  password: {fileID: 421373442}
   error_text: {fileID: 228814050}
+  user_name: {fileID: 397730450}
+  password: {fileID: 118867315}
   panel: {fileID: 497057676}
   user_name_go: {fileID: 397730450}
   password_go: {fileID: 118867315}

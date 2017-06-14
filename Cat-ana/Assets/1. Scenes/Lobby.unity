@@ -5603,10 +5603,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   display_name: {fileID: 608940852}
-  old_password: {fileID: 1010686627}
-  new_password: {fileID: 1233346961}
   panel: {fileID: 1768824838}
+  old_password: {fileID: 110099543}
+  new_password: {fileID: 1560327222}
   main_window: {fileID: 782168868}
+  settings_window: {fileID: 493625749}
 --- !u!114 &2098628879
 MonoBehaviour:
   m_ObjectHideFlags: 0
