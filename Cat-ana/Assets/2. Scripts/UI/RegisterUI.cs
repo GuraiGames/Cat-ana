@@ -8,6 +8,9 @@ public class RegisterUI : MonoBehaviour
     private GameManager game_manager;
 
     [SerializeField]
+    private int password_min_lenght;
+
+    [SerializeField]
     private InputField username;
 
     [SerializeField]
@@ -24,6 +27,17 @@ public class RegisterUI : MonoBehaviour
     public void ButtonPressed()
     {
         Debug.Log("Register attemt. User: " + username.text + "Pass: " + password.text);
+
+        if (username.text == "" || display_name.text == "" && password.text == "")
+        {
+            Debug.Log("Register error: There is an empty field");
+            return;
+        }
+        if(password.text.Length < password_min_lenght)
+        {
+            Debug.Log("Register error: Password should be longuer than " + password_min_lenght);
+            return;
+        }
 
         new GameSparks.Api.Requests.RegistrationRequest()
         .SetDisplayName(display_name.text)
