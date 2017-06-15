@@ -2586,6 +2586,7 @@ GameObject:
   - component: {fileID: 663415448}
   - component: {fileID: 663415447}
   - component: {fileID: 663415446}
+  - component: {fileID: 663415449}
   m_Layer: 5
   m_Name: LobbyUI
   m_TagString: Untagged
@@ -2678,6 +2679,19 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &663415449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 663415444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b5114451f7fa754a891f155f546d3a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayBttn: {fileID: 1257247647}
+  NetManager: {fileID: 954097895}
 --- !u!1 &674400173
 GameObject:
   m_ObjectHideFlags: 0
@@ -3803,6 +3817,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &954097895 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114297940730514460, guid: fab56a265c5866248a6bd90e587b2d0d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1679563356}
+  m_Script: {fileID: 11500000, guid: 0634e5424136e3c45be5533b8efa20e7, type: 3}
 --- !u!1 &988483858
 GameObject:
   m_ObjectHideFlags: 0
@@ -4559,7 +4579,6 @@ GameObject:
   - component: {fileID: 1257247649}
   - component: {fileID: 1257247648}
   - component: {fileID: 1257247647}
-  - component: {fileID: 1257247646}
   m_Layer: 5
   m_Name: Play
   m_TagString: Untagged
@@ -4587,18 +4606,6 @@ RectTransform:
   m_AnchoredPosition: {x: 363.9, y: -230.1}
   m_SizeDelta: {x: 260.49207, y: 97.7515}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1257247646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114827125737058466, guid: 056525c5dddbb6f43af5fd21afc8b379,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1257247644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3fb9f550b4452d4eac753ad6016d220, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1257247647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4638,18 +4645,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1257247648}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1257247646}
-        m_MethodName: NR_4PMatchMaking
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1257247648

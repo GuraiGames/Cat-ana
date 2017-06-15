@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     public UIManager GetUIManager()
     {
-        return ui_manager.gameObject.GetComponent<UIManager>(); ;
+        return ui_manager.gameObject.GetComponent<UIManager>();
     }
 
     public NetworkManager GetNetworkManager()

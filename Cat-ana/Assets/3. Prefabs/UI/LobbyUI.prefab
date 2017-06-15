@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 223268999652471096}
   - component: {fileID: 114308672171619328}
   - component: {fileID: 114796843200512106}
+  - component: {fileID: 114680621887721926}
   m_Layer: 5
   m_Name: LobbyUI
   m_TagString: Untagged
@@ -3087,6 +3088,19 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114680621887721926
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1062644581245570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b5114451f7fa754a891f155f546d3a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayBttn: {fileID: 0}
+  NetManager: {fileID: 0}
 --- !u!114 &114687880265943364
 MonoBehaviour:
   m_ObjectHideFlags: 1
