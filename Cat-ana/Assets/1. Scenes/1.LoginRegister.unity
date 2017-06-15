@@ -1618,7 +1618,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 226.5, y: -244.58423}
+  m_AnchoredPosition: {x: 226.5, y: -244.58418}
   m_SizeDelta: {x: 453, y: 44.46986}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &396681065
@@ -2592,7 +2592,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &663415445
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3753,7 +3753,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1859185020}
         m_MethodName: ToggleMusic
         m_Mode: 1
         m_Arguments:
@@ -4723,7 +4723,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 130.24603, y: -245.37865}
+  m_AnchoredPosition: {x: 130.24603, y: -245.37859}
   m_SizeDelta: {x: 260.49207, y: 97.7515}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1259227723
@@ -6187,7 +6187,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1859185020}
         m_MethodName: ScrollMusic
         m_Mode: 1
         m_Arguments:
@@ -6709,6 +6709,25 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1778682248}
+--- !u!1 &1859185018 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1747338230028656, guid: fab56a265c5866248a6bd90e587b2d0d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1679563356}
+--- !u!114 &1859185020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1859185018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b374913911cfa8240944c43291374341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  current_volume: -1
+  music_obj: {fileID: 870651069}
+  music_slider_obj: {fileID: 1707254340}
 --- !u!1 &1910450313
 GameObject:
   m_ObjectHideFlags: 0
