@@ -5,7 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject game_sparks_manager;
+    private GameSparksUnity game_sparks_manager;
+
+    [SerializeField]
+    private GameSparksRTUnity game_sparks_manager_rt;
 
     [SerializeField]
     private GameObject ui_manager = null;
@@ -13,9 +16,14 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject network_manager = null;
 
-    public GameObject GetGameSparksManager()
+    public GameSparksUnity GetGameSparksManager()
     { 
         return game_sparks_manager;
+    }
+
+    public GameSparksRTUnity GetGameSparksRTManager()
+    {
+        return game_sparks_manager_rt;
     }
 
     public UIManager GetUIManager()

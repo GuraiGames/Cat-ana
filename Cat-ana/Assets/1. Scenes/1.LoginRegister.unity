@@ -3574,6 +3574,11 @@ Prefab:
     - {fileID: 114298248594444526, guid: 8eb4d7e361cae624196aeeda4bbed032, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 8eb4d7e361cae624196aeeda4bbed032, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &807822240 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4575462899000414, guid: fab56a265c5866248a6bd90e587b2d0d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1679563356}
 --- !u!1 &819383201
 GameObject:
   m_ObjectHideFlags: 0
@@ -6230,6 +6235,16 @@ Prefab:
       propertyPath: scroll_ui
       value: 
       objectReference: {fileID: 485209375}
+    - target: {fileID: 114808304403145476, guid: fab56a265c5866248a6bd90e587b2d0d,
+        type: 2}
+      propertyPath: game_sparks_manager
+      value: 
+      objectReference: {fileID: 2090515668}
+    - target: {fileID: 114808304403145476, guid: fab56a265c5866248a6bd90e587b2d0d,
+        type: 2}
+      propertyPath: game_sparks_manager_rt
+      value: 
+      objectReference: {fileID: 2125847220}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fab56a265c5866248a6bd90e587b2d0d, type: 2}
   m_IsPrefabParent: 0
@@ -7378,6 +7393,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2090515668 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114831807125244810, guid: fab56a265c5866248a6bd90e587b2d0d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1679563356}
+  m_Script: {fileID: 11500000, guid: ca1390bc64bbdfc4a954c3dfa8d20406, type: 3}
+--- !u!1 &2125847218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2125847219}
+  - component: {fileID: 2125847220}
+  m_Layer: 0
+  m_Name: GameSparksRealTime
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2125847219
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2125847218}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 807822240}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2125847220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2125847218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c287880fa0be4d218087932440ac0d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2131394388
 GameObject:
   m_ObjectHideFlags: 0
