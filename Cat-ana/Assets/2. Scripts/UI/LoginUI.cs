@@ -20,13 +20,25 @@ public class LoginUI : MonoBehaviour {
 	
 	public void ButtonPressed()
     {
-        string response = game_manager.GetNetworkManager().Login(username.text, password.text);
+        Debug.Log("Login attempt. User: " + username.text + "Pass: " + password.text);
 
-        if(response == "SUCCES")
-        {
-            game_manager.GetUIManager().DisableWindow("login_register");
-            game_manager.GetUIManager().DisableWindow("register");
-            game_manager.GetUIManager().EnableWindow("lobby");
-        }
-	}
+        new GameSparks.Api.Requests.AuthenticationRequest().
+            SetUserName(username.text)
+            .SetPassword(password.text)
+            .Send((response) =>
+            {
+                if (response.HasErrors)
+                {
+                    Debug.Log("Login error: " + response.Errors.JSON.ToString());
+                }
+                else
+                {
+                    Debug.Log("Login succes");
+                    game_manager.GetUIManager().DisableWindow("login_register");
+                    game_manager.GetUIManager().DisableWindow("register");
+                    game_manager.GetUIManager().EnableWindow("lobby");
+                }
+            });
+
+    }
 }
