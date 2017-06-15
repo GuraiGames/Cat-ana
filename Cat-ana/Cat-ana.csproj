@@ -104,6 +104,7 @@
   <ItemGroup>
     <Compile Include="Assets\2. Scripts\Audio\ChangeVolume.cs" />
     <Compile Include="Assets\2. Scripts\Lobby\LobbyManager.cs" />
+    <Compile Include="Assets\2. Scripts\Lobby\ScrollRectSnap.cs" />
     <Compile Include="Assets\2. Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\2. Scripts\Managers\NetworkManager.cs" />
     <Compile Include="Assets\2. Scripts\Managers\UIManager.cs" />
