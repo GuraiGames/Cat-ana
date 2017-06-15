@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cat-ana", "Cat-ana.csproj", "{768A205B-D2F6-CAB5-10A1-0604A304D786}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cat-ana.Editor", "Cat-ana.Editor.csproj", "{AABB87FC-9F48-CF0E-438D-B85624908CE3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{768A205B-D2F6-CAB5-10A1-0604A304D786}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{768A205B-D2F6-CAB5-10A1-0604A304D786}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{768A205B-D2F6-CAB5-10A1-0604A304D786}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{768A205B-D2F6-CAB5-10A1-0604A304D786}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AABB87FC-9F48-CF0E-438D-B85624908CE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AABB87FC-9F48-CF0E-438D-B85624908CE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AABB87FC-9F48-CF0E-438D-B85624908CE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AABB87FC-9F48-CF0E-438D-B85624908CE3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
