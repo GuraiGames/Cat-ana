@@ -111,6 +111,7 @@
     <Compile Include="Assets\2. Scripts\Others\ChangeScene.cs" />
     <Compile Include="Assets\2. Scripts\Others\DontDestroyOnLoad.cs" />
     <Compile Include="Assets\2. Scripts\UI\ChangeNameUI.cs" />
+    <Compile Include="Assets\2. Scripts\UI\LobbyUI.cs" />
     <Compile Include="Assets\2. Scripts\UI\LoginUI.cs" />
     <Compile Include="Assets\2. Scripts\UI\RegisterUI.cs" />
     <Compile Include="Assets\6. Asset Store\GameSparks\GameSparksRTUnity.cs" />

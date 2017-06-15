@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private GameObject settings;
 
+    [SerializeField]
+    private GameObject error;
 
     void Awake ()
     {
@@ -27,6 +29,7 @@ public class UIManager : MonoBehaviour {
         AddWindow(lobby, "lobby");
         AddWindow(change_name_settings, "change_name_settings");
         AddWindow(settings, "settings");
+        AddWindow(error, "error");
     }
 
     void Start()

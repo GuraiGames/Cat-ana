@@ -13,9 +13,6 @@ public class ChangeNameUI : MonoBehaviour {
     [SerializeField]
     private InputField old_password;
 
-    [SerializeField]
-    private InputField new_password;
-
     void Start()
     {
         game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -23,26 +20,31 @@ public class ChangeNameUI : MonoBehaviour {
 
     public void ButtonPressed()
     {
-        Debug.Log("Change attemt. Display Name: " + display_name.text + "Pass: " + new_password.text);
+        Debug.Log("Change attemt. Display Name: " + display_name.text + "Pass: " + old_password.text);
 
-        new GameSparks.Api.Requests.ChangeUserDetailsRequest()
-        .SetDisplayName(display_name.text)
-        .SetOldPassword(old_password.text)
-        .SetNewPassword(new_password.text)
-        .Send((response) =>
+        if ((old_password.text.StartsWith(" ") || display_name.text.StartsWith(" ")) || (old_password.text == "" || display_name.text == ""))
         {
-            if (response.HasErrors)
-            {
-                Debug.Log("Register error: " + response.Errors.JSON.ToString());
-            }
-            else
-            {
-                Debug.Log("Change succes");
-                game_manager.GetUIManager().DisableWindow("change_name_settings");
-                game_manager.GetUIManager().EnableWindow("settings");
-            }
+            game_manager.GetUIManager().EnableWindow("error");
         }
-        );
-
+        else
+        {
+            new GameSparks.Api.Requests.ChangeUserDetailsRequest()
+            .SetDisplayName(display_name.text)
+            .SetOldPassword(old_password.text)
+            .Send((response) =>
+            {
+                if (response.HasErrors)
+                {
+                    Debug.Log("Register error: " + response.Errors.JSON.ToString());
+                }
+                else
+                {
+                    Debug.Log("Change succes");
+                    game_manager.GetUIManager().DisableWindow("change_name_settings");
+                    game_manager.GetUIManager().EnableWindow("settings");
+                }
+            }
+            );
+        }        
     }
 }
