@@ -23,12 +23,26 @@ public class ChangeNameUI : MonoBehaviour {
 
     public void ButtonPressed()
     {
-        string response = game_manager.GetNetworkManager().ChangeName(display_name.text, old_password.text, new_password.text);
+        Debug.Log("Change attemt. Display Name: " + display_name.text + "Pass: " + new_password.text);
 
-        if (response == "SUCCES")
+        new GameSparks.Api.Requests.ChangeUserDetailsRequest()
+        .SetDisplayName(display_name.text)
+        .SetOldPassword(old_password.text)
+        .SetNewPassword(new_password.text)
+        .Send((response) =>
         {
-            game_manager.GetUIManager().DisableWindow("change_name_settings");
-            game_manager.GetUIManager().EnableWindow("settings");
+            if (response.HasErrors)
+            {
+                Debug.Log("Register error: " + response.Errors.JSON.ToString());
+            }
+            else
+            {
+                Debug.Log("Change succes");
+                game_manager.GetUIManager().DisableWindow("change_name_settings");
+                game_manager.GetUIManager().EnableWindow("settings");
+            }
         }
+        );
+
     }
 }

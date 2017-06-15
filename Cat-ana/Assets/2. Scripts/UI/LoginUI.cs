@@ -30,6 +30,8 @@ public class LoginUI : MonoBehaviour {
                 if (response.HasErrors)
                 {
                     Debug.Log("Login error: " + response.Errors.JSON.ToString());
+
+                    // USE response.Errors.GetString("DETAILS"); to get the error type
                 }
                 else
                 {

@@ -23,13 +23,25 @@ public class RegisterUI : MonoBehaviour
 
     public void ButtonPressed()
     {
-        string response = game_manager.GetNetworkManager().Register(username.text, password.text, display_name.text);
+        Debug.Log("Register attemt. User: " + username.text + "Pass: " + password.text);
 
-        if(response == "SUCCES")
+        new GameSparks.Api.Requests.RegistrationRequest()
+        .SetDisplayName(display_name.text)
+        .SetPassword(password.text)
+        .SetUserName(username.text)
+        .Send((response) =>
         {
-            game_manager.GetUIManager().EnableWindow("login_register");
-            game_manager.GetUIManager().DisableWindow("register");
+            if (response.HasErrors)
+            {
+                Debug.Log("Register error: " + response.Errors.JSON.ToString());
+            }
+            else
+            {
+                Debug.Log("Register succes");
+                game_manager.GetUIManager().EnableWindow("login_register");
+                game_manager.GetUIManager().DisableWindow("register");
+            }
         }
+        );
     }
-
 }
