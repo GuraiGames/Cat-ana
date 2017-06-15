@@ -114,22 +114,18 @@
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
+ <Reference Include="BouncyCastle_GameSparks">
+ <HintPath>C:/Users/Guillem/Documents/GitHub/Cat-ana/Cat-ana/Assets/5. Asset Store/GameSparks/Plugins/BouncyCastle_GameSparks.dll</HintPath>
+ </Reference>
  <Reference Include="GameSparks.Api">
  <HintPath>C:/Users/Guillem/Documents/GitHub/Cat-ana/Cat-ana/Assets/5. Asset Store/GameSparks/Plugins/GameSparks.Api.dll</HintPath>
  </Reference>
  <Reference Include="GameSparks">
  <HintPath>C:/Users/Guillem/Documents/GitHub/Cat-ana/Cat-ana/Assets/5. Asset Store/GameSparks/Plugins/GameSparks.dll</HintPath>
  </Reference>
- <Reference Include="BouncyCastle_GameSparks">
- <HintPath>C:/Users/Guillem/Documents/GitHub/Cat-ana/Cat-ana/Assets/5. Asset Store/GameSparks/Plugins/BouncyCastle_GameSparks.dll</HintPath>
- </Reference>
  <Reference Include="GameSparksRT">
  <HintPath>C:/Users/Guillem/Documents/GitHub/Cat-ana/Cat-ana/Assets/5. Asset Store/GameSparks/Plugins/GameSparksRT.dll</HintPath>
  </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{70F3E0E4-AF59-206A-C416-067121BD6A25}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

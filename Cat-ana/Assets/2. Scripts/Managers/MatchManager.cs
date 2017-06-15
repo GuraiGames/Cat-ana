@@ -4,14 +4,16 @@ using UnityEngine;
 using GameSparks.RT;
 using System;
 
-public class MatchManager : MonoBehaviour {
+public class MatchManager : MonoBehaviour
+{
 
     private GameManager game_manager;
 
     private int server_ms_delay = 0;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         SendTimeStamp();
     }
