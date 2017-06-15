@@ -39,6 +39,8 @@ public class LoginUI : MonoBehaviour {
                     game_manager.GetUIManager().DisableWindow("login_register");
                     game_manager.GetUIManager().DisableWindow("register");
                     game_manager.GetUIManager().EnableWindow("lobby");
+                    game_manager.GetUIManager().EnableWindow("scroll_ui");
+                    game_manager.GetUIManager().EnableWindow("global_ui");
                 }
             });
 

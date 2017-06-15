@@ -22,6 +22,12 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private GameObject error;
 
+    [SerializeField]
+    private GameObject scroll_ui;
+
+    [SerializeField]
+    private GameObject global_ui;
+
     void Awake ()
     {
         AddWindow(login_register, "login_register");
@@ -30,6 +36,8 @@ public class UIManager : MonoBehaviour {
         AddWindow(change_name_settings, "change_name_settings");
         AddWindow(settings, "settings");
         AddWindow(error, "error");
+        AddWindow(scroll_ui, "scroll_ui");
+        AddWindow(global_ui, "global_ui");
     }
 
     void Start()
