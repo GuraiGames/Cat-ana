@@ -35,7 +35,7 @@ public class RegisterUI : MonoBehaviour
         }
         if(password.text.Length < password_min_lenght)
         {
-            Debug.Log("Register error: Password should be longuer than " + password_min_lenght);
+            Debug.Log("Register error: Password should be longuer than " + password_min_lenght + " words");
             return;
         }
 
