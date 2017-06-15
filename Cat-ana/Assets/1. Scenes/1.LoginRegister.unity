@@ -1114,7 +1114,6 @@ GameObject:
   - component: {fileID: 256958945}
   - component: {fileID: 256958944}
   - component: {fileID: 256958943}
-  - component: {fileID: 256958942}
   m_Layer: 5
   m_Name: Change User Settings
   m_TagString: Untagged
@@ -1142,18 +1141,6 @@ RectTransform:
   m_AnchoredPosition: {x: 76.36899, y: -129.86166}
   m_SizeDelta: {x: 152.73798, y: 47.14467}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &256958942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114871440586642376, guid: 056525c5dddbb6f43af5fd21afc8b379,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 256958940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ade80cac28dc06841b48a2a85eef8a68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &256958943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1194,8 +1181,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 256958942}
-        m_MethodName: ChangeNameBttnClick
+      - m_Target: {fileID: 530525913}
+        m_MethodName: ButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1618,7 +1605,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 226.5, y: -244.58418}
+  m_AnchoredPosition: {x: 226.5, y: -244.5842}
   m_SizeDelta: {x: 453, y: 44.46986}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &396681065
@@ -2044,6 +2031,7 @@ GameObject:
   - component: {fileID: 530525912}
   - component: {fileID: 530525911}
   - component: {fileID: 530525910}
+  - component: {fileID: 530525913}
   m_Layer: 5
   m_Name: Change Name
   m_TagString: Untagged
@@ -2133,6 +2121,20 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 530525908}
+--- !u!114 &530525913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 530525908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c698abf09dcc1e74d9724e2d126ccc48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  display_name: {fileID: 264286253}
+  old_password: {fileID: 2140006489}
+  new_password: {fileID: 1075398742}
 --- !u!1 &587436508
 GameObject:
   m_ObjectHideFlags: 0
@@ -4723,7 +4725,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 130.24603, y: -245.37859}
+  m_AnchoredPosition: {x: 130.24603, y: -245.37848}
   m_SizeDelta: {x: 260.49207, y: 97.7515}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1259227723
@@ -6009,6 +6011,21 @@ Prefab:
       propertyPath: loby
       value: 
       objectReference: {fileID: 663415444}
+    - target: {fileID: 114823948275611618, guid: fab56a265c5866248a6bd90e587b2d0d,
+        type: 2}
+      propertyPath: lobby
+      value: 
+      objectReference: {fileID: 663415444}
+    - target: {fileID: 114823948275611618, guid: fab56a265c5866248a6bd90e587b2d0d,
+        type: 2}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 625107584}
+    - target: {fileID: 114823948275611618, guid: fab56a265c5866248a6bd90e587b2d0d,
+        type: 2}
+      propertyPath: change_name_settings
+      value: 
+      objectReference: {fileID: 530525908}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fab56a265c5866248a6bd90e587b2d0d, type: 2}
   m_IsPrefabParent: 0
