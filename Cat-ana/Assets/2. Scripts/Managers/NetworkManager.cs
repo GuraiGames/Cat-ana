@@ -56,10 +56,11 @@ public class NetworkManager : MonoBehaviour
             // Add here a case for each OpCode. OpCodes documentation is available at drive/Code/OpCodes
             case 100: //All players connected to the server
                 Debug.Log("Loading Game scene...");
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("2.Game");
                 break;
             case 101: //Sync Clock
-                Debug.Log(_packet.Data.GetLong(2));
+                MatchManager match_manager = GameObject.FindGameObjectWithTag("MatchManager").GetComponent<MatchManager>();
+                match_manager.CalculateConnectionDelays(_packet);
                 break;
         }
     }
