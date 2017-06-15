@@ -137,16 +137,16 @@
       <HintPath>Library\FacebookSDK\Facebook.Unity.Settings.dll</HintPath>
     </Reference>
     <Reference Include="BouncyCastle_GameSparks">
-      <HintPath>Assets\6. Asset Store\GameSparks\Plugins\BouncyCastle_GameSparks.dll</HintPath>
+      <HintPath>Assets\5. Asset Store\GameSparks\Plugins\BouncyCastle_GameSparks.dll</HintPath>
     </Reference>
     <Reference Include="GameSparks.Api">
-      <HintPath>Assets\6. Asset Store\GameSparks\Plugins\GameSparks.Api.dll</HintPath>
+      <HintPath>Assets\5. Asset Store\GameSparks\Plugins\GameSparks.Api.dll</HintPath>
     </Reference>
     <Reference Include="GameSparks">
-      <HintPath>Assets\6. Asset Store\GameSparks\Plugins\GameSparks.dll</HintPath>
+      <HintPath>Assets\5. Asset Store\GameSparks\Plugins\GameSparks.dll</HintPath>
     </Reference>
     <Reference Include="GameSparksRT">
-      <HintPath>Assets\6. Asset Store\GameSparks\Plugins\GameSparksRT.dll</HintPath>
+      <HintPath>Assets\5. Asset Store\GameSparks\Plugins\GameSparksRT.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -156,23 +156,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\6. Asset Store\GameSparks\Editor\GameSparksEditorFormUpload.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Editor\GameSparksPopUp.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Editor\GameSparksRestApi.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Editor\GameSparksRestWindow.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Editor\GameSparksSettingsEditor.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Editor\GameSparksUnityInspector.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Editor\GameSparksEditorFormUpload.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Editor\GameSparksPopUp.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Editor\GameSparksRestApi.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Editor\GameSparksRestWindow.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Editor\GameSparksSettingsEditor.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Editor\GameSparksUnityInspector.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\6. Asset Store\GameSparks\Plugins\GameSparks.Api.XML" />
-    <None Include="Assets\6. Asset Store\GameSparks\Plugins\GameSparks.XML" />
-    <None Include="Assets\6. Asset Store\GameSparks\Plugins\GameSparksRT.xml" />
-    <None Include="Assets\6. Asset Store\GameSparks\Plugins\Metro\GameSparks.XML" />
-    <None Include="Assets\6. Asset Store\GameSparks\Plugins\Metro\GameSparksRT.xml" />
-    <None Include="Assets\6. Asset Store\GameSparks\Plugins\WP8\GameSparks.XML" />
-    <None Include="Assets\6. Asset Store\GameSparks\README.txt" />
-    <None Include="Assets\6. Asset Store\GameSparks\Thank you for joining GameSparks.txt" />
-    <None Include="Assets\6. Asset Store\GameSparks\link.xml" />
+    <None Include="Assets\5. Asset Store\GameSparks\Plugins\GameSparks.Api.XML" />
+    <None Include="Assets\5. Asset Store\GameSparks\Plugins\GameSparks.XML" />
+    <None Include="Assets\5. Asset Store\GameSparks\Plugins\GameSparksRT.xml" />
+    <None Include="Assets\5. Asset Store\GameSparks\Plugins\Metro\GameSparks.XML" />
+    <None Include="Assets\5. Asset Store\GameSparks\Plugins\Metro\GameSparksRT.xml" />
+    <None Include="Assets\5. Asset Store\GameSparks\Plugins\WP8\GameSparks.XML" />
+    <None Include="Assets\5. Asset Store\GameSparks\README.txt" />
+    <None Include="Assets\5. Asset Store\GameSparks\Thank you for joining GameSparks.txt" />
+    <None Include="Assets\5. Asset Store\GameSparks\link.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

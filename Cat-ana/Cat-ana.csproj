@@ -89,20 +89,22 @@
       <HintPath>Library\FacebookSDK\Facebook.Unity.Settings.dll</HintPath>
     </Reference>
     <Reference Include="BouncyCastle_GameSparks">
-      <HintPath>Assets\6. Asset Store\GameSparks\Plugins\BouncyCastle_GameSparks.dll</HintPath>
+      <HintPath>Assets\5. Asset Store\GameSparks\Plugins\BouncyCastle_GameSparks.dll</HintPath>
     </Reference>
     <Reference Include="GameSparks.Api">
-      <HintPath>Assets\6. Asset Store\GameSparks\Plugins\GameSparks.Api.dll</HintPath>
+      <HintPath>Assets\5. Asset Store\GameSparks\Plugins\GameSparks.Api.dll</HintPath>
     </Reference>
     <Reference Include="GameSparks">
-      <HintPath>Assets\6. Asset Store\GameSparks\Plugins\GameSparks.dll</HintPath>
+      <HintPath>Assets\5. Asset Store\GameSparks\Plugins\GameSparks.dll</HintPath>
     </Reference>
     <Reference Include="GameSparksRT">
-      <HintPath>Assets\6. Asset Store\GameSparks\Plugins\GameSparksRT.dll</HintPath>
+      <HintPath>Assets\5. Asset Store\GameSparks\Plugins\GameSparksRT.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\2. Scripts\Audio\ChangeVolume.cs" />
+    <Compile Include="Assets\2. Scripts\Gameplay\NavigationMesh\ci_navegation_map.cs" />
+    <Compile Include="Assets\2. Scripts\Gameplay\NavigationMesh\navegation_map.cs" />
     <Compile Include="Assets\2. Scripts\Lobby\LobbyManager.cs" />
     <Compile Include="Assets\2. Scripts\Lobby\ScrollRectSnap.cs" />
     <Compile Include="Assets\2. Scripts\Managers\GameManager.cs" />
@@ -110,40 +112,41 @@
     <Compile Include="Assets\2. Scripts\Managers\UIManager.cs" />
     <Compile Include="Assets\2. Scripts\Match\MatchInfoClasses.cs" />
     <Compile Include="Assets\2. Scripts\Others\ChangeScene.cs" />
+    <Compile Include="Assets\2. Scripts\Others\CreditsTimer.cs" />
     <Compile Include="Assets\2. Scripts\Others\DontDestroyOnLoad.cs" />
     <Compile Include="Assets\2. Scripts\UI\ChangeNameUI.cs" />
     <Compile Include="Assets\2. Scripts\UI\LobbyUI.cs" />
     <Compile Include="Assets\2. Scripts\UI\LoginUI.cs" />
     <Compile Include="Assets\2. Scripts\UI\RegisterUI.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\GameSparksRTUnity.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\GameSparksSettings.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\GameSparksUnity.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Platforms\DefaultPlatform.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Platforms\IControlledTimer.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Platforms\IControlledWebSocket.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Platforms\Native\NativePlatform.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Platforms\Native\NativeWebSocket.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Platforms\Native\detail\GameSparksNative.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Platforms\Native\detail\GameSparksNativePINVOKE.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Platforms\Native\detail\NativeWebSocket.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Platforms\PlatformBase.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Platforms\TimerController.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Platforms\UnityTimer.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Platforms\WebGL\WebGLPlatform.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Platforms\WebGL\WebGLWebSocket.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\Platforms\WebSocketController.cs" />
-    <Compile Include="Assets\6. Asset Store\GameSparks\TestUI\GameSparksTestUI.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\GameSparksRTUnity.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\GameSparksSettings.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\GameSparksUnity.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Platforms\DefaultPlatform.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Platforms\IControlledTimer.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Platforms\IControlledWebSocket.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Platforms\Native\NativePlatform.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Platforms\Native\NativeWebSocket.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Platforms\Native\detail\GameSparksNative.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Platforms\Native\detail\GameSparksNativePINVOKE.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Platforms\Native\detail\NativeWebSocket.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Platforms\PlatformBase.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Platforms\TimerController.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Platforms\UnityTimer.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Platforms\WebGL\WebGLPlatform.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Platforms\WebGL\WebGLWebSocket.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\Platforms\WebSocketController.cs" />
+    <Compile Include="Assets\5. Asset Store\GameSparks\TestUI\GameSparksTestUI.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\6. Asset Store\GameSparks\Plugins\GameSparks.Api.XML" />
-    <None Include="Assets\6. Asset Store\GameSparks\Plugins\GameSparks.XML" />
-    <None Include="Assets\6. Asset Store\GameSparks\Plugins\GameSparksRT.xml" />
-    <None Include="Assets\6. Asset Store\GameSparks\Plugins\Metro\GameSparks.XML" />
-    <None Include="Assets\6. Asset Store\GameSparks\Plugins\Metro\GameSparksRT.xml" />
-    <None Include="Assets\6. Asset Store\GameSparks\Plugins\WP8\GameSparks.XML" />
-    <None Include="Assets\6. Asset Store\GameSparks\README.txt" />
-    <None Include="Assets\6. Asset Store\GameSparks\Thank you for joining GameSparks.txt" />
-    <None Include="Assets\6. Asset Store\GameSparks\link.xml" />
+    <None Include="Assets\5. Asset Store\GameSparks\Plugins\GameSparks.Api.XML" />
+    <None Include="Assets\5. Asset Store\GameSparks\Plugins\GameSparks.XML" />
+    <None Include="Assets\5. Asset Store\GameSparks\Plugins\GameSparksRT.xml" />
+    <None Include="Assets\5. Asset Store\GameSparks\Plugins\Metro\GameSparks.XML" />
+    <None Include="Assets\5. Asset Store\GameSparks\Plugins\Metro\GameSparksRT.xml" />
+    <None Include="Assets\5. Asset Store\GameSparks\Plugins\WP8\GameSparks.XML" />
+    <None Include="Assets\5. Asset Store\GameSparks\README.txt" />
+    <None Include="Assets\5. Asset Store\GameSparks\Thank you for joining GameSparks.txt" />
+    <None Include="Assets\5. Asset Store\GameSparks\link.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
