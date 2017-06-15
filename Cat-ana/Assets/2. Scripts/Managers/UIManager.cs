@@ -11,17 +11,23 @@ public class UIManager : MonoBehaviour {
     private GameObject register;
 
     [SerializeField]
-    private GameObject loby;
+    private GameObject lobby;
+
+    [SerializeField]
+    private GameObject change_name_settings;
+
+    [SerializeField]
+    private GameObject settings;
 
 
-	void Awake ()
+    void Awake ()
     {
         AddWindow(login_register, "login_register");
-
         AddWindow(register, "register");
-
-        AddWindow(loby, "lobby");
-	}
+        AddWindow(lobby, "lobby");
+        AddWindow(change_name_settings, "change_name_settings");
+        AddWindow(settings, "settings");
+    }
 
     void Start()
     {

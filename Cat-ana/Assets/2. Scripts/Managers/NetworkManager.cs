@@ -59,6 +59,33 @@ public class NetworkManager : MonoBehaviour
         return ret;
     }
 
+    public string ChangeName(string new_name, string old_password, string new_password)
+    {
+        Debug.Log("Change attemt. User: " + new_name + "Pass: " + new_password);
+
+        string ret = "SUCCES";
+
+        new GameSparks.Api.Requests.ChangeUserDetailsRequest()
+        .SetDisplayName(name)
+        .SetOldPassword(old_password)
+        .SetNewPassword(new_password)
+        .Send((response) =>
+        {
+            if (response.HasErrors)
+            {
+                ret = response.Errors.JSON.ToString();
+                Debug.Log("Register error: " + response.Errors.JSON.ToString());
+            }
+            else
+            {
+                Debug.Log("Change succes");
+            }
+        }
+        );
+
+        return ret;
+    }
+
     //MatchMaking
 
     public void NR_4PMatchMaking()
