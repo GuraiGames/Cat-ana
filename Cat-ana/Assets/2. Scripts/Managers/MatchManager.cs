@@ -7,7 +7,7 @@ using System;
 public class MatchManager : MonoBehaviour
 {
 
-    private GameManager game_manager = null;
+    private GameManager game_manager;
 
     private int server_ms_delay = 0;
 
