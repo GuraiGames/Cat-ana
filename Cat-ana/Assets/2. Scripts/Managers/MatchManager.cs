@@ -20,8 +20,8 @@ public class MatchManager : MonoBehaviour
 
     public Text latency_text;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         RT_manager = game_manager.GetGameSparksRTManager();
@@ -32,23 +32,24 @@ public class MatchManager : MonoBehaviour
         // Inform the server that the match is ready
         using (RTData data = RTData.Get())
         {
-            Debug.Log("Send Ready to server..");
             data.SetLong(1, 0);
             RT_manager.SendData(103, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data, new int[] { 0 }); // send to peerId -> 0, which is the server
         }
+
+        StartCoroutine(DelayTurnStart());
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     private IEnumerator SendTimeStamp()
     {
         // send a packet with our current time
         using (RTData data = RTData.Get())
         {
-            Debug.Log("Clock Sync tick");
             data.SetLong(1, (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds); // get the current time as unix timestamp
             RT_manager.SendData(101, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data, new int[] { 0 }); // send to peerId -> 0, which is the server
         }
@@ -73,7 +74,7 @@ public class MatchManager : MonoBehaviour
     public void SetPlayersInfo(RTPacket _packet)
     {
         Debug.Log(net_manager.match);
-        for(int p = 0; p < net_manager.match.GetPlayerList().Count;p++)
+        for (int p = 0; p < net_manager.match.GetPlayerList().Count; p++)
         {
             if (net_manager.match.GetPlayerList()[p].id == _packet.Data.GetString(1))
             {
@@ -99,6 +100,32 @@ public class MatchManager : MonoBehaviour
                 }
                 break;
             }
+        }
+    }
+
+    public void SetTurn(RTPacket _packet)
+    {
+        turn_type.text = _packet.Data.GetString(1);
+        int time_sec;
+        time_sec = (int)_packet.Data.GetInt(2) / 1000;
+        timer.text = time_sec.ToString();
+    }
+
+    public void DecrementTimer()
+    {
+        int remaining_time = int.Parse(timer.text);
+        remaining_time -= 1;
+        timer.text = remaining_time.ToString();
+    }
+
+    private IEnumerator DelayTurnStart()
+    {
+        yield return new WaitForSeconds(5f);
+        using (RTData data = RTData.Get()) //send player ready to start the match to the server
+        {
+            Debug.Log("Send Ready to server..");
+            data.SetLong(1, 0);
+            RT_manager.SendData(104, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data, new int[] { 0 }); // send to peerId -> 0, which is the server
         }
     }
 }

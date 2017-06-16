@@ -77,12 +77,18 @@ public class NetworkManager : MonoBehaviour
                 }
             case 102://player match initial info
                 {
-                    Debug.Log("Recieved player " + _packet.Data.GetString(1) + " info");
                     if (match_manager == null)
                         match_manager = GameObject.FindGameObjectWithTag("MatchManager").GetComponent<MatchManager>();
                     match_manager.SetPlayersInfo(_packet);
                     break;
                 }
+            case 120: //Change turn to the actual one
+                Debug.Log("Start Turn " + _packet.Data.GetString(1));
+                match_manager.SetTurn(_packet);
+                break;
+            case 121: //Decrement timer as server does
+                match_manager.DecrementTimer();
+                break;
         }
     }
     // -----
