@@ -648,6 +648,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fcc4d71d2fa78c4699cfe68cc3a0090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  opp1: {fileID: 85740528}
+  opp2: {fileID: 633425267}
+  opp3: {fileID: 124771066}
+  player: {fileID: 10383242}
   latency_text: {fileID: 1802427440}
 --- !u!4 &848093680
 Transform:

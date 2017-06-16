@@ -74,9 +74,7 @@ public class NetworkManager : MonoBehaviour
                 }
             case 102://player match info
                 {
-                    Debug.Log("Recieved player " + _packet.Data.GetInt(1) + " info");
-                    MatchManager match_manager = GameObject.FindGameObjectWithTag("MatchManager").GetComponent<MatchManager>();
-                    match_manager.SetPlayersInfo(_packet);
+                    Debug.Log("Recieved player " + _packet.Data.GetString(1) + " info");
                     break;
                 }
         }
@@ -88,7 +86,6 @@ public class NetworkManager : MonoBehaviour
         if (_isReady)
         {
             Debug.Log("Connected with the Match...");
-            //Change to game scene
         }
     }
 
