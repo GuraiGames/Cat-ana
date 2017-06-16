@@ -7,8 +7,16 @@ using UnityEngine.UI;
 
 public class NetworkManager : MonoBehaviour
 {
-    //MatchMaking
+    //Match info
+    public MatchInfo match;
 
+    public MatchInfo GetMatchInfo()
+    {
+        return match;
+    }
+    // -----
+
+    //MatchMaking
     public void NR_4PMatchMaking()
     {
         new GameSparks.Api.Requests.MatchmakingRequest().SetMatchShortCode("4P_NRMATCH")
@@ -59,9 +67,18 @@ public class NetworkManager : MonoBehaviour
                 UnityEngine.SceneManagement.SceneManager.LoadScene("2.Game");
                 break;
             case 101: //Sync Clock
-                MatchManager match_manager = GameObject.FindGameObjectWithTag("MatchManager").GetComponent<MatchManager>();
-                match_manager.CalculateConnectionDelays(_packet);
-                break;
+                {
+                    MatchManager match_manager = GameObject.FindGameObjectWithTag("MatchManager").GetComponent<MatchManager>();
+                    match_manager.CalculateConnectionDelays(_packet);
+                    break;
+                }
+            case 102://player match info
+                {
+                    Debug.Log("Recieved player " + _packet.Data.GetInt(1) + " info");
+                    MatchManager match_manager = GameObject.FindGameObjectWithTag("MatchManager").GetComponent<MatchManager>();
+                    match_manager.SetPlayersInfo(_packet);
+                    break;
+                }
         }
     }
     // -----

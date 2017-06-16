@@ -9,6 +9,11 @@ public class MatchManager : MonoBehaviour
 {
 
     private GameManager game_manager = null;
+    private GameSparksRTUnity RT_manager = null;
+    private GameSparksUnity connection_manager = null;
+    private NetworkManager net_manager = null;
+
+    public Text opp1, opp2, opp3, player;
 
     private int server_delay, latency, round_trip; //All in ms
 
@@ -18,6 +23,10 @@ public class MatchManager : MonoBehaviour
 	void Start ()
     {
         game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        RT_manager = game_manager.GetGameSparksRTManager();
+        connection_manager = game_manager.GetGameSparksManager();
+        net_manager = game_manager.GetNetworkManager();
+
         StartCoroutine(SendTimeStamp());
     }
 	
@@ -33,7 +42,7 @@ public class MatchManager : MonoBehaviour
         {
             Debug.Log("Clock Sync tick");
             data.SetLong(1, (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds); // get the current time as unix timestamp
-            game_manager.GetGameSparksRTManager().SendData(101, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE, data, new int[] { 0 }); // send to peerId -> 0, which is the server
+            RT_manager.SendData(101, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE, data, new int[] { 0 }); // send to peerId -> 0, which is the server
         }
         yield return new WaitForSeconds(5f); // wait 5 seconds
         StartCoroutine(SendTimeStamp()); // send the timestamp again
@@ -51,5 +60,13 @@ public class MatchManager : MonoBehaviour
         // calculate the server-delay from the server time minus the current time
         int serverDelta = (int)(_packet.Data.GetLong(2).Value - (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds);
         server_delay = serverDelta + latency; // the server_delay is the serverdelta plus the latency
+    }
+
+    public void SetPlayersInfo(RTPacket _packet)
+    {
+        for(int p = 0; p<net_manager.GetMatchInfo().GetPlayerList().Count;p++)
+        {
+            
+        }
     }
 }
