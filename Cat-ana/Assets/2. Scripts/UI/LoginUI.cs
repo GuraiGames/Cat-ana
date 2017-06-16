@@ -41,6 +41,8 @@ public class LoginUI : MonoBehaviour {
                     game_manager.GetUIManager().EnableWindow("lobby");
                     game_manager.GetUIManager().EnableWindow("scroll_ui");
                     game_manager.GetUIManager().EnableWindow("global_ui");
+
+                    game_manager.playerID = response.UserId.ToString();
                 }
             });
 

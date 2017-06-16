@@ -26,17 +26,18 @@ public class LobbyUI : MonoBehaviour {
     {
         Debug.Log("Match Found!...");
 
-        match = new MatchInfo(_message);
-
         GameManager game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        GameSparksRTUnity RT_manager = game_manager.GetGameSparksRTManager();
+        NetworkManager net_manager = game_manager.GetNetworkManager();
 
-        game_manager.GetGameSparksRTManager().Configure(_message,
-            (peerID) => { game_manager.GetNetworkManager().OnPlayerConnectedToGame(peerID); },
-            (peerID) => { game_manager.GetNetworkManager().OnPlayerDisconnected(peerID); },
-            (ready) => { game_manager.GetNetworkManager().OnRTReady(ready); },
-            (packet) => { game_manager.GetNetworkManager().OnPacketReceived(packet); });
+        net_manager.match = new MatchInfo(_message);
 
-        game_manager.GetGameSparksRTManager().Connect();
+        RT_manager.Configure(_message,
+            (peerID) => { net_manager.OnPlayerConnectedToGame(peerID); },
+            (peerID) => { net_manager.OnPlayerDisconnected(peerID); },
+            (ready) => { net_manager.OnRTReady(ready); },
+            (packet) => { net_manager.OnPacketReceived(packet); });
+        RT_manager.Connect();
 
         //Uncoment that to Debug the Match info
         /*Debug.Log("Match Found...");

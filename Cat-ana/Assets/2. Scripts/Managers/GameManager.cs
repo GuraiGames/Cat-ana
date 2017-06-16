@@ -11,10 +11,12 @@ public class GameManager : MonoBehaviour
     private GameSparksRTUnity game_sparks_manager_rt;
 
     [SerializeField]
-    private GameObject ui_manager = null;
+    private UIManager ui_manager = null;
 
     [SerializeField]
-    private GameObject network_manager = null;
+    private NetworkManager network_manager = null;
+
+    public string playerID;
 
     public GameSparksUnity GetGameSparksManager()
     { 
@@ -28,11 +30,11 @@ public class GameManager : MonoBehaviour
 
     public UIManager GetUIManager()
     {
-        return ui_manager.gameObject.GetComponent<UIManager>();
+        return ui_manager;
     }
 
     public NetworkManager GetNetworkManager()
     {
-        return network_manager.gameObject.GetComponent<NetworkManager>();
+        return network_manager;
     }
 }

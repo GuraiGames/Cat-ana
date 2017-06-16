@@ -3972,7 +3972,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.9303298, y: 0.872636}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 846.6001, y: 427.59177}
+  m_AnchoredPosition: {x: 846.6001, y: 427.59174}
   m_SizeDelta: {x: 126.79983, y: 124.8167}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &742165549
@@ -5690,7 +5690,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.44170836, y: 0.90414816}
   m_AnchorMax: {x: 0.9303298, y: 1}
-  m_AnchoredPosition: {x: 338.55478, y: 443.03256}
+  m_AnchoredPosition: {x: 338.55475, y: 443.0326}
   m_SizeDelta: {x: 889.291, y: 93.93478}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1355201105
@@ -7253,6 +7253,16 @@ Prefab:
       propertyPath: game_sparks_manager_rt
       value: 
       objectReference: {fileID: 2125847220}
+    - target: {fileID: 114808304403145476, guid: fab56a265c5866248a6bd90e587b2d0d,
+        type: 2}
+      propertyPath: network_manager
+      value: 
+      objectReference: {fileID: 2086113491}
+    - target: {fileID: 114808304403145476, guid: fab56a265c5866248a6bd90e587b2d0d,
+        type: 2}
+      propertyPath: ui_manager
+      value: 
+      objectReference: {fileID: 1570746098}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fab56a265c5866248a6bd90e587b2d0d, type: 2}
   m_IsPrefabParent: 0
@@ -8793,6 +8803,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1973795753}
+--- !u!114 &2086113491 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114297940730514460, guid: fab56a265c5866248a6bd90e587b2d0d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1679563356}
+  m_Script: {fileID: 11500000, guid: 0634e5424136e3c45be5533b8efa20e7, type: 3}
 --- !u!114 &2090515668 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114831807125244810, guid: fab56a265c5866248a6bd90e587b2d0d,
