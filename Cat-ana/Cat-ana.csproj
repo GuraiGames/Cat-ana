@@ -103,10 +103,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\2. Scripts\Audio\ChangeVolume.cs" />
-    <Compile Include="Assets\2. Scripts\Gameplay\NavigationMesh\ci_navegation_map.cs" />
-    <Compile Include="Assets\2. Scripts\Gameplay\NavigationMesh\navegation_map.cs" />
+    <Compile Include="Assets\2. Scripts\Gameplay\NavigationMesh\CINavitagionMap.cs" />
+    <Compile Include="Assets\2. Scripts\Gameplay\NavigationMesh\NavigationMap.cs" />
+    <Compile Include="Assets\2. Scripts\Gameplay\NavigationMesh\NavigationPoint.cs" />
     <Compile Include="Assets\2. Scripts\Lobby\LobbyManager.cs" />
     <Compile Include="Assets\2. Scripts\Lobby\ScrollRectSnap.cs" />
+    <Compile Include="Assets\2. Scripts\Lobby\ScrollSpawn.cs" />
     <Compile Include="Assets\2. Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\2. Scripts\Managers\MatchManager.cs" />
     <Compile Include="Assets\2. Scripts\Managers\NetworkManager.cs" />
