@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GameManager
   - MatchManager
+  - MatchUI
   layers:
   - Default
   - TransparentFX
