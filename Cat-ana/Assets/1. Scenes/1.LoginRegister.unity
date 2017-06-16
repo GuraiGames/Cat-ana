@@ -398,8 +398,16 @@ MonoBehaviour:
   - {fileID: 1924156917}
   - {fileID: 260177102}
   - {fileID: 1799317189}
-  distance_x: 0
-  distance_y: 0
+  timer_txt:
+  - {fileID: 705743099}
+  - {fileID: 1646859837}
+  - {fileID: 1973795755}
+  - {fileID: 1257563709}
+  timer:
+  - 0
+  - 0
+  - 0
+  - 0
 --- !u!1 &16661441
 GameObject:
   m_ObjectHideFlags: 0
@@ -3455,7 +3463,7 @@ GameObject:
   - component: {fileID: 705743100}
   - component: {fileID: 705743099}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Text_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5473,7 +5481,7 @@ GameObject:
   - component: {fileID: 1257563710}
   - component: {fileID: 1257563709}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Text_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7096,7 +7104,7 @@ GameObject:
   - component: {fileID: 1646859838}
   - component: {fileID: 1646859837}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Text_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8740,7 +8748,7 @@ GameObject:
   - component: {fileID: 1973795756}
   - component: {fileID: 1973795755}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Text_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
