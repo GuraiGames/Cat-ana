@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class navegation_map : MonoBehaviour
+public class NavigationMap : MonoBehaviour
 {
     [SerializeField]
     public GameObject nav_map_point;
