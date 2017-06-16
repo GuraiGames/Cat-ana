@@ -652,6 +652,8 @@ MonoBehaviour:
   opp2: {fileID: 633425267}
   opp3: {fileID: 124771066}
   player: {fileID: 10383242}
+  timer: {fileID: 956514266}
+  turn_type: {fileID: 1033106417}
   latency_text: {fileID: 1802427440}
 --- !u!4 &848093680
 Transform:

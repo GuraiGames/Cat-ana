@@ -13,6 +13,7 @@ public class MatchManager : MonoBehaviour
     private NetworkManager net_manager = null;
 
     public Text opp1, opp2, opp3, player;
+    public Text timer, turn_type;
 
     private int server_delay, latency, round_trip; //All in ms
     private int opponent_count = 0;
