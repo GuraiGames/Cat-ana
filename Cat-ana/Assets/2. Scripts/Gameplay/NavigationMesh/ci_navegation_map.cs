@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if UNITY_EDITOR
+
 using UnityEditor;
 
 [CustomEditor(typeof(navegation_map))]
@@ -45,5 +48,6 @@ public class ce_navegation_map : Editor
             point.transform.parent = myScript.nav_map_points_parent.transform;
         }
     }
-
 }
+
+#endif

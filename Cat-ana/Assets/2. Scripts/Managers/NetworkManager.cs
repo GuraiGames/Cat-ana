@@ -21,4 +21,57 @@ public class NetworkManager : MonoBehaviour
                 }
             });
     }
+
+    // -----
+
+    // Player Connection states
+    
+    public void OnPlayerConnectedToGame(int _peerId)
+    {
+        Debug.Log("GSM| Player Connected, " + _peerId);
+    }
+
+    public void OnPlayerDisconnected(int _peerId)
+    {
+        Debug.Log("GSM| Player Disconnected, " + _peerId);
+    }
+    // -----
+
+    //Real time session ready
+    public void OnRTReady(bool _isReady)
+    {
+        if (_isReady)
+        {
+            Debug.Log("GSM| RT Session Connected...");
+        }
+
+    }
+    // -----
+
+    // Packet Handling
+    public void OnPacketReceived(RTPacket _packet)
+    {
+        switch(_packet.OpCode)
+        {
+            // Add here a case for each OpCode. OpCodes documentation is available at drive/Code/OpCodes
+            case 100: //All players connected to the server
+                Debug.Log("Loading Game scene...");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("2.Game");
+                break;
+            case 101: //Sync Clock
+                Debug.Log(_packet.Data.GetLong(2));
+                break;
+        }
+    }
+    // -----
+
+    public void OnMatchReady(bool _isReady)
+    {
+        if (_isReady)
+        {
+            Debug.Log("Connected with the Match...");
+            //Change to game scene
+        }
+    }
+
 }

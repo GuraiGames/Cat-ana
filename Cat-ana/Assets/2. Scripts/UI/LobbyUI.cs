@@ -7,7 +7,6 @@ using GameSparks.RT;
 public class LobbyUI : MonoBehaviour {
 
     public Button PlayBttn;
-    public NetworkManager NetManager;
 
     private MatchInfo match;
 
@@ -29,13 +28,15 @@ public class LobbyUI : MonoBehaviour {
 
         match = new MatchInfo(_message);
 
-        gameSparksRTunity.Configure(_message,
-            (peerID) => { OnPlayerConnectedToGame(peerID); },
-            (peerID) => { OnPlayerDisconnected(peerID); },
-            (ready) => { OnRTReady(ready); },
-            (packet) => { OnPacketReceived(packet); });
+        GameManager game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
-        gameSparksRTunity.Connect();
+        game_manager.GetGameSparksRTManager().Configure(_message,
+            (peerID) => { game_manager.GetNetworkManager().OnPlayerConnectedToGame(peerID); },
+            (peerID) => { game_manager.GetNetworkManager().OnPlayerDisconnected(peerID); },
+            (ready) => { game_manager.GetNetworkManager().OnRTReady(ready); },
+            (packet) => { game_manager.GetNetworkManager().OnPacketReceived(packet); });
+
+        game_manager.GetGameSparksRTManager().Connect();
 
         //Uncoment that to Debug the Match info
         /*Debug.Log("Match Found...");
@@ -54,44 +55,13 @@ public class LobbyUI : MonoBehaviour {
 
     }
 
-    private void OnPlayerConnectedToGame(int _peerId)
-    {
-        Debug.Log("GSM| Player Connected, " + _peerId);
-    }
-
-    private void OnPlayerDisconnected(int _peerId)
-    {
-        Debug.Log("GSM| Player Disconnected, " + _peerId);
-    }
-
-    private void OnRTReady(bool _isReady)
-    {
-        if (_isReady)
-        {
-            Debug.Log("GSM| RT Session Connected...");
-        }
-
-    }
-
-    private void OnPacketReceived(RTPacket _packet)
-    {
-    }
-
-    private void OnMatchReady(bool _isReady)
-    {
-        if (_isReady)
-        {
-            Debug.Log("Connected with the Match...");
-            //Change to game scene
-        }
-    }
-
     // Use this for initialization
     void Start()
     {
         PlayBttn.onClick.AddListener(() =>
         {
-            NetManager.NR_4PMatchMaking();
+            GameManager game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+            game_manager.GetNetworkManager().NR_4PMatchMaking();
             Debug.Log("Serching For Players..");
         });
 
