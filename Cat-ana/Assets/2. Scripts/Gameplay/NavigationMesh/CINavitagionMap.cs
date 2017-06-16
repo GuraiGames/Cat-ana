@@ -6,8 +6,8 @@ using UnityEngine;
 
 using UnityEditor;
 
-[CustomEditor(typeof(navegation_map))]
-public class ce_navegation_map : Editor
+[CustomEditor(typeof(NavigationMap))]
+public class CENavigationMap : Editor
 {
     float pos_x, pos_y, pos_z = 0;
 
@@ -15,7 +15,7 @@ public class ce_navegation_map : Editor
     {
         DrawDefaultInspector();
 
-        navegation_map myScript = (navegation_map)target;
+        NavigationMap myScript = (NavigationMap)target;
 
         EditorGUILayout.Separator();
         EditorGUILayout.LabelField("NAVEGATION MESH CONTROL");
