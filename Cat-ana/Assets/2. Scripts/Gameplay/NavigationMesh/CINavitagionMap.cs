@@ -32,7 +32,7 @@ public class CENavigationMap : Editor
 
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("z: ");
-        pos_y = EditorGUILayout.FloatField(pos_z);
+        pos_z = EditorGUILayout.FloatField(pos_z);
         GUILayout.EndHorizontal();
 
         if (GUILayout.Button("Add point"))
@@ -46,6 +46,7 @@ public class CENavigationMap : Editor
             GameObject point = Instantiate(myScript.nav_map_point);
             point.transform.position = new Vector3(pos_x, pos_y, pos_z);
             point.transform.parent = myScript.nav_map_points_parent.transform;
+            point.name = "Point [" + pos_x + ", " + pos_z + "]";
         }
     }
 }
