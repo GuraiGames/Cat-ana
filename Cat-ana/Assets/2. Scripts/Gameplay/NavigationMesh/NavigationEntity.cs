@@ -38,11 +38,13 @@ public class NavigationEntity : MonoBehaviour
                 move = false;
                 nav_map.target_point = null;
             }
+            else if (Vector3.Distance(gameObject.transform.position, path[path.Count-1]) < 0.2f)
             {
                 path.RemoveAt(path.Count - 1);
             }
             else
             {
+                transform.position = Vector3.MoveTowards(transform.position, path[path.Count - 1], speed*Time.deltaTime);
             }
         }
 	}
