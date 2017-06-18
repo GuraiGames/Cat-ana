@@ -20,6 +20,8 @@ public class MatchManager : MonoBehaviour
 
     public Text latency_text;
 
+    private List<GameObject> players = new List<GameObject>();
+
     // Use this for initialization
     void Start()
     {
@@ -127,5 +129,20 @@ public class MatchManager : MonoBehaviour
             data.SetLong(1, 0);
             RT_manager.SendData(104, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data, new int[] { 0 }); // send to peerId -> 0, which is the server
         }
+    }
+
+    public void SetupPlayers()
+    {
+
+    }
+
+    private void SpawnPlayer()
+    {
+
+    }
+
+    public void UpdateOponentsPosition(RTPacket _packet)
+    {
+
     }
 }

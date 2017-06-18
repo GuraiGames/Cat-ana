@@ -98,6 +98,7 @@
     <Compile Include="Assets\2. Scripts\Gameplay\NavigationMesh\NavigationEntity.cs" />
     <Compile Include="Assets\2. Scripts\Gameplay\NavigationMesh\NavigationMap.cs" />
     <Compile Include="Assets\2. Scripts\Gameplay\NavigationMesh\NavigationPoint.cs" />
+    <Compile Include="Assets\2. Scripts\Gameplay\Player\Player.cs" />
     <Compile Include="Assets\2. Scripts\Lobby\ScrollRectSnap.cs" />
     <Compile Include="Assets\2. Scripts\Lobby\ScrollSpawn.cs" />
     <Compile Include="Assets\2. Scripts\Managers\GameManager.cs" />

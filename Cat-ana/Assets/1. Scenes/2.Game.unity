@@ -225,6 +225,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 570519580}
+  is_spawn_point: 0
 --- !u!1 &85740526
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,6 +338,10 @@ Prefab:
     - target: {fileID: 4380162207259130, guid: 14df390542b1b054695d9a9cbd7538ea, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304900287075792, guid: 14df390542b1b054695d9a9cbd7538ea, type: 2}
+      propertyPath: m_Icon
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 14df390542b1b054695d9a9cbd7538ea, type: 2}
@@ -452,7 +457,7 @@ GameObject:
   m_Layer: 0
   m_Name: Point [10, 0]
   m_TagString: Untagged
-  m_Icon: {fileID: 7707008975528953803, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -3701561207968579530, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -483,6 +488,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 914427026}
+  is_spawn_point: 1
 --- !u!1 &222205077
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,6 +533,7 @@ MonoBehaviour:
   neighbours:
   - {fileID: 2074272966}
   - {fileID: 494533952}
+  is_spawn_point: 0
 --- !u!1 &358836300
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,6 +578,7 @@ MonoBehaviour:
   neighbours:
   - {fileID: 1019969113}
   - {fileID: 1721283244}
+  is_spawn_point: 0
 --- !u!1 &408406871
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,6 +683,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
   neighbours: []
+  is_spawn_point: 0
 --- !u!1 &494533952
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,6 +727,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 1951558232}
+  is_spawn_point: 0
 --- !u!1 &538605495
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,6 +861,7 @@ MonoBehaviour:
   neighbours:
   - {fileID: 1835976984}
   - {fileID: 1806832856}
+  is_spawn_point: 0
 --- !u!1 &597854177
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,6 +906,7 @@ MonoBehaviour:
   neighbours:
   - {fileID: 1972711971}
   - {fileID: 494533952}
+  is_spawn_point: 0
 --- !u!1 &633425265
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,7 +993,7 @@ GameObject:
   m_Layer: 0
   m_Name: Point [0, 0]
   m_TagString: Untagged
-  m_Icon: {fileID: 7707008975528953803, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -3701561207968579530, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1012,6 +1024,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 1080514263}
+  is_spawn_point: 1
 --- !u!1 &662062502
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,7 +1037,7 @@ GameObject:
   m_Layer: 0
   m_Name: Point [0, 10]
   m_TagString: Untagged
-  m_Icon: {fileID: 7707008975528953803, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -3701561207968579530, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1055,6 +1068,59 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 1690660013}
+  is_spawn_point: 1
+--- !u!1001 &666638953
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4959230640157312, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -2.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959230640157312, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.018
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959230640157312, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959230640157312, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959230640157312, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959230640157312, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959230640157312, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959230640157312, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114968123310543862, guid: 3b9286979d7dd6b46838bec807314137,
+        type: 2}
+      propertyPath: map
+      value: 
+      objectReference: {fileID: 92382951}
+    - target: {fileID: 114968123310543862, guid: 3b9286979d7dd6b46838bec807314137,
+        type: 2}
+      propertyPath: speed
+      value: 30
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &682451883
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,7 +1133,7 @@ GameObject:
   m_Layer: 0
   m_Name: Point [10, 10]
   m_TagString: Untagged
-  m_Icon: {fileID: 7707008975528953803, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -3701561207968579530, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1098,6 +1164,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 2005004026}
+  is_spawn_point: 1
 --- !u!1 &730896500
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,6 +1208,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 682451883}
+  is_spawn_point: 0
 --- !u!1 &848093678
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,6 +1300,7 @@ MonoBehaviour:
   neighbours:
   - {fileID: 494533952}
   - {fileID: 1529682131}
+  is_spawn_point: 0
 --- !u!1 &855397323
 GameObject:
   m_ObjectHideFlags: 0
@@ -1275,6 +1344,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 1896861188}
+  is_spawn_point: 0
 --- !u!1 &914427026
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,6 +1388,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 1053195848}
+  is_spawn_point: 0
 --- !u!1 &956514264
 GameObject:
   m_ObjectHideFlags: 0
@@ -1435,6 +1506,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 662062502}
+  is_spawn_point: 0
 --- !u!1 &1033106415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,6 +1624,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 1483371261}
+  is_spawn_point: 0
 --- !u!1 &1055103495
 GameObject:
   m_ObjectHideFlags: 0
@@ -1595,6 +1668,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 855397323}
+  is_spawn_point: 0
 --- !u!1 &1062781553
 GameObject:
   m_ObjectHideFlags: 0
@@ -1637,6 +1711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
   neighbours: []
+  is_spawn_point: 0
 --- !u!1 &1080514263
 GameObject:
   m_ObjectHideFlags: 0
@@ -1681,6 +1756,7 @@ MonoBehaviour:
   neighbours:
   - {fileID: 1428779681}
   - {fileID: 570519580}
+  is_spawn_point: 0
 --- !u!1 &1193656325
 GameObject:
   m_ObjectHideFlags: 0
@@ -1725,118 +1801,7 @@ MonoBehaviour:
   neighbours:
   - {fileID: 1525237725}
   - {fileID: 597854177}
---- !u!1 &1336730598
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1336730604}
-  - component: {fileID: 1336730603}
-  - component: {fileID: 1336730602}
-  - component: {fileID: 1336730601}
-  - component: {fileID: 1336730600}
-  - component: {fileID: 1336730599}
-  m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!54 &1336730599
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1336730598}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &1336730600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1336730598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf824743182915f4b83082ab7a0f4e13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 50
-  map: {fileID: 92382951}
---- !u!23 &1336730601
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1336730598}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!65 &1336730602
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1336730598}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &1336730603
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1336730598}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1336730604
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1336730598}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.01, y: -0.018, z: 0.22}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  is_spawn_point: 0
 --- !u!1 &1365680304
 GameObject:
   m_ObjectHideFlags: 0
@@ -1880,6 +1845,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 730896500}
+  is_spawn_point: 0
 --- !u!1 &1406674303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1988,6 +1954,7 @@ MonoBehaviour:
   neighbours:
   - {fileID: 358836300}
   - {fileID: 1835976984}
+  is_spawn_point: 0
 --- !u!1 &1483371261
 GameObject:
   m_ObjectHideFlags: 0
@@ -2031,6 +1998,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 72911443}
+  is_spawn_point: 0
 --- !u!1 &1525237725
 GameObject:
   m_ObjectHideFlags: 0
@@ -2073,6 +2041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
   neighbours: []
+  is_spawn_point: 0
 --- !u!1 &1529682131
 GameObject:
   m_ObjectHideFlags: 0
@@ -2117,6 +2086,7 @@ MonoBehaviour:
   neighbours:
   - {fileID: 1820788525}
   - {fileID: 222205077}
+  is_spawn_point: 0
 --- !u!1 &1571990244
 GameObject:
   m_ObjectHideFlags: 0
@@ -2225,6 +2195,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 1820788525}
+  is_spawn_point: 0
 --- !u!1 &1721283244
 GameObject:
   m_ObjectHideFlags: 0
@@ -2269,6 +2240,7 @@ MonoBehaviour:
   neighbours:
   - {fileID: 494366990}
   - {fileID: 853663323}
+  is_spawn_point: 0
 --- !u!1 &1802427438
 GameObject:
   m_ObjectHideFlags: 0
@@ -2387,6 +2359,7 @@ MonoBehaviour:
   neighbours:
   - {fileID: 1193656325}
   - {fileID: 1062781553}
+  is_spawn_point: 0
 --- !u!1 &1820788525
 GameObject:
   m_ObjectHideFlags: 0
@@ -2430,6 +2403,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 1365680304}
+  is_spawn_point: 0
 --- !u!1 &1835976984
 GameObject:
   m_ObjectHideFlags: 0
@@ -2473,6 +2447,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 1721283244}
+  is_spawn_point: 0
 --- !u!1 &1896861188
 GameObject:
   m_ObjectHideFlags: 0
@@ -2516,6 +2491,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 159455457}
+  is_spawn_point: 0
 --- !u!1 &1951558232
 GameObject:
   m_ObjectHideFlags: 0
@@ -2559,6 +2535,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 1055103495}
+  is_spawn_point: 0
 --- !u!1 &1972711971
 GameObject:
   m_ObjectHideFlags: 0
@@ -2602,6 +2579,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 1951558232}
+  is_spawn_point: 0
 --- !u!1 &2005004026
 GameObject:
   m_ObjectHideFlags: 0
@@ -2645,6 +2623,7 @@ MonoBehaviour:
   nav_map: {fileID: 0}
   neighbours:
   - {fileID: 1055103495}
+  is_spawn_point: 0
 --- !u!1 &2044694240
 GameObject:
   m_ObjectHideFlags: 0
@@ -2787,6 +2766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
   neighbours: []
+  is_spawn_point: 0
 --- !u!1 &2104799098
 GameObject:
   m_ObjectHideFlags: 0

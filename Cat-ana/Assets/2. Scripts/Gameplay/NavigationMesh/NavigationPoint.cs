@@ -6,12 +6,16 @@ public class NavigationPoint : MonoBehaviour
 {
     private float tile_size = 2;
 
+    [HideInInspector]
     public NavigationMap nav_map = null;
 
     private BoxCollider coll = null;
 
     [SerializeField]
     private List<GameObject> neighbours = new List<GameObject>();
+
+    [SerializeField]
+    public bool is_spawn_point;
 
     // Use this for initialization
     void Start()

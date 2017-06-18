@@ -10,9 +10,12 @@ public class NavigationMap : MonoBehaviour
     [SerializeField]
     public GameObject nav_map_points_parent;
 
+    [HideInInspector]
+    public GameObject target_point = null;
+
     private List<GameObject> points = new List<GameObject>();
 
-    public GameObject target_point = null;
+    private List<GameObject> spawn_points = new List<GameObject>();
 
     void Start()
     {
@@ -22,6 +25,9 @@ public class NavigationMap : MonoBehaviour
 
             NavigationPoint np = current_point_go.GetComponent<NavigationPoint>();
             np.nav_map = this;
+
+            if (np.is_spawn_point)
+                spawn_points.Add(current_point_go);
 
             List<GameObject> nb = np.GetNeighbours();
 
@@ -131,7 +137,6 @@ public class NavigationMap : MonoBehaviour
             // ----------------
         }
 
-
         return ret;
     }
 
@@ -139,5 +144,31 @@ public class NavigationMap : MonoBehaviour
     {
         public GameObject parent;
         public GameObject point;
+    }
+
+    public GameObject GetSpawnPoint(int index)
+    {
+        GameObject sp = null;
+
+        if(spawn_points.Count-1 <= index)
+        {
+            sp = spawn_points[index];
+        }
+
+        return sp;
+    }
+
+    public Vector3 GetSpawnPointPos(int index)
+    {
+        Vector3 ret = new Vector3(0, 0, 0);
+
+        GameObject sp = GetSpawnPoint(index);
+
+        if(sp != null)
+        {
+            ret = sp.transform.position;
+        }
+
+        return ret;
     }
 }

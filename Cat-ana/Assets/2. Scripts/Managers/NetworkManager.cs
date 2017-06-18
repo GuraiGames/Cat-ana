@@ -89,6 +89,9 @@ public class NetworkManager : MonoBehaviour
             case 121: //Decrement timer as server does
                 match_manager.DecrementTimer();
                 break;
+            case 122:
+                match_manager.UpdateOponentsPosition(_packet);
+                break;
         }
     }
     // -----
