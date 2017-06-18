@@ -7,7 +7,6 @@ using System;
 
 public class MatchManager : MonoBehaviour
 {
-
     private GameManager game_manager = null;
     private GameSparksRTUnity RT_manager = null;
     private NetworkManager net_manager = null;
@@ -20,6 +19,8 @@ public class MatchManager : MonoBehaviour
 
     public Text latency_text;
 
+    [SerializeField]
+    private GameObject player_prefab;
     private List<GameObject> players = new List<GameObject>();
 
     // Use this for initialization
@@ -100,11 +101,10 @@ public class MatchManager : MonoBehaviour
                     }
                     opponent_count++;
                 }
-                break;
+
+                SpawnPlayer(net_manager.match.GetPlayerList()[p].id);
             }
         }
-
-        SetupPlayers();
     }
 
     public void SetTurn(RTPacket _packet)
@@ -133,14 +133,13 @@ public class MatchManager : MonoBehaviour
         }
     }
 
-    public void SetupPlayers()
+    public void SpawnPlayer(string id)
     {
 
-    }
+        if (id == game_manager.playerID)
+        {
 
-    private void SpawnPlayer()
-    {
-
+        }
     }
 
     public void UpdateOponentsPosition(RTPacket _packet)

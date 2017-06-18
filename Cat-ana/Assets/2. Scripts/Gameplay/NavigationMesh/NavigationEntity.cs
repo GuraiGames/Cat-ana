@@ -7,7 +7,6 @@ public class NavigationEntity : MonoBehaviour
     [SerializeField]
     private float speed;
 
-    [SerializeField]
     private GameObject map;
 
     private NavigationMap nav_map = null;
@@ -21,6 +20,7 @@ public class NavigationEntity : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        map = GameObject.FindGameObjectWithTag("Map");
         nav_map = map.gameObject.GetComponent<NavigationMap>();
 	}
 	
