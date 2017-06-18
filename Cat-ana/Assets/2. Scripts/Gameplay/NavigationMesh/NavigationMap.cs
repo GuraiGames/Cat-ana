@@ -258,4 +258,24 @@ public class NavigationMap : MonoBehaviour
 
         return ret;
     }
+
+    public Vector2 WorldPointToGrid(GameObject point)
+    {
+        Vector2 ret = new Vector2(0, 0);
+
+        for(int i = 0; i < size_x; i++)
+        {
+            for(int y = 0; y < size_y; y++)
+            {
+                if(grid[i, y] == point)
+                {
+                    ret.x = i;
+                    ret.y = y;
+                    return ret;
+                }
+            }
+        }
+
+        return ret;
+    }
 }
