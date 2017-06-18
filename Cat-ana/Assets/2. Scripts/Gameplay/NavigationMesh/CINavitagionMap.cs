@@ -10,6 +10,7 @@ using UnityEditor;
 public class CENavigationMap : Editor
 {
     float pos_x, pos_y, pos_z = 0;
+    float size_x, size_z, separation = 0;
 
     public override void OnInspectorGUI()
     {
@@ -47,6 +48,46 @@ public class CENavigationMap : Editor
             point.transform.position = new Vector3(pos_x, pos_y, pos_z);
             point.transform.parent = myScript.nav_map_points_parent.transform;
             point.name = "Point [" + pos_x + ", " + pos_z + "]";
+        }
+
+        EditorGUILayout.Separator();
+        EditorGUILayout.LabelField("GRID GENERATOR");
+
+        GUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Grid size x: ");
+        size_x = EditorGUILayout.FloatField(size_x);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Grid size z: ");
+        size_z = EditorGUILayout.FloatField(size_z);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Separation: ");
+        separation = EditorGUILayout.FloatField(separation);
+        GUILayout.EndHorizontal();
+
+        if (GUILayout.Button("Generate Grid"))
+        {
+            for(int i = 0; i<size_x; i++)
+            {
+                for(int y = 0; y<size_z; y++)
+                {
+                    GameObject point = Instantiate(myScript.nav_map_point);
+                    point.transform.position = new Vector3(i*separation, pos_y, y*separation);
+                    point.transform.parent = myScript.nav_map_points_parent.transform;
+                    point.name = "Point [" + (i * separation) + ", " + (y * separation) + "]";
+                }
+            }
+        }
+
+        EditorGUILayout.Separator();
+        EditorGUILayout.LabelField("CLEAR POINTS");
+
+        if (GUILayout.Button("Delete all points"))
+        {
+
         }
     }
 }

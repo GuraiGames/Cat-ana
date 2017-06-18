@@ -18,10 +18,24 @@ public class NavigationMap : MonoBehaviour
     {
         for (int i = 0; i < nav_map_points_parent.transform.childCount; i++)
         {
-            NavigationPoint np = nav_map_points_parent.transform.GetChild(i).gameObject.GetComponent<NavigationPoint>();
+            GameObject current_point_go = nav_map_points_parent.transform.GetChild(i).gameObject;
+
+            NavigationPoint np = current_point_go.GetComponent<NavigationPoint>();
             np.nav_map = this;
 
-            points.Add(nav_map_points_parent.transform.GetChild(i).gameObject);
+            List<GameObject> nb = np.GetNeighbours();
+
+            for(int y = 0; y < nb.Count; y++)
+            {
+                NavigationPoint npn = nb[y].GetComponent<NavigationPoint>();
+
+                if(!npn.IsNeighbour(current_point_go))
+                {
+                    npn.AddBeighbour(current_point_go);
+                }
+            }
+
+            points.Add(current_point_go);
         }
     }
 
