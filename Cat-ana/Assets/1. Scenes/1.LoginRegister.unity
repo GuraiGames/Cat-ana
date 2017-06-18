@@ -5661,7 +5661,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f9a655eac59edf41adb4699d5c36834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  password_min_lenght: 0
+  fields_min_lenght: 4
+  fields_max_lenght: 16
   username: {fileID: 718844783}
   display_name: {fileID: 16661443}
   password: {fileID: 1628187429}
