@@ -86,19 +86,31 @@ public class ScrollSpawn : MonoBehaviour
                 }
 
                 string scroll_finish = "scroll" + i + "_finish";
-                Debug.Log(scroll_finish);
-                long time_finish = (long)data.GetLong(scroll_finish);
+                string scroll_start = "scroll" + i + "_start";
 
-                if (time_finish - time_now <= 0)
+                long time_finish = (long)data.GetLong(scroll_finish);
+                long time_start = (long)data.GetLong(scroll_start);
+
+                active_scroll_index = (int)data.GetInt("active_scroll");
+
+                if (i == active_scroll_index)
                 {
-                    timer[i] = 0;
+                    if (time_finish - time_now <= 0)
+                    {
+                        timer[i] = 0;
+                    }
+                    else
+                    {
+                        timer[i] = (time_finish - time_now) / 1000;
+                    }
                 }
                 else
                 {
-                    timer[i] = (time_finish - time_now) / 1000;
+                    timer[i] = (time_finish - time_start) / 1000;
                 }
+                
 
-                active_scroll_index = (int)data.GetInt("active_scroll");
+                
 
                 scroll_go[i].SetActive(true);
             }
