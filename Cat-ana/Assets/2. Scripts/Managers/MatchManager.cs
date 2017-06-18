@@ -103,6 +103,8 @@ public class MatchManager : MonoBehaviour
                 break;
             }
         }
+
+        SetupPlayers();
     }
 
     public void SetTurn(RTPacket _packet)

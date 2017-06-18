@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     private NavigationEntity navigation_entity = null;
 
+    private int network_id = 0;
+
 	// Use this for initialization
 	void Start ()
     {
