@@ -12,6 +12,8 @@ public class NavigationEntity : MonoBehaviour
 
     private NavigationMap nav_map = null;
 
+    GameObject target_point = null;
+
     private List<Vector3> path = new List<Vector3>();
 
     bool move = false;
@@ -28,15 +30,17 @@ public class NavigationEntity : MonoBehaviour
 		if(nav_map.target_point != null && !move)
         {
             path = nav_map.GetPath(GetClosestNavPoint(), nav_map.target_point);
+            target_point = nav_map.target_point;
             move = true;
         }
 
         if(move)
         {
-            if (Vector3.Distance(gameObject.transform.position, nav_map.target_point.transform.position) < 0.3f)
+            if (Vector3.Distance(gameObject.transform.position, target_point.transform.position) < 0.3f)
             {
                 move = false;
                 nav_map.target_point = null;
+                target_point = null;
             }
             else if (Vector3.Distance(gameObject.transform.position, path[path.Count-1]) < 0.2f)
             {
