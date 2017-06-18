@@ -13,7 +13,11 @@ public class LoginUI : MonoBehaviour {
     [SerializeField]
     private InputField password;
 
-	void Start ()
+    [SerializeField]
+    private ScrollSpawn scroll;
+
+
+    void Start ()
     {
         game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 	}
@@ -43,6 +47,40 @@ public class LoginUI : MonoBehaviour {
                     game_manager.GetUIManager().EnableWindow("global_ui");
 
                     game_manager.playerID = response.UserId.ToString();
+
+                    new GameSparks.Api.Requests.LogEventRequest()
+                      .SetEventKey("CREATE_SCROLLS")
+                      .Send((scroll_response) => {
+                          if (scroll_response.HasErrors)
+                          {
+                              Debug.Log("Error");
+                          }
+                          else
+                          {
+                              Debug.Log("NICE");
+                              new GameSparks.Api.Requests.LogEventRequest()
+                                .SetEventKey("GET_SCROLLS")
+                                .Send((scroll_response2) =>
+                                {
+                                    if (!scroll_response2.HasErrors)
+                                    {
+                                        Debug.Log("Scrolls found");
+
+                                        GameSparks.Core.GSData data = scroll_response2.ScriptData.GetGSData("player_scrolls");
+                                        GameSparks.Core.GSData time = scroll_response2.ScriptData.GetGSData("time_now");
+                                        scroll.SetScroll(data, (long)time.GetLong("current_time"));
+                                    }
+                                    else
+                                    {
+                                        Debug.Log("Error finding scrolls");
+                                    }
+                                });
+                          }
+
+                      });
+
+                    
+
                 }
             });
 

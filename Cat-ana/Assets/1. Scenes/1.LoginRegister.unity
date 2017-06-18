@@ -408,6 +408,8 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+  scroll_rarity: 00000000000000000000000000000000
+  active_scroll_index: -1
 --- !u!1 &16661441
 GameObject:
   m_ObjectHideFlags: 0
@@ -3088,6 +3090,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   username: {fileID: 624900836}
   password: {fileID: 338592522}
+  scroll: {fileID: 12936534}
 --- !u!1 &650863329
 GameObject:
   m_ObjectHideFlags: 0
