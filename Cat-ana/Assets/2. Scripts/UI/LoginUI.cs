@@ -16,6 +16,9 @@ public class LoginUI : MonoBehaviour {
     [SerializeField]
     private ScrollSpawn scroll;
 
+    [SerializeField]
+    private Text name;
+
     void Start ()
     {
         game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -46,6 +49,7 @@ public class LoginUI : MonoBehaviour {
                     game_manager.GetUIManager().EnableWindow("global_ui");
 
                     game_manager.playerID = response.UserId.ToString();
+                    name.text = response.DisplayName.ToString();
 
                     new GameSparks.Api.Requests.LogEventRequest()
                       .SetEventKey("CREATE_SCROLLS")
