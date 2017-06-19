@@ -10,6 +10,8 @@ public class LobbyUI : MonoBehaviour {
 
     private MatchInfo match;
 
+    GameManager game_manager = null;
+
     public MatchInfo GetMatchInfo()
     {
         return match;
@@ -59,12 +61,7 @@ public class LobbyUI : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        PlayBttn.onClick.AddListener(() =>
-        {
-            GameManager game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-            game_manager.GetNetworkManager().NR_4PMatchMaking();
-            Debug.Log("Serching For Players..");
-        });
+        game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
         GameSparks.Api.Messages.MatchNotFoundMessage.Listener = (message) =>
         {
@@ -72,6 +69,12 @@ public class LobbyUI : MonoBehaviour {
         };
 
         GameSparks.Api.Messages.MatchFoundMessage.Listener += OnMatchFound;
+    }
+
+    public void PlayButton()
+    {
+        game_manager.GetNetworkManager().NR_4PMatchMaking();
+        Debug.Log("Serching For Players..");
     }
 
 
