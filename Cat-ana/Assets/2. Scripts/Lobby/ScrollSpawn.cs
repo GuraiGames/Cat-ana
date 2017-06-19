@@ -21,6 +21,11 @@ public class ScrollSpawn : MonoBehaviour
 
     [SerializeField]
     private int active_scroll_index = -1;
+    public int scroll_to_active = -1;
+
+    [SerializeField]
+    private GameObject error_panel;
+    public ErrorTimer error_timer;
 
     // Use this for initialization
     void Start()
@@ -36,30 +41,53 @@ public class ScrollSpawn : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            CreateScroll(2, 0);
+            CreateScroll(0, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            CreateScroll(2, 1);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            CreateScroll(2, 2);
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            CreateScroll(3, 3);
         }
 
         for (int i = 0; i < scroll_go.Length; i++)
         {
+            if (scroll_rarity[i] == rarity.r_null)
+            {
+                scroll_go[i].SetActive(false);
+            }
             if (scroll_go[i].activeSelf)
             {
-                string hours;
-                string minutes = ((timer[i] % 3600) / 60).ToString("00");
-
-                if (minutes == "60")
+                if (timer[i] > 0)
                 {
-                    hours = Mathf.Floor(timer[i] / 3600 + 1).ToString("00");
-                    minutes = "00";
+                    string hours;
+                    string minutes = ((timer[i] % 3600) / 60).ToString("00");
+
+                    if (minutes == "60")
+                    {
+                        hours = Mathf.Floor(timer[i] / 3600 + 1).ToString("00");
+                        minutes = "00";
+                    }
+                    else
+                    {
+                        hours = Mathf.Floor(timer[i] / 3600).ToString("00");
+                    }
+
+                    timer_txt[i].text = hours + ":" + minutes;
+
+                    if (i == active_scroll_index && timer[i] > 0)
+                        timer[i] -= Time.deltaTime;
                 }
                 else
                 {
-                    hours = Mathf.Floor(timer[i] / 3600).ToString("00");
+                    timer_txt[i].text = "Ready";
                 }
-
-                timer_txt[i].text = hours + ":" + minutes;
-
-                if (i == active_scroll_index && timer[i] > 0)
-                    timer[i] -= Time.deltaTime;
             }
         }
 
@@ -74,6 +102,7 @@ public class ScrollSpawn : MonoBehaviour
             if (scroll_type_num == "r_null")
             {
                 scroll_rarity[i] = rarity.r_null;
+                scroll_go[i].SetActive(false);
             }
             else
             {
@@ -111,7 +140,18 @@ public class ScrollSpawn : MonoBehaviour
                 }
                 else
                 {
-                    timer[i] = (time_finish - time_start) / 1000;
+                    switch (scroll_rarity[i])
+                    {
+                        case rarity.r_common:
+                            timer[i] = 3600 * 2;
+                            break;
+                        case rarity.r_uncommon:
+                            timer[i] = 3600 * 6;
+                            break;
+                        case rarity.r_rare:
+                            timer[i] = 3600 * 24;
+                            break;
+                    }
                 }
  
                 scroll_go[i].SetActive(true);
@@ -123,30 +163,60 @@ public class ScrollSpawn : MonoBehaviour
 
     public void OpenScroll(int scroll_num)
     {
-        if (scroll_num == active_scroll_index)
-        {
-            if (timer[active_scroll_index] <= 0)
+        new GameSparks.Api.Requests.LogEventRequest().SetEventKey("OPEN_SCROLL")
+            .SetEventAttribute("SCROLL_NUM", scroll_num)
+            .Send((response) =>
             {
-                switch (scroll_rarity[active_scroll_index])
+                if (response.HasErrors)
                 {
-                    case rarity.r_common:
-                        scroll_go[active_scroll_index].SetActive(false);
-                        break;
-                    case rarity.r_uncommon:
-                        scroll_go[active_scroll_index].SetActive(false);
-                        break;
-                    case rarity.r_rare:
-                        scroll_go[active_scroll_index].SetActive(false);
-                        break;
+                    Debug.Log("Scroll not found");
                 }
-            }
-        }
+                else
+                {
+                    new GameSparks.Api.Requests.LogEventRequest()
+                               .SetEventKey("GET_SCROLLS")
+                               .Send((scroll_response) =>
+                               {
+                                   if (!scroll_response.HasErrors)
+                                   {
+                                       Debug.Log("Scrolls found");
+
+                                       GameSparks.Core.GSData data = scroll_response.ScriptData.GetGSData("player_scrolls");
+                                       GameSparks.Core.GSData time = scroll_response.ScriptData.GetGSData("time_now");
+                                       SetScroll(data, (long)time.GetLong("current_time"));
+                                   }
+                                   else
+                                   {
+                                       Debug.Log("Error finding scrolls");
+                                   }
+                               });
+                }
+            });
+  
     }
 
     public void CreateScroll(int type, int scroll_num)
     {
+        string type_txt = "";
+
+        switch (type)
+        {
+            case 0:
+                type_txt = "r_null";
+                break;
+            case 1:
+                type_txt = "r_common";
+                break;
+            case 2:
+                type_txt = "r_uncommon";
+                break;
+            case 3:
+                type_txt = "r_rare";
+                break;
+        }
+
         new GameSparks.Api.Requests.LogEventRequest().SetEventKey("DB_ADD_SCROLL")
-            .SetEventAttribute("TYPE", type)
+            .SetEventAttribute("TYPE", type_txt)
             .SetEventAttribute("SCROLL_NUM", scroll_num)
             .Send((response) =>
             {
@@ -156,24 +226,37 @@ public class ScrollSpawn : MonoBehaviour
                 }
                 else
                 {
-                    new GameSparks.Api.Requests.LogEventRequest()
-                                .SetEventKey("GET_SCROLLS")
-                                .Send((scroll_response) =>
-                                {
-                                    if (!scroll_response.HasErrors)
-                                    {
-                                        Debug.Log("Scrolls found");
-
-                                        GameSparks.Core.GSData data = scroll_response.ScriptData.GetGSData("player_scrolls");
-                                        GameSparks.Core.GSData time = scroll_response.ScriptData.GetGSData("time_now");
-                                        SetScroll(data, (long)time.GetLong("current_time"));
-                                    }
-                                    else
-                                    {
-                                        Debug.Log("Error finding scrolls");
-                                    }
-                                });
+                    OpenScroll(scroll_num);
                 }
             });
+    }
+
+    public void SetToActive(int to_active)
+    {
+        scroll_to_active = to_active;
+    }
+
+    public void SetActiveScroll()
+    {
+        if (active_scroll_index == -1)
+        {
+            if (scroll_rarity[scroll_to_active] != rarity.r_null)
+            {
+                new GameSparks.Api.Requests.LogEventRequest().SetEventKey("DB_SET_ACTIVE_SCROLL")
+                    .SetEventAttribute("SCROLL_NUM", scroll_to_active)
+                    .Send((response) =>
+                    {
+                        if (!response.HasErrors)
+                        {
+                            active_scroll_index = scroll_to_active;
+                        }
+                    });
+            }
+        }
+        else
+        {
+            error_panel.SetActive(true);
+            error_timer.RestartTimer(2);
+        }
     }
 }
