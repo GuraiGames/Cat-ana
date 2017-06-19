@@ -13,10 +13,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 8
-    y: 51
-    width: 1904
-    height: 981
+    x: 0
+    y: 43
+    width: 1920
+    height: 997
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 6}
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1358
+    x: 1360
     y: 0
     width: 546
     height: 931
@@ -111,17 +111,17 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 509
-    width: 1358
-    height: 422
-  m_MinSize: {x: 232, y: 271}
-  m_MaxSize: {x: 10002, y: 10021}
-  m_ActualView: {fileID: 13}
+    y: 518
+    width: 1360
+    height: 429
+  m_MinSize: {x: 102, y: 121}
+  m_MaxSize: {x: 4002, y: 4021}
+  m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 13}
   - {fileID: 18}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -141,8 +141,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1904
-    height: 981
+    width: 1920
+    height: 997
   m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &7
@@ -161,7 +161,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1904
+    width: 1920
     height: 30
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
@@ -181,8 +181,8 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 961
-    width: 1904
+    y: 977
+    width: 1920
     height: 20
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
@@ -248,10 +248,10 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 335
+    x: 404
     y: 0
-    width: 1023
-    height: 509
+    width: 956
+    height: 518
   m_MinSize: {x: 204, y: 221}
   m_MaxSize: {x: 4004, y: 4021}
   m_ActualView: {fileID: 16}
@@ -309,10 +309,10 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 8
-    y: 609
-    width: 1356
-    height: 401
+    x: 0
+    y: 610
+    width: 1358
+    height: 408
   m_SearchFilter:
     m_NameFilter: 
     m_ClassNames: []
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_LastFolders:
   - Assets/2. Scripts/UI
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\FULLMAC\Documents\GitHub\Cat-ana\Cat-ana
+  m_LastProjectPath: C:\Users\simon\Desktop\Cat-ana\Cat-ana
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
@@ -441,10 +441,10 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 1368
-    y: 100
-    width: 544
-    height: 910
+    x: 1362
+    y: 92
+    width: 558
+    height: 926
   m_ScrollPosition: {x: 0, y: 0}
   m_InspectorMode: 0
   m_PreviewResizer:
@@ -474,10 +474,10 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 8
-    y: 100
-    width: 333
-    height: 488
+    x: 0
+    y: 92
+    width: 402
+    height: 497
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
@@ -527,10 +527,10 @@ MonoBehaviour:
   m_DepthBufferBits: 32
   m_Pos:
     serializedVersion: 2
-    x: 345
-    y: 100
-    width: 1019
-    height: 488
+    x: 406
+    y: 92
+    width: 952
+    height: 497
   m_SceneLighting: 1
   lastFramingTime: 5155.505728556809
   m_2DMode: 1
@@ -601,10 +601,10 @@ MonoBehaviour:
   m_DepthBufferBits: 32
   m_Pos:
     serializedVersion: 2
-    x: 345
-    y: 100
-    width: 1019
-    height: 488
+    x: 406
+    y: 92
+    width: 952
+    height: 497
   m_MaximizeOnPlay: 0
   m_Gizmos: 0
   m_Stats: 0
@@ -633,25 +633,25 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 17
-      width: 1019
-      height: 471
-    m_Scale: {x: 0.4361111, y: 0.43611112}
-    m_Translation: {x: 509.5, y: 235.5}
+      width: 952
+      height: 480
+    m_Scale: {x: 0.44444445, y: 0.44444445}
+    m_Translation: {x: 476, y: 240}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -1168.2803
+      x: -1071
       y: -540
-      width: 2336.5605
+      width: 2142
       height: 1080
     m_MinimalGUI: 1
-  m_defaultScale: 0.43611112
+  m_defaultScale: 0.44444445
   m_TargetTexture: {fileID: 0}
   m_CurrentColorSpace: 0
-  m_LastWindowPixelSize: {x: 1019, y: 488}
+  m_LastWindowPixelSize: {x: 952, y: 497}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000100000100
@@ -679,5 +679,5 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 610
-    width: 1367
+    width: 1358
     height: 408

@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\2. Scripts\Audio\ChangeVolume.cs" />
+    <Compile Include="Assets\2. Scripts\Error\ErrorTimer.cs" />
     <Compile Include="Assets\2. Scripts\Gameplay\NavigationMesh\CINavitagionMap.cs" />
     <Compile Include="Assets\2. Scripts\Gameplay\NavigationMesh\NavigationEntity.cs" />
     <Compile Include="Assets\2. Scripts\Gameplay\NavigationMesh\NavigationMap.cs" />
