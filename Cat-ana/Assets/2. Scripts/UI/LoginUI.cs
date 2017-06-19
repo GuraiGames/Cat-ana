@@ -16,11 +16,10 @@ public class LoginUI : MonoBehaviour {
     [SerializeField]
     private ScrollSpawn scroll;
 
-
     void Start ()
     {
         game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-	}
+    }
 	
 	public void ButtonPressed()
     {
