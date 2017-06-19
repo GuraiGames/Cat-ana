@@ -101,6 +101,7 @@
     <Compile Include="Assets\2. Scripts\Gameplay\Player\Player.cs" />
     <Compile Include="Assets\2. Scripts\Lobby\ScrollRectSnap.cs" />
     <Compile Include="Assets\2. Scripts\Lobby\ScrollSpawn.cs" />
+    <Compile Include="Assets\2. Scripts\Managers\EventManager.cs" />
     <Compile Include="Assets\2. Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\2. Scripts\Managers\MatchManager.cs" />
     <Compile Include="Assets\2. Scripts\Managers\NetworkManager.cs" />
