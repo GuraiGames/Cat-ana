@@ -5,6 +5,12 @@ using UnityEngine;
 public class NavigationMap : MonoBehaviour
 {
     [SerializeField]
+    private int size_x;
+
+    [SerializeField]
+    private int size_y;
+
+    [SerializeField]
     public GameObject nav_map_point;
 
     [SerializeField]
@@ -14,11 +20,13 @@ public class NavigationMap : MonoBehaviour
     public GameObject target_point = null;
 
     private List<GameObject> points = new List<GameObject>();
+    private GameObject[,] grid;
 
     private List<GameObject> spawn_points = new List<GameObject>();
 
     void Start()
     {
+        // Get map points
         for (int i = 0; i < nav_map_points_parent.transform.childCount; i++)
         {
             GameObject current_point_go = nav_map_points_parent.transform.GetChild(i).gameObject;
@@ -43,11 +51,19 @@ public class NavigationMap : MonoBehaviour
 
             points.Add(current_point_go);
         }
+
+        grid = TransformMapToGrid(GetPoints(), size_x, size_y);
+
     }
 
     public List<GameObject> GetPoints()
     {
         return points;
+    }
+
+    public GameObject[,] GetGrid()
+    {
+        return grid;
     }
 
     public bool IsPoint(GameObject go)
@@ -63,7 +79,7 @@ public class NavigationMap : MonoBehaviour
 
         if (IsPoint(starting_point) && IsPoint(ending_point))
         {
-            // Expand ---------
+            // Expand --------- (BFS)
 
             List<PPoint> frontier = new List<PPoint>();
             List<PPoint> memory_points = new List<PPoint>();
@@ -167,6 +183,97 @@ public class NavigationMap : MonoBehaviour
         if(sp != null)
         {
             ret = sp.transform.position;
+        }
+
+        return ret;
+    }
+
+    private GameObject[,] TransformMapToGrid(List<GameObject> p, int map_size_x, int map_size_y)
+    {
+        GameObject[,] ret = new GameObject[map_size_x, map_size_y];
+
+        List<GameObject> points = new List<GameObject>();
+        
+        for(int z = 0; z < p.Count; z++)
+        {
+            points.Add(p[z]);
+        }
+
+        int curr_x = 0;
+        int curr_y = 0;
+
+        while (points.Count > 0)
+        {
+            float smaller_x = points[0].transform.position.x;
+            float smaller_y = points[0].transform.position.z;
+
+            int smaller_point_index = 0;
+
+            for (int i = 0; i < points.Count; i++)
+            {
+                Vector3 curr_point = points[i].transform.position;
+
+                if (curr_point.x < smaller_x)
+                {
+                    smaller_x = curr_point.z;
+                }
+            }
+
+            for(int y = 0; y < points.Count; y++)
+            {
+                Vector3 curr_point = points[y].transform.position;
+
+                if (curr_point.x == smaller_x)
+                {
+                    if (curr_point.z < smaller_y)
+                    {
+                        smaller_y = curr_point.x;
+                        smaller_point_index = y;
+                    }
+                }
+            }
+
+            ret[curr_y, curr_x] = points[smaller_point_index];
+            points.RemoveAt(smaller_point_index);
+
+            if(curr_y < map_size_y-1)
+            {
+                curr_y++;
+            }
+            else
+            {
+                curr_y = 0;
+                curr_x++;
+            }
+        }
+
+        return ret;
+    }
+
+    public GameObject GridToWorldPoint(int index_x, int index_y)
+    {
+        GameObject ret = null;
+
+        ret = grid[index_x, index_y];
+
+        return ret;
+    }
+
+    public Vector2 WorldPointToGrid(GameObject point)
+    {
+        Vector2 ret = new Vector2(0, 0);
+
+        for(int i = 0; i < size_x; i++)
+        {
+            for(int y = 0; y < size_y; y++)
+            {
+                if(grid[i, y] == point)
+                {
+                    ret.x = i;
+                    ret.y = y;
+                    return ret;
+                }
+            }
         }
 
         return ret;

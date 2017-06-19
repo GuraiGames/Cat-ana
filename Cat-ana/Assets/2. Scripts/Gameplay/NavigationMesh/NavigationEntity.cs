@@ -27,6 +27,12 @@ public class NavigationEntity : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        if(Input.GetKey("k"))
+        {
+            nav_map.target_point = nav_map.GetGrid()[3, 1];
+        }
+
+
 		if(nav_map.target_point != null && !move)
         {
             path = nav_map.GetPath(GetClosestNavPoint(), nav_map.target_point);

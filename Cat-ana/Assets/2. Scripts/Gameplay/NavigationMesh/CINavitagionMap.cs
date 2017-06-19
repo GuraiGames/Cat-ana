@@ -10,7 +10,7 @@ using UnityEditor;
 public class CENavigationMap : Editor
 {
     float pos_x, pos_y, pos_z = 0;
-    float size_x, size_z, separation = 0;
+    float grid_size_x, grid_size_z, separation = 0;
 
     public override void OnInspectorGUI()
     {
@@ -55,12 +55,12 @@ public class CENavigationMap : Editor
 
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Grid size x: ");
-        size_x = EditorGUILayout.FloatField(size_x);
+        grid_size_x = EditorGUILayout.FloatField(grid_size_x);
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Grid size z: ");
-        size_z = EditorGUILayout.FloatField(size_z);
+        grid_size_z = EditorGUILayout.FloatField(grid_size_z);
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
@@ -70,9 +70,9 @@ public class CENavigationMap : Editor
 
         if (GUILayout.Button("Generate Grid"))
         {
-            for(int i = 0; i<size_x; i++)
+            for(int i = 0; i < grid_size_x; i++)
             {
-                for(int y = 0; y<size_z; y++)
+                for(int y = 0; y < grid_size_z; y++)
                 {
                     GameObject point = Instantiate(myScript.nav_map_point);
                     point.transform.position = new Vector3(i*separation, pos_y, y*separation);
