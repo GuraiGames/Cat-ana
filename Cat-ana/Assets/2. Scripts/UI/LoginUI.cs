@@ -19,14 +19,36 @@ public class LoginUI : MonoBehaviour {
     [SerializeField]
     private Text name;
 
+    [SerializeField]
+    private GameObject error_panel;
+
+    [SerializeField]
+    private GameObject[] to_active;
+
     void Start ()
     {
         game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        error_panel.SetActive(false);
     }
 	
 	public void ButtonPressed()
     {
         Debug.Log("Login attempt. User: " + username.text + "Pass: " + password.text);
+
+        Text curr_text = error_panel.GetComponentInChildren<Text>();
+
+        if (username.text == "" || password.text == "")
+        {
+            curr_text.text = "Fill all blanks before log in";
+
+            for (int i = 0; i < to_active.Length; i++)
+            {
+                to_active[i].SetActive(false);
+            }
+
+            error_panel.SetActive(true);
+            return;
+        }
 
         new GameSparks.Api.Requests.AuthenticationRequest().
             SetUserName(username.text)
@@ -38,6 +60,25 @@ public class LoginUI : MonoBehaviour {
                     Debug.Log("Login error: " + response.Errors.JSON.ToString());
 
                     // USE response.Errors.GetString("DETAILS"); to get the error type
+                    for (int i = 0; i < to_active.Length; i++)
+                    {
+                        to_active[i].SetActive(false);
+                    }
+
+                    string error_message = response.Errors.GetString("DETAILS");
+
+                    if (error_message == "UNRECOGNISED")
+                    {
+                        curr_text.text = "Wrong username/password combination";
+                    }
+
+                    else
+                    {
+                        curr_text.text = "Servers unavailable. Try again later";
+                    }
+
+                    error_panel.SetActive(true);
+
                 }
                 else
                 {

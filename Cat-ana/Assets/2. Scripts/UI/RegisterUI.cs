@@ -23,23 +23,50 @@ public class RegisterUI : MonoBehaviour
     private InputField password;
 
     [SerializeField]
-    private Text error_text;
+    private InputField confirm_password;
+
+    [SerializeField]
+    private GameObject error_panel;
+
+    [SerializeField]
+    private GameObject[] to_active;
+
+    private Text curr_error_text;
 
     void OnEnable()
     {
         game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
+    private void Start()
+    {
+        curr_error_text = error_panel.GetComponentInChildren<Text>();
+        error_panel.SetActive(false);
+    }
+
     void SetErrorText(string text)
     {
-        error_text.gameObject.SetActive(true);
-        error_text.text = text;
+        error_panel.gameObject.SetActive(true);
+
+        for (int i = 0; i < to_active.Length; i++)
+        {
+            to_active[i].SetActive(false);
+        }
+
+
+        curr_error_text.text = text;
     }
 
     void CleanErrorText()
     {
-        error_text.gameObject.SetActive(false);
-        error_text.text = "error text";
+        error_panel.gameObject.SetActive(false);
+
+        for (int i = 0; i < to_active.Length; i++)
+        {
+            to_active[i].SetActive(true);
+        }
+
+        curr_error_text.text = "error text";
     }
 
     void ClearFields()
@@ -71,6 +98,13 @@ public class RegisterUI : MonoBehaviour
         {
             Debug.Log("Register error: Fields should be less than " + fields_max_lenght + " words");
             SetErrorText("Register error: Fields should be less than " + fields_max_lenght + " words");
+            return;
+        }
+
+        if (confirm_password != password)
+        {
+            Debug.Log("Register error: Passwords not matching");
+            SetErrorText("Register error: Passwords not matching");
             return;
         }
 
