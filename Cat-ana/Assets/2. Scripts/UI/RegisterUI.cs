@@ -101,7 +101,7 @@ public class RegisterUI : MonoBehaviour
             return;
         }
 
-        if (confirm_password != password)
+        if (confirm_password.text != password.text)
         {
             Debug.Log("Register error: Passwords not matching");
             SetErrorText("Register error: Passwords not matching");
@@ -114,9 +114,18 @@ public class RegisterUI : MonoBehaviour
         .SetUserName(username.text)
         .Send((response) =>
         {
+
+          
+
             if (response.HasErrors)
             {
                 Debug.Log("Register error: " + response.Errors.JSON.ToString());
+
+                if(response.Errors.JSON.ToString() == "TAKEN")
+                {
+                    SetErrorText("Register error: Username already taken");
+                }
+
                 SetErrorText("Register error: " + response.Errors.JSON.ToString());
             }
             else
