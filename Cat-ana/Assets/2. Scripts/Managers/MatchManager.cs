@@ -21,6 +21,9 @@ public class MatchManager : MonoBehaviour
 
     [SerializeField]
     private GameObject player_prefab;
+
+    private NavigationMap nav_map = null;
+
     private List<GameObject> players = new List<GameObject>();
 
     // Use this for initialization
@@ -29,6 +32,7 @@ public class MatchManager : MonoBehaviour
         game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         RT_manager = game_manager.GetGameSparksRTManager();
         net_manager = game_manager.GetNetworkManager();
+        nav_map = GameObject.FindGameObjectWithTag("Map").GetComponent<NavigationMap>();
 
         StartCoroutine(SendTimeStamp());
 
@@ -77,6 +81,7 @@ public class MatchManager : MonoBehaviour
     public void SetPlayersInfo(RTPacket _packet)
     {
         Debug.Log(net_manager.match);
+
         for (int p = 0; p < net_manager.match.GetPlayerList().Count; p++)
         {
             if (net_manager.match.GetPlayerList()[p].id == _packet.Data.GetString(1))
@@ -102,9 +107,11 @@ public class MatchManager : MonoBehaviour
                     opponent_count++;
                 }
 
-                SpawnPlayer(net_manager.match.GetPlayerList()[p].id);
             }
         }
+
+        SpawnPlayer(_packet, _packet.Data.GetString(1));
+
     }
 
     public void SetTurn(RTPacket _packet)
@@ -133,13 +140,25 @@ public class MatchManager : MonoBehaviour
         }
     }
 
-    public void SpawnPlayer(string id)
+    public void SpawnPlayer(RTPacket _packet, string id)
     {
-
-        if (id == game_manager.playerID)
+        MatchInfo.Player player = null;
+        for (int p = 0; p < net_manager.match.GetPlayerList().Count; p++)
         {
-
+            if (id == net_manager.match.GetPlayerList()[p].id)
+            {
+                player = net_manager.match.GetPlayerList()[p];
+                break;
+            }
         }
+
+        int pos_x = (int)_packet.Data.GetInt(5);
+        int pos_y = (int)_packet.Data.GetInt(6);
+
+        Vector3 pos = nav_map.GridToWorldPoint(pos_x, pos_y).transform.position;
+
+        GameObject player_go = Instantiate(player_prefab);
+        player_go.transform.position = pos;
     }
 
     public void UpdateOponentsPosition(RTPacket _packet)
