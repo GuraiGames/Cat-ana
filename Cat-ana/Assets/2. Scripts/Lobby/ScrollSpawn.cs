@@ -34,6 +34,11 @@ public class ScrollSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            CreateScroll(2, 0);
+        }
+
         for (int i = 0; i < scroll_go.Length; i++)
         {
             if (scroll_go[i].activeSelf)
@@ -53,7 +58,7 @@ public class ScrollSpawn : MonoBehaviour
 
                 timer_txt[i].text = hours + ":" + minutes;
 
-                if (i == active_scroll_index)
+                if (i == active_scroll_index && timer[i] > 0)
                     timer[i] -= Time.deltaTime;
             }
         }
@@ -108,14 +113,67 @@ public class ScrollSpawn : MonoBehaviour
                 {
                     timer[i] = (time_finish - time_start) / 1000;
                 }
-                
-
-                
-
+ 
                 scroll_go[i].SetActive(true);
             }
             Debug.Log("/n Rarity: " + scroll_type_num);
 
         }
+    }
+
+    public void OpenScroll(int scroll_num)
+    {
+        if (scroll_num == active_scroll_index)
+        {
+            if (timer[active_scroll_index] <= 0)
+            {
+                switch (scroll_rarity[active_scroll_index])
+                {
+                    case rarity.r_common:
+                        scroll_go[active_scroll_index].SetActive(false);
+                        break;
+                    case rarity.r_uncommon:
+                        scroll_go[active_scroll_index].SetActive(false);
+                        break;
+                    case rarity.r_rare:
+                        scroll_go[active_scroll_index].SetActive(false);
+                        break;
+                }
+            }
+        }
+    }
+
+    public void CreateScroll(int type, int scroll_num)
+    {
+        new GameSparks.Api.Requests.LogEventRequest().SetEventKey("DB_ADD_SCROLL")
+            .SetEventAttribute("TYPE", type)
+            .SetEventAttribute("SCROLL_NUM", scroll_num)
+            .Send((response) =>
+            {
+                if (response.HasErrors)
+                {
+                    Debug.LogError("Scroll not created \n" + response.Errors.JSON);
+                }
+                else
+                {
+                    new GameSparks.Api.Requests.LogEventRequest()
+                                .SetEventKey("GET_SCROLLS")
+                                .Send((scroll_response) =>
+                                {
+                                    if (!scroll_response.HasErrors)
+                                    {
+                                        Debug.Log("Scrolls found");
+
+                                        GameSparks.Core.GSData data = scroll_response.ScriptData.GetGSData("player_scrolls");
+                                        GameSparks.Core.GSData time = scroll_response.ScriptData.GetGSData("time_now");
+                                        SetScroll(data, (long)time.GetLong("current_time"));
+                                    }
+                                    else
+                                    {
+                                        Debug.Log("Error finding scrolls");
+                                    }
+                                });
+                }
+            });
     }
 }
