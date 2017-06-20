@@ -12,11 +12,14 @@ public class NavigationEntity : MonoBehaviour
 
     private NavigationMap nav_map = null;
 
+    // Movement
     GameObject target_point = null;
-
     private List<Vector3> path = new List<Vector3>();
-
     private bool is_moving = false;
+
+    // TileDistance
+    private int tile_distance = 0;
+    private List<GameObject> walkable_points = new List<GameObject>();
 
     // Use this for initialization
     void Start ()
@@ -74,6 +77,15 @@ public class NavigationEntity : MonoBehaviour
                 ret = points[i];
             }
         }
+
+        return ret;
+    }
+
+    List<GameObject> GetWalkableTiles()
+    {
+        List<GameObject> ret = new List<GameObject>();
+
+        ret = nav_map.GetPointsFromExpansion(tile_distance + 1, GetClosestNavPoint());
 
         return ret;
     }

@@ -250,6 +250,51 @@ public class NavigationMap : MonoBehaviour
         return ret;
     }
 
+    public List<GameObject> GetPointsFromExpansion(int iterations, GameObject starting_point)
+    {
+        List<GameObject> ret = new List<GameObject>();
+
+        if (IsPoint(starting_point))
+        {
+            List<GameObject> frontier = new List<GameObject>();
+            List<GameObject> memory_points = new List<GameObject>();
+
+            frontier.Add(starting_point);
+
+            for (int i = 0; i < iterations; i++)
+            {
+                if (frontier.Count == 0)
+                    break;
+
+                memory_points.Add(frontier[0]);
+
+                NavigationPoint np = frontier[0].GetComponent<NavigationPoint>();
+                List<GameObject> neigh = np.GetNeighbours();
+
+                for (int y = 0; y < neigh.Count; y++)
+                {
+                    bool exists = false;
+                    for (int z = 0; y < memory_points.Count; z++)
+                    {
+                        if (memory_points[z] == neigh[y])
+                        {
+                            exists = true;
+                            break;
+                        }
+                    }
+
+                    if (!exists)
+                        frontier.Add(neigh[y]);
+                }
+
+                frontier.RemoveAt(0);
+            }
+
+        }
+
+        return ret;
+    }
+
     public GameObject GridToWorldPoint(int index_x, int index_y)
     {
         GameObject ret = null;
