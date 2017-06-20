@@ -276,6 +276,6 @@ public class NavigationMap : MonoBehaviour
             }
         }
 
-        return ret;
+        return new Vector2(0, 0);
     }
 }

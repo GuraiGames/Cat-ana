@@ -16,7 +16,7 @@ public class NavigationEntity : MonoBehaviour
 
     private List<Vector3> path = new List<Vector3>();
 
-    bool move = false;
+    private bool is_moving = false;
 
     // Use this for initialization
     void Start ()
@@ -30,22 +30,14 @@ public class NavigationEntity : MonoBehaviour
     {
         if(Input.GetKey("k"))
         {
-            nav_map.target_point = nav_map.GetGrid()[3, 1];
+            MoveTo(2, 2);
         }
 
-
-		if(nav_map.target_point != null && !move)
-        {
-            path = nav_map.GetPath(GetClosestNavPoint(), nav_map.target_point);
-            target_point = nav_map.target_point;
-            move = true;
-        }
-
-        if(move)
+        if(is_moving)
         {
             if (Vector3.Distance(gameObject.transform.position, target_point.transform.position) < 0.3f)
             {
-                move = false;
+                is_moving = false;
                 nav_map.target_point = null;
                 target_point = null;
             }
@@ -55,7 +47,7 @@ public class NavigationEntity : MonoBehaviour
             }
             else
             {
-                transform.position = Vector3.MoveTowards(transform.position, path[path.Count - 1], speed*Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, path[path.Count - 1], speed * Time.deltaTime);
             }
         }
 	}
@@ -74,7 +66,7 @@ public class NavigationEntity : MonoBehaviour
             ret = points[0];
         }
 
-        for (int i = 0; i<points.Count; i++)
+        for (int i = 0; i < points.Count; i++)
         {
             if(Vector3.Distance(gameObject.transform.position, points[i].transform.position) < closest_distance)
             {
@@ -86,10 +78,34 @@ public class NavigationEntity : MonoBehaviour
         return ret;
     }
 
-    void OnPointClicked()
+    public void MoveTo(GameObject nav_point_target)
     {
+        if (is_moving)
+            return;
 
+        path = nav_map.GetPath(GetClosestNavPoint(), nav_point_target);
+        target_point = nav_point_target;
+        is_moving = true;
     }
 
-    
+    public void MoveTo(int grid_x, int grid_y)
+    {
+        MoveTo(nav_map.GridToWorldPoint(grid_x, grid_y));
+    }
+
+    public bool IsMoving() { return is_moving; }
+
+    public GameObject GetPos()
+    {
+        return GetClosestNavPoint();
+    }
+
+    public Vector2 GetGridPos()
+    {
+        Vector2 ret = new Vector2();
+
+        ret = nav_map.WorldPointToGrid(GetPos());
+
+        return ret;
+    }
 }

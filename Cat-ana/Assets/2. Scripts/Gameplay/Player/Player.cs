@@ -10,15 +10,9 @@ public class Player : MonoBehaviour
 
     private bool _is_player = false;
 
-	// Use this for initialization
 	void Start ()
     {
         navigation_entity = gameObject.GetComponent<NavigationEntity>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
     public void SetInitialPlayerInfo(Vector3 pos, string network_id, bool is_player)
@@ -31,4 +25,6 @@ public class Player : MonoBehaviour
     public string GetNetworkId() { return _network_id; }
 
     public bool IsPlayer() { return _is_player; }
+
+    public NavigationEntity GetNavigationEntity() { return navigation_entity; }
 }
