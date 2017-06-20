@@ -27,6 +27,9 @@ public class ScrollSpawn : MonoBehaviour
     private GameObject error_panel;
     public ErrorTimer error_timer;
 
+    [SerializeField]
+    private GameObject open_window;
+
     // Use this for initialization
     void Start()
     {
@@ -61,6 +64,10 @@ public class ScrollSpawn : MonoBehaviour
             if (scroll_rarity[i] == rarity.r_null)
             {
                 scroll_go[i].SetActive(false);
+                if (i == active_scroll_index)
+                {
+                    active_scroll_index = -1;
+                }
             }
             if (scroll_go[i].activeSelf)
             {
@@ -84,9 +91,10 @@ public class ScrollSpawn : MonoBehaviour
                     if (i == active_scroll_index && timer[i] > 0)
                         timer[i] -= Time.deltaTime;
                 }
-                else
+                else if (i == active_scroll_index)
                 {
                     timer_txt[i].text = "Ready";
+                    active_scroll_index = -1;
                 }
             }
         }
@@ -132,6 +140,7 @@ public class ScrollSpawn : MonoBehaviour
                     if (time_finish - time_now <= 0)
                     {
                         timer[i] = 0;
+                        timer_txt[i].text = "Ready";
                     }
                     else
                     {
@@ -140,17 +149,25 @@ public class ScrollSpawn : MonoBehaviour
                 }
                 else
                 {
-                    switch (scroll_rarity[i])
+                    if (time_finish - time_now <= 0)
                     {
-                        case rarity.r_common:
-                            timer[i] = 3600 * 2;
-                            break;
-                        case rarity.r_uncommon:
-                            timer[i] = 3600 * 6;
-                            break;
-                        case rarity.r_rare:
-                            timer[i] = 3600 * 24;
-                            break;
+                        timer[i] = 0;
+                        timer_txt[i].text = "Ready";
+                    }
+                    if (timer_txt[i].text != "Ready")
+                    {
+                        switch (scroll_rarity[i])
+                        {
+                            case rarity.r_common:
+                                timer[i] = 3600 * 2;
+                                break;
+                            case rarity.r_uncommon:
+                                timer[i] = 3600 * 6;
+                                break;
+                            case rarity.r_rare:
+                                timer[i] = 3600 * 24;
+                                break;
+                        }
                     }
                 }
  
@@ -248,7 +265,13 @@ public class ScrollSpawn : MonoBehaviour
                     {
                         if (!response.HasErrors)
                         {
+                            Debug.Log("Active succeed");
                             active_scroll_index = scroll_to_active;
+                            OpenScroll(active_scroll_index);
+                        }
+                        else
+                        {
+                            Debug.Log("Active failed");
                         }
                     });
             }
@@ -257,6 +280,31 @@ public class ScrollSpawn : MonoBehaviour
         {
             error_panel.SetActive(true);
             error_timer.RestartTimer(2);
+        }
+    }
+
+    public void LootScroll(int scroll_num)
+    {
+        if (timer_txt[scroll_num].text == "Ready")
+        {
+            new GameSparks.Api.Requests.LogEventRequest().SetEventKey("LOOT_SCROLL")
+                .SetEventAttribute("SCROLL_NUM", scroll_num)
+                .Send((response) =>
+                {
+                    if (!response.HasErrors)
+                    {
+                        Debug.Log("Loot Succeed!");
+                        OpenScroll(scroll_num);
+                    }
+                    else
+                    {
+                        Debug.Log("Loot Error \n");
+                    }
+                });
+        }
+        else
+        {
+            open_window.SetActive(true);
         }
     }
 }
