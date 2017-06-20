@@ -76,15 +76,6 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Cecil">
-      <HintPath>Library\UnityAssemblies\Mono.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
-    </Reference>
     <Reference Include="Facebook.Unity.Settings">
       <HintPath>Library\FacebookSDK\Facebook.Unity.Settings.dll</HintPath>
     </Reference>
@@ -111,6 +102,7 @@
     <Compile Include="Assets\2. Scripts\Gameplay\Player\Player.cs" />
     <Compile Include="Assets\2. Scripts\Lobby\ScrollRectSnap.cs" />
     <Compile Include="Assets\2. Scripts\Lobby\ScrollSpawn.cs" />
+    <Compile Include="Assets\2. Scripts\Managers\EventManager.cs" />
     <Compile Include="Assets\2. Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\2. Scripts\Managers\MatchManager.cs" />
     <Compile Include="Assets\2. Scripts\Managers\NetworkManager.cs" />

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class NavigationEntity : MonoBehaviour
 {
@@ -17,12 +18,12 @@ public class NavigationEntity : MonoBehaviour
 
     bool move = false;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         map = GameObject.FindGameObjectWithTag("Map");
         nav_map = map.gameObject.GetComponent<NavigationMap>();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -83,6 +84,11 @@ public class NavigationEntity : MonoBehaviour
         }
 
         return ret;
+    }
+
+    void OnPointClicked()
+    {
+
     }
 
     
