@@ -106,12 +106,9 @@ public class MatchManager : MonoBehaviour
                     }
                     opponent_count++;
                 }
-
+                        SpawnPlayer(_packet, _packet.Data.GetString(1));
             }
         }
-
-        SpawnPlayer(_packet, _packet.Data.GetString(1));
-
     }
 
     public void SetTurn(RTPacket _packet)
@@ -142,12 +139,12 @@ public class MatchManager : MonoBehaviour
 
     public void SpawnPlayer(RTPacket _packet, string id)
     {
-        MatchInfo.Player player = null;
+        bool local_player = false;
         for (int p = 0; p < net_manager.match.GetPlayerList().Count; p++)
         {
-            if (id == net_manager.match.GetPlayerList()[p].id)
+            if (id == game_manager.playerID)
             {
-                player = net_manager.match.GetPlayerList()[p];
+                local_player = true;
                 break;
             }
         }
@@ -158,7 +155,8 @@ public class MatchManager : MonoBehaviour
         Vector3 pos = nav_map.GridToWorldPoint(pos_x, pos_y).transform.position;
 
         GameObject player_go = Instantiate(player_prefab);
-        player_go.transform.position = pos;
+        Player script = player_go.GetComponent<Player>();
+        script.SetInitialPlayerInfo(pos, id, local_player);
     }
 
     public void UpdateOponentsPosition(RTPacket _packet)

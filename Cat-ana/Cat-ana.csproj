@@ -112,7 +112,6 @@
     <Compile Include="Assets\2. Scripts\Others\CreditsTimer.cs" />
     <Compile Include="Assets\2. Scripts\Others\DontDestroyOnLoad.cs" />
     <Compile Include="Assets\2. Scripts\UI\ChangeNameUI.cs" />
-    <Compile Include="Assets\2. Scripts\UI\CostumizeMenuUI.cs" />
     <Compile Include="Assets\2. Scripts\UI\CurrencyUI.cs" />
     <Compile Include="Assets\2. Scripts\UI\LobbyUI.cs" />
     <Compile Include="Assets\2. Scripts\UI\LoginUI.cs" />

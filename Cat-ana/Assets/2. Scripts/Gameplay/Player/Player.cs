@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     private NavigationEntity navigation_entity = null;
 
-    private int _network_id = 0;
+    private string _network_id = "";
 
     private bool _is_player = false;
 
@@ -21,14 +21,14 @@ public class Player : MonoBehaviour
 		
 	}
 
-    public void SetInitialPlayerInfo(Vector3 pos, int network_id, bool is_player)
+    public void SetInitialPlayerInfo(Vector3 pos, string network_id, bool is_player)
     {
         gameObject.transform.position = pos;
         _network_id = network_id;
         _is_player = is_player;
     }
 
-    public int GetNetworkId() { return _network_id; }
+    public string GetNetworkId() { return _network_id; }
 
     public bool IsPlayer() { return _is_player; }
 }
