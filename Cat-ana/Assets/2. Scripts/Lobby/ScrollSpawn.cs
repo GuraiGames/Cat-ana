@@ -30,6 +30,10 @@ public class ScrollSpawn : MonoBehaviour
     [SerializeField]
     private GameObject open_window;
 
+    [SerializeField]
+    private CurrencyUI currency;
+
+
     // Use this for initialization
     void Start()
     {
@@ -44,19 +48,15 @@ public class ScrollSpawn : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            CreateScroll(0, 0);
+            CreateScroll(1);
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            CreateScroll(2, 1);
+            CreateScroll(2);
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            CreateScroll(2, 2);
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            CreateScroll(3, 3);
+            CreateScroll(3);
         }
 
         for (int i = 0; i < scroll_go.Length; i++)
@@ -212,40 +212,82 @@ public class ScrollSpawn : MonoBehaviour
   
     }
 
-    public void CreateScroll(int type, int scroll_num)
+    public void CreateScroll(int type)
     {
         string type_txt = "";
-
+        int scroll_num = -1;
+        int coins_cost = -1;
+        // int gems_cost = -1;
+      
         switch (type)
         {
             case 0:
-                type_txt = "r_null";
+                type_txt = "null";
+                coins_cost = 0;
+                // gems_cost = 0;
                 break;
             case 1:
-                type_txt = "r_common";
+                type_txt = "common";
+                coins_cost = 100;
+                // gems_cost = 25;
                 break;
             case 2:
-                type_txt = "r_uncommon";
+                type_txt = "uncommon";
+                coins_cost = 200;
+                // gems_cost = 50;
                 break;
             case 3:
-                type_txt = "r_rare";
+                type_txt = "rare";
+                coins_cost = 400;
+                // gems_cost = 100;
                 break;
         }
 
-        new GameSparks.Api.Requests.LogEventRequest().SetEventKey("DB_ADD_SCROLL")
-            .SetEventAttribute("TYPE", type_txt)
-            .SetEventAttribute("SCROLL_NUM", scroll_num)
-            .Send((response) =>
+        if (currency.coins >= coins_cost)
+        {
+            for (int i = 0; i < scroll_go.Length; i++)
             {
-                if (response.HasErrors)
+                if (!scroll_go[i].activeSelf)
                 {
-                    Debug.LogError("Scroll not created \n" + response.Errors.JSON);
+                    scroll_num = i;
+                    break;
                 }
-                else
-                {
-                    OpenScroll(scroll_num);
-                }
-            });
+            }
+
+            if (scroll_num != -1)
+            {
+                new GameSparks.Api.Requests.LogEventRequest().SetEventKey("DB_ADD_SCROLL")
+                  .SetEventAttribute("TYPE", "r_" + type_txt)
+                  .SetEventAttribute("SCROLL_NUM", scroll_num)
+                  .Send((response) =>
+                  {
+                      if (response.HasErrors)
+                      {
+                          Debug.LogError("Scroll not created \n" + response.Errors.JSON);
+                      }
+                      else
+                      {
+                          OpenScroll(scroll_num);
+                          currency.ModifyCurrency(coins_cost, 1, false); // For Coins
+                          // currency.ModifyCurrency(gems_cost, 2, false); // For Gems
+
+                      }
+                  });
+            }
+            else
+            {
+                error_panel.SetActive(true);
+                error_panel.GetComponent<Text>().text = "Error: There is not enough space to buy a scroll";
+                error_timer.RestartTimer(2);
+            }
+        }
+        else
+        {
+            error_panel.SetActive(true);
+            error_panel.GetComponent<Text>().text = "Error: Not enough money to buy a " + type_txt + " scroll";
+            error_timer.RestartTimer(2);
+        }
+        
     }
 
     public void SetToActive(int to_active)
@@ -279,6 +321,7 @@ public class ScrollSpawn : MonoBehaviour
         else
         {
             error_panel.SetActive(true);
+            error_panel.GetComponent<Text>().text = "Error: There is another scroll being opened";
             error_timer.RestartTimer(2);
         }
     }

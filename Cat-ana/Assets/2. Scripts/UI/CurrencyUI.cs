@@ -12,8 +12,8 @@ public class CurrencyUI : MonoBehaviour {
     [SerializeField]
     private Text gem;
 
-    private int coins = -1;
-    private int gems = -1;
+    public int coins = -1;
+    public int gems = -1;
 
     // Use this for initialization
     void Start () {
