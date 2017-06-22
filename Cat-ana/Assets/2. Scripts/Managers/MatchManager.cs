@@ -11,20 +11,25 @@ public class MatchManager : MonoBehaviour
     private GameSparksRTUnity RT_manager = null;
     private NetworkManager net_manager = null;
 
+    // UI
     public Text opp1, opp2, opp3, player;
-    public Text timer, turn_type;
+    public Text timer, turn_type_text;
+    public Text latency_text;
 
+    // Server
     private int server_delay, latency, round_trip; //All in ms
     private int opponent_count = 0;
 
-    public Text latency_text;
-
-    [SerializeField]
-    private GameObject player_prefab;
-
+    // Map
     private NavigationMap nav_map = null;
 
+    // Players
+    [SerializeField]
+    private GameObject player_prefab;
     private List<GameObject> players = new List<GameObject>();
+
+    // Turn
+    private TurnInfo turn_info = new TurnInfo();
 
     // Use this for initialization
     void Start()
@@ -44,12 +49,14 @@ public class MatchManager : MonoBehaviour
         }
 
         StartCoroutine(DelayTurnStart());
+
+        turn_info.turn = turn_type.stop;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        DecreaseTurnTime();
     }
 
     private IEnumerator SendTimeStamp()
@@ -106,24 +113,9 @@ public class MatchManager : MonoBehaviour
                     }
                     opponent_count++;
                 }
-                        SpawnPlayer(_packet, _packet.Data.GetString(1));
+                    SpawnPlayer(_packet, _packet.Data.GetString(1));
             }
         }
-    }
-
-    public void SetTurn(RTPacket _packet)
-    {
-        turn_type.text = _packet.Data.GetString(1);
-        int time_sec;
-        time_sec = (int)_packet.Data.GetInt(2) / 1000;
-        timer.text = time_sec.ToString();
-    }
-
-    public void DecrementTimer()
-    {
-        int remaining_time = int.Parse(timer.text);
-        remaining_time -= 1;
-        timer.text = remaining_time.ToString();
     }
 
     private IEnumerator DelayTurnStart()
@@ -159,8 +151,135 @@ public class MatchManager : MonoBehaviour
         script.SetInitialPlayerInfo(pos, id, local_player);
     }
 
-    public void UpdateOponentsPosition(RTPacket _packet)
+    public void StartNewTurn(RTPacket _packet)
     {
+        string t_type = (string)_packet.Data.GetString(1);
+        int duration = (int)_packet.Data.GetInt(2);
 
+        //turn_type_text.text = t_type;
+        turn_info.turn_time_left = duration;
+
+        switch(t_type)
+        {
+            case "strategy":
+                turn_info.turn = turn_type.strategy;
+                break;
+
+            case "action":
+                turn_info.turn = turn_type.action;
+                break;
+        }
+    }
+
+    public void UpdateOponentPosition(RTPacket _packet)
+    {
+        string id = _packet.Data.GetString(1);
+        int pos_x = (int)_packet.Data.GetInt(2);
+        int pos_y = (int)_packet.Data.GetInt(3);
+        int shadow_x = (int)_packet.Data.GetInt(4);
+        int shadow_y = (int)_packet.Data.GetInt(5);
+        string attack = _packet.Data.GetString(6);
+        string revealed = _packet.Data.GetString(7);
+
+        GameObject player = null;
+        Player player_script = null;
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            player_script = players[i].GetComponent<Player>();
+
+            if (player_script.GetNetworkId() == id)
+            {
+                player = players[i];
+                break;
+            }
+        }
+
+        if (player != null)
+        {
+            player_script.GetNavigationEntity().MoveTo(pos_x, pos_y);
+        }
+    }
+
+    private void DecreaseTurnTime()
+    {
+        if (turn_info.turn_time_left > 0)
+        {
+            turn_info.turn_time_left -= Time.deltaTime;
+            timer.text = (turn_info.turn_time_left / 1000).ToString();
+        }
+        else
+            turn_info.turn_time_left = 0;
+    }
+
+    public TurnInfo GetTurnInfo()
+    {
+        return turn_info;
+    }
+
+    public GameObject GetClientPlayer()
+    {
+        GameObject player = null;
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            Player player_script = players[i].GetComponent<Player>();
+
+            if (player_script.IsPlayer())
+            {
+                player = players[i];
+                break;
+            }
+        }
+
+        return player;
+    }
+
+    public void SendPlayerPos(string id, int pos_x, int pos_y, int shadow_x, int shadow_y, bool attack, bool reveled)
+    {
+        if (turn_info.turn != turn_type.action)
+            return;
+
+        GameObject player = null;
+
+        for(int i = 0; i < players.Count; i++)
+        {
+            Player pl = players[i].GetComponent<Player>();
+
+            if(pl.GetNetworkId() == id)
+            {
+                player = players[i];
+                break;
+            }
+        }
+
+        if(player != null)
+        {
+            using (RTData data = RTData.Get())
+            {
+                data.SetString(1, id);
+                data.SetInt(2, pos_x);
+                data.SetInt(3, pos_y);
+                data.SetInt(4, shadow_x);
+                data.SetInt(5, shadow_y);
+                data.SetString(6, attack.ToString());
+                data.SetString(7, reveled.ToString());
+
+                RT_manager.SendData(122, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data, new int[] { 0 }); // send to peerId -> 0, which is the server
+            }
+        }   
+    }
+
+    public struct TurnInfo
+    { 
+        public turn_type turn;
+        public float turn_time_left;
+    }
+
+    public enum turn_type
+    {
+        strategy,
+        action,
+        stop,
     }
 }

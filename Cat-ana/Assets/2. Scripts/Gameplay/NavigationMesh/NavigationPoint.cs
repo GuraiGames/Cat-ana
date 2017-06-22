@@ -8,6 +8,8 @@ public class NavigationPoint : MonoBehaviour
 
     [HideInInspector]
     public NavigationMap nav_map = null;
+    public MatchManager match_manager = null;
+    Player client_player = null;
 
     private BoxCollider coll = null;
 
@@ -20,6 +22,8 @@ public class NavigationPoint : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        match_manager = GameObject.FindGameObjectWithTag("MatchManager").GetComponent<MatchManager>();
+
         coll = gameObject.AddComponent<BoxCollider>();
         coll.isTrigger = true;
 
@@ -84,7 +88,34 @@ public class NavigationPoint : MonoBehaviour
 
     private void OnMouseDown()
     {
-        nav_map.target_point = gameObject;
+        if (match_manager.GetTurnInfo().turn == MatchManager.turn_type.action)
+        {
+            if (client_player == null)
+                client_player = match_manager.GetClientPlayer().GetComponent<Player>();
+
+            GameObject player_pos = client_player.GetNavigationEntity().GetClosestNavPoint();
+
+            List<GameObject> points = nav_map.GetPointsFromExpansion(1, player_pos);
+
+            bool is_range_point = false;
+            for (int i = 0; i < points.Count; i++)
+            {
+                if (points[i] == gameObject)
+                {
+                    is_range_point = true;
+                    break;
+                }
+            }
+
+            if (is_range_point)
+            {
+                string id = client_player.GetNetworkId();
+                int pos_x = (int)client_player.GetNavigationEntity().GetGridPos().x;
+                int pos_y = (int)client_player.GetNavigationEntity().GetGridPos().y;
+
+                match_manager.SendPlayerPos(id, pos_x, pos_y, 0, 0, false, false);
+            }
+        }
     }
 
 }

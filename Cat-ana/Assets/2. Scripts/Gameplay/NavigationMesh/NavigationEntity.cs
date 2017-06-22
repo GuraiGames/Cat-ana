@@ -41,7 +41,6 @@ public class NavigationEntity : MonoBehaviour
             if (Vector3.Distance(gameObject.transform.position, target_point.transform.position) < 0.3f)
             {
                 is_moving = false;
-                nav_map.target_point = null;
                 target_point = null;
             }
             else if (Vector3.Distance(gameObject.transform.position, path[path.Count-1]) < 0.2f)
@@ -55,7 +54,7 @@ public class NavigationEntity : MonoBehaviour
         }
 	}
 
-    GameObject GetClosestNavPoint()
+    public GameObject GetClosestNavPoint()
     {
         GameObject ret = null;
 

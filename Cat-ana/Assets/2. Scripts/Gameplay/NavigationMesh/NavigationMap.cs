@@ -16,9 +16,6 @@ public class NavigationMap : MonoBehaviour
     [SerializeField]
     public GameObject nav_map_points_parent;
 
-    [HideInInspector]
-    public GameObject target_point = null;
-
     private List<GameObject> points = new List<GameObject>();
     private GameObject[,] grid;
 

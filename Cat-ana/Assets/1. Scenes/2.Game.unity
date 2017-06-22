@@ -223,6 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 570519580}
   is_spawn_point: 0
@@ -376,7 +377,6 @@ MonoBehaviour:
   nav_map_point: {fileID: 1292113752147364, guid: 0a0dd57043a54ab4aafccb952305eb4e,
     type: 2}
   nav_map_points_parent: {fileID: 1406674303}
-  target_point: {fileID: 0}
 --- !u!1 &124771064
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,6 +492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 914427026}
   is_spawn_point: 1
@@ -536,6 +537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 2074272966}
   - {fileID: 494533952}
@@ -581,6 +583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1019969113}
   - {fileID: 1721283244}
@@ -688,6 +691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours: []
   is_spawn_point: 0
 --- !u!1 &494533952
@@ -731,6 +735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1951558232}
   is_spawn_point: 0
@@ -793,8 +798,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 8.15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -817,7 +822,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 538605495}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 5.13, y: 18.57, z: 5.44}
+  m_LocalPosition: {x: 4.81, y: 26.6, z: 5.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -864,6 +869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1835976984}
   - {fileID: 1806832856}
@@ -909,52 +915,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1972711971}
   - {fileID: 494533952}
   is_spawn_point: 0
---- !u!1001 &605676387
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4959230640157312, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -2.82
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959230640157312, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -0.018
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959230640157312, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959230640157312, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959230640157312, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959230640157312, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959230640157312, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959230640157312, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 3b9286979d7dd6b46838bec807314137, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &633425265
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,6 +1035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1080514263}
   is_spawn_point: 1
@@ -1114,6 +1080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1690660013}
   is_spawn_point: 1
@@ -1158,6 +1125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 2005004026}
   is_spawn_point: 1
@@ -1202,6 +1170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 682451883}
   is_spawn_point: 0
@@ -1237,7 +1206,7 @@ MonoBehaviour:
   opp3: {fileID: 124771066}
   player: {fileID: 10383242}
   timer: {fileID: 956514266}
-  turn_type: {fileID: 1033106417}
+  turn_type_text: {fileID: 0}
   latency_text: {fileID: 1802427440}
   player_prefab: {fileID: 1535144770456548, guid: 3b9286979d7dd6b46838bec807314137,
     type: 2}
@@ -1295,6 +1264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 494533952}
   - {fileID: 1529682131}
@@ -1340,6 +1310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1896861188}
   is_spawn_point: 0
@@ -1384,6 +1355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1053195848}
   is_spawn_point: 0
@@ -1502,6 +1474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 662062502}
   is_spawn_point: 0
@@ -1620,6 +1593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1483371261}
   is_spawn_point: 0
@@ -1664,6 +1638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 855397323}
   is_spawn_point: 0
@@ -1708,6 +1683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours: []
   is_spawn_point: 0
 --- !u!1 &1080514263
@@ -1751,6 +1727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1428779681}
   - {fileID: 570519580}
@@ -1796,6 +1773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1525237725}
   - {fileID: 597854177}
@@ -1841,6 +1819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 730896500}
   is_spawn_point: 0
@@ -1949,6 +1928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 358836300}
   - {fileID: 1835976984}
@@ -1994,6 +1974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 72911443}
   is_spawn_point: 0
@@ -2038,6 +2019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours: []
   is_spawn_point: 0
 --- !u!1 &1529682131
@@ -2081,6 +2063,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1820788525}
   - {fileID: 222205077}
@@ -2191,6 +2174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1820788525}
   is_spawn_point: 0
@@ -2235,6 +2219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 494366990}
   - {fileID: 853663323}
@@ -2354,6 +2339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1193656325}
   - {fileID: 1062781553}
@@ -2399,6 +2385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1365680304}
   is_spawn_point: 0
@@ -2443,6 +2430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1721283244}
   is_spawn_point: 0
@@ -2487,6 +2475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 159455457}
   is_spawn_point: 0
@@ -2531,6 +2520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1055103495}
   is_spawn_point: 0
@@ -2575,6 +2565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1951558232}
   is_spawn_point: 0
@@ -2619,6 +2610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours:
   - {fileID: 1055103495}
   is_spawn_point: 0
@@ -2685,8 +2677,8 @@ Canvas:
   m_GameObject: {fileID: 2044694240}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 538605499}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -2763,6 +2755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav_map: {fileID: 0}
+  match_manager: {fileID: 0}
   neighbours: []
   is_spawn_point: 0
 --- !u!1 &2104799098
