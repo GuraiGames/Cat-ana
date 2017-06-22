@@ -73,15 +73,17 @@ public class NetworkManager : MonoBehaviour
                     if (match_manager == null)
                         match_manager = GameObject.FindGameObjectWithTag("MatchManager").GetComponent<MatchManager>();
                     match_manager.CalculateConnectionDelays(_packet);
-                    break;
+                    
                 }
+                break;
             case 102://player match initial info
                 {
                     if (match_manager == null)
                         match_manager = GameObject.FindGameObjectWithTag("MatchManager").GetComponent<MatchManager>();
                     match_manager.SetPlayersInfo(_packet);
-                    break;
+                   
                 }
+                break;
             case 120: //Change turn to the actual one
                 Debug.Log("Start Turn " + _packet.Data.GetString(1));
                 match_manager.SetTurn(_packet);
