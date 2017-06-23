@@ -149,12 +149,16 @@ public class ScrollSpawn : MonoBehaviour
                 }
                 else
                 {
-                    if (time_finish - time_now <= 0)
+                   
+                    if (time_finish != 0)
                     {
-                        timer[i] = 0;
-                        timer_txt[i].text = "Ready";
+                        if (time_finish - time_now <= 0)
+                        {
+                            timer[i] = 0;
+                            timer_txt[i].text = "Ready";
+                        }
                     }
-                    if (timer_txt[i].text != "Ready")
+                    else
                     {
                         switch (scroll_rarity[i])
                         {
@@ -169,6 +173,7 @@ public class ScrollSpawn : MonoBehaviour
                                 break;
                         }
                     }
+
                 }
  
                 scroll_go[i].SetActive(true);
