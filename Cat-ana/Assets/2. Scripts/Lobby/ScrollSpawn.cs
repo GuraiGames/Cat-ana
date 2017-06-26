@@ -150,16 +150,16 @@ public class ScrollSpawn : MonoBehaviour
                 else
                 {
                    
-                    if (time_finish != 0)
-                    {
-                        if (time_finish - time_now <= 0)
-                        {
-                            timer[i] = 0;
-                            timer_txt[i].text = "Ready";
-                        }
-                    }
-                    else
-                    {
+                    //if (time_finish != 0)
+                    //{
+                    //    if (time_finish - time_now <= 0)
+                    //    {
+                    //        timer[i] = 0;
+                    //        timer_txt[i].text = "Ready";
+                    //    }
+                    //}
+                    //else
+                    //{
                         switch (scroll_rarity[i])
                         {
                             case rarity.r_common:
@@ -172,7 +172,7 @@ public class ScrollSpawn : MonoBehaviour
                                 timer[i] = 3600 * 24;
                                 break;
                         }
-                    }
+                    //}
 
                 }
  
