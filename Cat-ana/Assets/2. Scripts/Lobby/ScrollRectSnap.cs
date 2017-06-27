@@ -7,6 +7,7 @@ public class ScrollRectSnap : MonoBehaviour {
 
     public RectTransform panel;
     public GameObject[] main_menu_go;
+    public GameObject scroll_menu;
     public RectTransform center;
     public int start_go = 1;
 
@@ -28,53 +29,64 @@ public class ScrollRectSnap : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		for (int i = 0; i < main_menu_go.Length; i++)
+        if (scroll_menu.activeSelf)
         {
-            distance[i] = Mathf.Abs(center.transform.position.x - main_menu_go[i].transform.position.x);
-        }
-
-        if (target_nearest_go)
-        {
-            float min_distance = Mathf.Min(distance); // Gets the min distance
-
-            for (int a = 0; a < main_menu_go.Length; a++)
+            for (int i = 0; i < main_menu_go.Length; i++)
             {
-                if (min_distance == distance[a])
+                distance[i] = Mathf.Abs(center.transform.position.x - main_menu_go[i].transform.position.x);
+            }
+
+            if (target_nearest_go)
+            {
+                float min_distance = Mathf.Min(distance); // Gets the min distance
+
+                for (int a = 0; a < main_menu_go.Length; a++)
                 {
-                    min_num = a;
+                    if (min_distance == distance[a])
+                    {
+                        min_num = a;
+                    }
                 }
             }
-        }
 
-        if (!dragging)
-        {
-            LerpToGO(min_num * -distance_go);
+            if (!dragging)
+            {
+                LerpToGO(min_num * -distance_go);
+            }
         }
 	}
 
     void LerpToGO(int position)
     {
-        float new_x = Mathf.Lerp(panel.anchoredPosition.x, position, Time.deltaTime * 10f);
-        Vector2 new_position = new Vector2(new_x, panel.anchoredPosition.y);
+        if (scroll_menu.activeSelf)
+        {
+            float new_x = Mathf.Lerp(panel.anchoredPosition.x, position, Time.deltaTime * 10f);
+            Vector2 new_position = new Vector2(new_x, panel.anchoredPosition.y);
 
-        panel.anchoredPosition = new_position;
+            panel.anchoredPosition = new_position;
+        }
     }
 
     public void ToggleDrag(bool toggle)
     {
-        dragging = toggle;
-
-        if (dragging)
+        if (scroll_menu.activeSelf)
         {
-            target_nearest_go = true;
-        }
+            dragging = toggle;
 
+            if (dragging)
+            {
+                target_nearest_go = true;
+            }
+        }
     }
 
     public void GoToGO(int game_object_index)
     {
-        target_nearest_go = false; // Stop Lerping
-        min_num = game_object_index;
+        if (scroll_menu.activeSelf)
+        {
+            target_nearest_go = false; // Stop Lerping
+            min_num = game_object_index;
+        }
     }
     
 }
