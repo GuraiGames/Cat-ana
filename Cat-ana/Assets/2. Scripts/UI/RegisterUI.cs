@@ -112,6 +112,7 @@ public class RegisterUI : MonoBehaviour
         .SetDisplayName(display_name.text)
         .SetPassword(password.text)
         .SetUserName(username.text)
+        .SetSegments(new GameSparks.Core.GSRequestData().AddString("league","placement"))
         .Send((response) =>
         {
 
