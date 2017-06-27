@@ -2881,6 +2881,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 791642078}
+        m_MethodName: RefreshLeaderboard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &258092258
@@ -9604,7 +9615,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.9303298, y: 0.872636}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 846.6001, y: 427.59174}
+  m_AnchoredPosition: {x: 846.6001, y: 427.59177}
   m_SizeDelta: {x: 126.79983, y: 124.8167}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &742165549
@@ -10129,17 +10140,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerScore: {fileID: 273751972}
-  Top10:
-  - {fileID: 38639210}
-  - {fileID: 1833532004}
-  - {fileID: 1107869741}
-  - {fileID: 1889072882}
-  - {fileID: 2133506247}
-  - {fileID: 577223643}
-  - {fileID: 879676012}
-  - {fileID: 1188400421}
-  - {fileID: 292318099}
-  - {fileID: 693536399}
+  Top10_user:
+  - {fileID: 590825878}
+  - {fileID: 939620154}
+  - {fileID: 55313069}
+  - {fileID: 956265876}
+  - {fileID: 1852388578}
+  - {fileID: 614147214}
+  - {fileID: 1787298768}
+  - {fileID: 1329050217}
+  - {fileID: 84363399}
+  - {fileID: 1708530650}
+  Top10_score:
+  - {fileID: 1589803076}
+  - {fileID: 556977055}
+  - {fileID: 856186520}
+  - {fileID: 1489194488}
+  - {fileID: 1596277857}
+  - {fileID: 517093726}
+  - {fileID: 872655636}
+  - {fileID: 781208157}
+  - {fileID: 2081116328}
+  - {fileID: 654901914}
 --- !u!1 &800879626
 GameObject:
   m_ObjectHideFlags: 0
@@ -15928,7 +15950,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.44170836, y: 0.90414816}
   m_AnchorMax: {x: 0.9303298, y: 1}
-  m_AnchoredPosition: {x: 338.55475, y: 443.0326}
+  m_AnchoredPosition: {x: 338.55478, y: 443.03256}
   m_SizeDelta: {x: 889.291, y: 93.93478}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1355201105
