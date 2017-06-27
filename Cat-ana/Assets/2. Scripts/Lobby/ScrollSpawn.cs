@@ -101,6 +101,55 @@ public class ScrollSpawn : MonoBehaviour
 
     }
 
+    public void PayScroll()
+    {
+        string type_txt = "";
+        int gems_cost = 0;
+
+        switch (scroll_rarity[scroll_to_active])
+        {
+            case rarity.r_common:
+                gems_cost = 25;
+                type_txt = "common";
+                break;
+            case rarity.r_uncommon:
+                gems_cost = 50;
+                type_txt = "uncommon";
+                break;
+            case rarity.r_rare:
+                gems_cost = 100;
+                type_txt = "rare";
+                break;
+        }
+
+        if (currency.gems >= gems_cost)
+        {
+            new GameSparks.Api.Requests.LogEventRequest().SetEventKey("LOOT_SCROLL")
+                .SetEventAttribute("SCROLL_NUM", scroll_to_active)
+                .Send((response) =>
+                {
+                    if (!response.HasErrors)
+                    {
+                        Debug.Log("Loot Succeed!");
+                        scroll_go[scroll_to_active].SetActive(false);
+                        open_window.SetActive(false);
+                    }
+                    else
+                    {
+                        Debug.Log("Loot Error \n");
+                    }
+                });
+
+            currency.ModifyCurrency(gems_cost, 2, false); // For Gems
+        }
+        else
+        {
+            error_panel.SetActive(true);
+            error_panel.GetComponent<Text>().text = "Error: Not enough pay the " + type_txt + " scroll";
+            error_timer.RestartTimer(2);
+        }
+    }
+
     public void SetScroll(GameSparks.Core.GSData data, long time_now)
     {
         for (int i = 0; i < 4; i++)
@@ -274,8 +323,6 @@ public class ScrollSpawn : MonoBehaviour
                       {
                           OpenScroll(scroll_num);
                           currency.ModifyCurrency(coins_cost, 1, false); // For Coins
-                          // currency.ModifyCurrency(gems_cost, 2, false); // For Gems
-
                       }
                   });
             }
@@ -315,6 +362,7 @@ public class ScrollSpawn : MonoBehaviour
                             Debug.Log("Active succeed");
                             active_scroll_index = scroll_to_active;
                             OpenScroll(active_scroll_index);
+                            open_window.SetActive(false);
                         }
                         else
                         {
@@ -354,5 +402,26 @@ public class ScrollSpawn : MonoBehaviour
         {
             open_window.SetActive(true);
         }
+    }
+
+    public void GetScrolls()
+    {
+        new GameSparks.Api.Requests.LogEventRequest()
+                               .SetEventKey("GET_SCROLLS")
+                               .Send((scroll_response) =>
+                               {
+                                   if (!scroll_response.HasErrors)
+                                   {
+                                       Debug.Log("Scrolls found");
+
+                                       GameSparks.Core.GSData data = scroll_response.ScriptData.GetGSData("player_scrolls");
+                                       GameSparks.Core.GSData time = scroll_response.ScriptData.GetGSData("time_now");
+                                       SetScroll(data, (long)time.GetLong("current_time"));
+                                   }
+                                   else
+                                   {
+                                       Debug.Log("Error finding scrolls");
+                                   }
+                               });
     }
 }
