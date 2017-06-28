@@ -204,6 +204,8 @@ public class MatchManager : MonoBehaviour
         if (player != null)
         {
             player_script.GetNavigationEntity().MoveTo(pos_x, pos_y);
+
+            Debug.Log("Recived player pos. Id: " + id + ", x:" + pos_x + ", y:" + pos_y);
         }
     }
 
@@ -245,9 +247,6 @@ public class MatchManager : MonoBehaviour
 
     public void SendPlayerPos(string id, int pos_x, int pos_y, int shadow_x, int shadow_y, bool attack, bool reveled)
     {
-        if (turn_info.turn != turn_type.action)
-            return;
-
         GameObject player = null;
 
         for(int i = 0; i < players.Count; i++)
@@ -274,6 +273,8 @@ public class MatchManager : MonoBehaviour
                 data.SetString(7, reveled.ToString());
 
                 RT_manager.SendData(122, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data, new int[] { 0 }); // send to peerId -> 0, which is the server
+
+                Debug.Log("Sending position to x:" + pos_x + ", y:" + pos_y);
             }
         }   
     }
