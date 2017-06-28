@@ -55,7 +55,7 @@ public class NavigationPoint : MonoBehaviour
                 return;
 
             Debug.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z),
-                new Vector3(neig[i].transform.position.x, neig[i].transform.position.y, neig[i].transform.position.z), Color.green);
+                new Vector3(neig[i].transform.position.x, neig[i].transform.position.y, neig[i].transform.position.z), Color.red);
         }
     }
 
