@@ -132,6 +132,7 @@ public class MatchManager : MonoBehaviour
     public void SpawnPlayer(RTPacket _packet, string id)
     {
         bool local_player = false;
+
         for (int p = 0; p < net_manager.match.GetPlayerList().Count; p++)
         {
             if (id == game_manager.playerID)
@@ -149,6 +150,11 @@ public class MatchManager : MonoBehaviour
         GameObject player_go = Instantiate(player_prefab);
         Player script = player_go.GetComponent<Player>();
         script.SetInitialPlayerInfo(pos, id, local_player);
+
+        if(local_player)
+            player_go.GetComponent<Renderer>().material.color = new Color(0, 1, 0); //C#
+
+        players.Add(player_go);
     }
 
     public void StartNewTurn(RTPacket _packet)
@@ -161,11 +167,11 @@ public class MatchManager : MonoBehaviour
 
         switch(t_type)
         {
-            case "strategy":
+            case "Strategy":
                 turn_info.turn = turn_type.strategy;
                 break;
 
-            case "action":
+            case "Actions":
                 turn_info.turn = turn_type.action;
                 break;
         }
@@ -205,8 +211,10 @@ public class MatchManager : MonoBehaviour
     {
         if (turn_info.turn_time_left > 0)
         {
-            turn_info.turn_time_left -= Time.deltaTime;
-            timer.text = (turn_info.turn_time_left / 1000).ToString();
+            turn_info.turn_time_left -= Time.deltaTime*1000;
+            int time_left = (int)(turn_info.turn_time_left / 1000);
+
+            timer.text = time_left.ToString();
         }
         else
             turn_info.turn_time_left = 0;
