@@ -114,6 +114,8 @@ public class NavigationPoint : MonoBehaviour
                 int pos_y = (int)nav_map.WorldPointToGrid(gameObject).y;
 
                 match_manager.SendPlayerPos(id, pos_x, pos_y, 0, 0, false, false);
+
+                nav_map.PlaceMarker(gameObject.transform.position);
             }
         }
 

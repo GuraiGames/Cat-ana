@@ -295,6 +295,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114226516980059418, guid: 14df390542b1b054695d9a9cbd7538ea,
+        type: 2}
+      propertyPath: position_marker
+      value: 
+      objectReference: {fileID: 1021562821808000, guid: f0edc38cc42ba41498fe77fadf20ccfb,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 14df390542b1b054695d9a9cbd7538ea, type: 2}
   m_IsPrefabParent: 0
@@ -483,7 +489,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -629,7 +635,7 @@ MonoBehaviour:
   opp3: {fileID: 124771066}
   player: {fileID: 10383242}
   timer: {fileID: 956514266}
-  turn_type_text: {fileID: 0}
+  turn_type_text: {fileID: 1033106417}
   latency_text: {fileID: 1802427440}
   player_prefab: {fileID: 1535144770456548, guid: 3b9286979d7dd6b46838bec807314137,
     type: 2}
@@ -744,7 +750,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1033106415}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2044694244}
@@ -752,7 +758,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -70}
+  m_AnchoredPosition: {x: 97, y: -21}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1033106417

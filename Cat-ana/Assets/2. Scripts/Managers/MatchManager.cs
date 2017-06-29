@@ -152,7 +152,7 @@ public class MatchManager : MonoBehaviour
         script.SetInitialPlayerInfo(pos, id, local_player);
 
         if(local_player)
-            player_go.GetComponent<Renderer>().material.color = new Color(0, 1, 0); //C#
+            player_go.GetComponent<Renderer>().material.color = new Color(0, 1, 0); 
 
         players.Add(player_go);
     }
@@ -175,6 +175,8 @@ public class MatchManager : MonoBehaviour
                 turn_info.turn = turn_type.action;
                 break;
         }
+
+        turn_type_text.text = t_type;
     }
 
     public void UpdateOponentPosition(RTPacket _packet)

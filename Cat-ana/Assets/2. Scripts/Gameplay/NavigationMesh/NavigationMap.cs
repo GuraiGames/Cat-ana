@@ -19,7 +19,9 @@ public class NavigationMap : MonoBehaviour
     private List<GameObject> points = new List<GameObject>();
     private GameObject[,] grid;
 
-    private List<GameObject> spawn_points = new List<GameObject>();
+    [SerializeField]
+    private GameObject position_marker;
+    private GameObject position_marker_instance = null;
 
     void Start()
     {
@@ -30,9 +32,6 @@ public class NavigationMap : MonoBehaviour
 
             NavigationPoint np = current_point_go.GetComponent<NavigationPoint>();
             np.nav_map = this;
-
-            if (np.is_spawn_point)
-                spawn_points.Add(current_point_go);
 
             List<GameObject> nb = np.GetNeighbours();
 
@@ -157,32 +156,6 @@ public class NavigationMap : MonoBehaviour
     {
         public GameObject parent;
         public GameObject point;
-    }
-
-    public GameObject GetSpawnPoint(int index)
-    {
-        GameObject sp = null;
-
-        if(spawn_points.Count-1 <= index)
-        {
-            sp = spawn_points[index];
-        }
-
-        return sp;
-    }
-
-    public Vector3 GetSpawnPointPos(int index)
-    {
-        Vector3 ret = new Vector3(0, 0, 0);
-
-        GameObject sp = GetSpawnPoint(index);
-
-        if(sp != null)
-        {
-            ret = sp.transform.position;
-        }
-
-        return ret;
     }
 
     private GameObject[,] TransformMapToGrid(List<GameObject> p, int map_size_x, int map_size_y)
@@ -323,5 +296,17 @@ public class NavigationMap : MonoBehaviour
         }
 
         return new Vector2(0, 0);
+    }
+
+
+    public void PlaceMarker(Vector3 pos)
+    {
+        if (position_marker_instance != null)
+        {
+            Destroy(position_marker_instance);
+            position_marker_instance = null;
+        }
+
+        position_marker_instance = Instantiate(position_marker, new Vector3(pos.x, pos.y, pos.z), Quaternion.identity);
     }
 }
