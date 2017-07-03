@@ -17,7 +17,7 @@ public class LobbyUI : MonoBehaviour {
     [SerializeField]
     public GameObject searching_ball;
 
-    //private Text curr_text;
+    private Text curr_text;
 
     private MatchInfo match;
 
@@ -40,11 +40,11 @@ public class LobbyUI : MonoBehaviour {
     {
         Debug.Log("Match Found!...");
 
-        //curr_text.text = "Match Found!...";
+        curr_text.text = "Match Found!...";
 
-        //curr_text.alignment = TextAnchor.MiddleCenter;
+        curr_text.alignment = TextAnchor.MiddleCenter;
 
-        //searching_ball.gameObject.SetActive(false);
+        searching_ball.gameObject.SetActive(false);
 
         GameManager game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         GameSparksRTUnity RT_manager = game_manager.GetGameSparksRTManager();
@@ -82,14 +82,14 @@ public class LobbyUI : MonoBehaviour {
     void Start()
     {
         game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        //curr_text = error_panel.GetComponentInChildren<Text>();
+        curr_text = error_panel.GetComponentInChildren<Text>();
 
         GameSparks.Api.Messages.MatchNotFoundMessage.Listener = (message) =>
         {
             Debug.Log("No Match Found...");
-          
-            //curr_text.text = "Match Not Found...";
-            //curr_text.alignment = TextAnchor.MiddleCenter;
+
+            curr_text.text = "Match Not Found...";
+            curr_text.alignment = TextAnchor.MiddleCenter;
 
             cancelbutton.GetComponentInChildren<Text>().text = "OK"; 
 
@@ -105,11 +105,11 @@ public class LobbyUI : MonoBehaviour {
         game_manager.GetNetworkManager().NR_4PMatchMaking();
         Debug.Log("Serching For Players..");
 
-        //PlayBttn.gameObject.SetActive(false);
-        //error_panel.gameObject.SetActive(true);
-        //searching_ball.gameObject.SetActive(true);
+        PlayBttn.gameObject.SetActive(false);
+        error_panel.gameObject.SetActive(true);
+        searching_ball.gameObject.SetActive(true);
 
-        //curr_text.text = "Serching For Players...";
+        curr_text.text = "Serching For Players...";
     }
 
     public void CancelButton()
