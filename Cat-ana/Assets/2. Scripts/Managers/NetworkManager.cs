@@ -35,7 +35,7 @@ public class NetworkManager : MonoBehaviour
     // -----
 
     // Player Connection states
-    
+
     public void OnPlayerConnectedToGame(int _peerId)
     {
         Debug.Log("GSM| Player Connected, " + _peerId);
