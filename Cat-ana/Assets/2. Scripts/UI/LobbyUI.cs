@@ -11,8 +11,16 @@ public class LobbyUI : MonoBehaviour {
     [SerializeField]
     public GameObject error_panel;
 
+<<<<<<< HEAD
     //[SerializeField]
     //public GameObject searching_ball;
+=======
+    [SerializeField]
+    public Button cancelbutton;
+
+    [SerializeField]
+    public GameObject searching_ball;
+>>>>>>> origin/master
 
     //private Text curr_text;
 
@@ -88,7 +96,13 @@ public class LobbyUI : MonoBehaviour {
             //curr_text.text = "Match Not Found...";
             //curr_text.alignment = TextAnchor.MiddleCenter;
 
+<<<<<<< HEAD
             //searching_ball.gameObject.SetActive(false); 
+=======
+            cancelbutton.GetComponentInChildren<Text>().text = "OK"; 
+
+            searching_ball.gameObject.SetActive(false); 
+>>>>>>> origin/master
         };
 
         GameSparks.Api.Messages.MatchFoundMessage.Listener += OnMatchFound;
@@ -104,6 +118,37 @@ public class LobbyUI : MonoBehaviour {
         //searching_ball.gameObject.SetActive(true);
 
         //curr_text.text = "Serching For Players...";
+    }
+
+    public void CancelButton()
+    {
+        if(cancelbutton.GetComponentInChildren<Text>().text == "OK")
+        {
+            PlayBttn.gameObject.SetActive(true);
+            error_panel.gameObject.SetActive(false);
+            searching_ball.gameObject.SetActive(false);
+        }
+
+        else
+        {
+            new GameSparks.Api.Requests.MatchmakingRequest().SetAction("cancel").SetMatchShortCode("4P_NRMATCH")
+           .Send((response) =>
+           {
+               if (response.HasErrors)
+               {
+                   Debug.LogError("error" + response.Errors.JSON);
+               }
+               else
+               {
+                   Debug.Log("cancelled matchmaking succesfully!");
+
+                   PlayBttn.gameObject.SetActive(true);
+                   error_panel.gameObject.SetActive(false);
+                   searching_ball.gameObject.SetActive(false);
+               }
+           });
+        }
+       
     }
 
 
