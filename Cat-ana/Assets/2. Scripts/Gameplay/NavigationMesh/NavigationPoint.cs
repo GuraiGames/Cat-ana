@@ -112,8 +112,18 @@ public class NavigationPoint : MonoBehaviour
                 string id = client_player.GetNetworkId();
                 int pos_x = (int)nav_map.WorldPointToGrid(gameObject).x;
                 int pos_y = (int)nav_map.WorldPointToGrid(gameObject).y;
+                int shadow_x = (int)client_player.GetPlayerShadow().GetNavigationEntity().GetGridPos().x;
+                int shadow_y = (int)client_player.GetPlayerShadow().GetNavigationEntity().GetGridPos().y;
+                bool attack = false;
+                bool revealed = client_player.OnStealth();
 
-                match_manager.SendPlayerPos(id, pos_x, pos_y, 0, 0, false, false);
+                if (client_player.GetPlayerShadow().GetPreviousPositions().Count > 2)
+                {
+                    shadow_x = (int)client_player.GetPlayerShadow().GetNextPos().x;
+                    shadow_y = (int)client_player.GetPlayerShadow().GetNextPos().y;
+                }
+
+                match_manager.SendPlayerPos(id, pos_x, pos_y, shadow_x, shadow_y, attack, revealed);
 
                 nav_map.PlaceMarker(gameObject.transform.position);
             }

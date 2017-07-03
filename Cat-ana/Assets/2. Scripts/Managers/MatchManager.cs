@@ -147,13 +147,31 @@ public class MatchManager : MonoBehaviour
 
         Vector3 pos = nav_map.GridToWorldPoint(pos_x, pos_y).transform.position;
 
+        // Create GameObjects
         GameObject player_go = Instantiate(player_prefab);
-        Player script = player_go.GetComponent<Player>();
-        script.SetInitialPlayerInfo(pos, id, local_player);
 
-        if(local_player)
-            player_go.GetComponent<Renderer>().material.color = new Color(0, 1, 0); 
+        GameObject player_shadow_go = Instantiate(player_prefab);
 
+        // Setup Player
+        Player player_script = player_go.GetComponent<Player>();
+        player_script.SetInitialPlayerInfo(pos, id, local_player, player_shadow_go);
+        player_script.SetStealth(true);
+
+        PlayerShadow player_shadow_script = player_shadow_go.GetComponent<PlayerShadow>();
+        player_shadow_script.SetInitialPlayerShadowInfo(player_go);
+        player_shadow_script.Appear();
+
+        if (local_player)
+        {
+            player_go.GetComponent<Renderer>().material.color = new Color(0, 0.3f, 0);
+            player_shadow_go.GetComponent<Renderer>().material.color = new Color(0, 1, 0);
+        }
+        else
+        {
+            player_script.Desappear();
+        }
+
+        // Add player
         players.Add(player_go);
     }
 
@@ -169,6 +187,13 @@ public class MatchManager : MonoBehaviour
         {
             case "Strategy":
                 turn_info.turn = turn_type.strategy;
+
+                for(int i = 0; i < players.Count; i++)
+                {
+                    Player player = players[i].GetComponent<Player>();
+
+                    player.GetPlayerShadow().AdvanceTurn();
+                }
                 break;
 
             case "Actions":
@@ -206,6 +231,8 @@ public class MatchManager : MonoBehaviour
         if (player != null)
         {
             player_script.GetNavigationEntity().MoveTo(pos_x, pos_y);
+            player_script.GetPlayerShadow().GetNavigationEntity().MoveTo(shadow_x, shadow_y);
+            player_script.GetPlayerShadow().AddPosition(nav_map.GridToWorldPoint(pos_x, pos_y));
 
             Debug.Log("Recived player pos. Id: " + id + ", x:" + pos_x + ", y:" + pos_y);
         }

@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23408606481379762}
   - component: {fileID: 114968123310543862}
   - component: {fileID: 114578035531409448}
+  - component: {fileID: 114580988810444288}
   m_Layer: 0
   m_Name: TmpPlayer
   m_TagString: Player
@@ -37,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1535144770456548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.82, y: -0.018, z: 0.06}
+  m_LocalPosition: {x: -0.9531069, y: -0.544, z: 6.3935165}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -93,6 +94,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7058fd91ae5cf64b8615c820b489cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114580988810444288
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1535144770456548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33dafc2d7f812944197b548d16b42fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114968123310543862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -105,4 +117,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 30
-  map: {fileID: 0}

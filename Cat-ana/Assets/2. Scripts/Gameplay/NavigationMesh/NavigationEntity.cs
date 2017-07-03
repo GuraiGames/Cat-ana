@@ -31,11 +31,6 @@ public class NavigationEntity : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if(Input.GetKey("k"))
-        {
-            MoveTo(2, 2);
-        }
-
         if(is_moving)
         {
             if (Vector3.Distance(gameObject.transform.position, target_point.transform.position) < 0.3f)
@@ -119,4 +114,6 @@ public class NavigationEntity : MonoBehaviour
 
         return ret;
     }
+
+    public NavigationMap GetNavMap() { return nav_map; }
 }
