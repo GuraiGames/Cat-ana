@@ -11,16 +11,11 @@ public class LobbyUI : MonoBehaviour {
     [SerializeField]
     public GameObject error_panel;
 
-<<<<<<< HEAD
-    //[SerializeField]
-    //public GameObject searching_ball;
-=======
     [SerializeField]
     public Button cancelbutton;
 
     [SerializeField]
     public GameObject searching_ball;
->>>>>>> origin/master
 
     //private Text curr_text;
 
@@ -96,13 +91,10 @@ public class LobbyUI : MonoBehaviour {
             //curr_text.text = "Match Not Found...";
             //curr_text.alignment = TextAnchor.MiddleCenter;
 
-<<<<<<< HEAD
-            //searching_ball.gameObject.SetActive(false); 
-=======
             cancelbutton.GetComponentInChildren<Text>().text = "OK"; 
 
             searching_ball.gameObject.SetActive(false); 
->>>>>>> origin/master
+
         };
 
         GameSparks.Api.Messages.MatchFoundMessage.Listener += OnMatchFound;

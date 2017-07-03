@@ -8415,13 +8415,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayBttn: {fileID: 1257247647}
-<<<<<<< HEAD
-  error_panel: {fileID: 1589206054}
-=======
   error_panel: {fileID: 99814852}
   cancelbutton: {fileID: 517562223}
   searching_ball: {fileID: 1049766949}
->>>>>>> origin/master
 --- !u!1 &664223723
 GameObject:
   m_ObjectHideFlags: 0
