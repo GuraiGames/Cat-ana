@@ -130,7 +130,7 @@ public class NavigationMap : MonoBehaviour
 
                 if (curr_point.point == starting_point)
                 {
-                    Debug.Log("Nice");
+                    Debug.Log("Pathfinding finished correctly");
                     break;
                 }
 
