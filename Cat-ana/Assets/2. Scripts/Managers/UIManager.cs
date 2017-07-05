@@ -42,7 +42,10 @@ public class UIManager : MonoBehaviour {
 
     void Start()
     {
-        SetEnableWindow("login_register", true);
+        //SetEnableWindow("login_register", true);
+        SetEnableWindow("lobby", true);
+        SetEnableWindow("scroll_ui", true);
+        SetEnableWindow("global_ui", true);
     }
 
     private void AddWindow(GameObject canvas, string name)
