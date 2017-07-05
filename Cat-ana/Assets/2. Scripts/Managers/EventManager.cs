@@ -9,6 +9,14 @@ public class EventManager : MonoBehaviour
 
     public delegate void MyEventHandler(MyEvent ev);
 
+    private void Update()
+    {
+        if (events.Count > 150)
+        {
+            events.RemoveAt(0);
+        }
+    }
+
     public MyEvent CreateEvent(string name, MyEventHandler listener)
     {
         MyEvent ret = null;
@@ -19,18 +27,14 @@ public class EventManager : MonoBehaviour
         return ret;
     }
 
-    private void Update()
+    public QueueEvent CreateQueueEvent(string name, MyEventHandler listener)
     {
-        if(events.Count > 150)
-        {
-            events.RemoveAt(0);
-        }
-    }
+        QueueEvent ret = null;
 
-    public void CreateQueueEvent(string name, MyEventHandler listener)
-    {
-        QueueEvent ev = new QueueEvent(name, listener, QueueEventFinished, DeleteEvent);
-        queue_events.Add(ev);
+        ret = new QueueEvent(name, listener, QueueEventFinished, DeleteEvent);
+        queue_events.Add(ret);
+
+        return ret;
     }
 
     public MyEvent GetEvent(string eventName)
@@ -70,8 +74,10 @@ public class EventManager : MonoBehaviour
 
     public void QueueEventFinished(MyEvent ev)
     {
-        if(queue_events[0] == ev)
-            queue_events.RemoveAt(0);
+        if (queue_events[0] == ev)
+        {
+            ev.Delete();
+        }
 
         if (queue_events.Count > 0)
             queue_events[0].TriggerEvent();
@@ -88,13 +94,23 @@ public class EventManager : MonoBehaviour
         public MyEvent(string name, MyEventHandler listener, MyEventHandler remove_listener)
         {
             _name = name;
-            _listener = listener;
+            _listeners.Add(listener);
+        }
+
+        public void AddListener(MyEventHandler listener)
+        {
+            _listeners.Add(listener);
+        }
+
+        public void RemoveListener(MyEventHandler listener)
+        {
+            _listeners.Remove(listener);
         }
 
         public void TriggerEvent()
         {
-            if (_listener != null)
-                _listener.Invoke(this);
+            for(int i = 0; i<_listeners.Count;i++)
+                _listeners[i].Invoke(this);
         }
 
         public void AddString(int index, string value)
@@ -168,7 +184,7 @@ public class EventManager : MonoBehaviour
         }
 
         private string _name = "";
-        private MyEventHandler _listener = null;
+        List<MyEventHandler> _listeners = null;
         private MyEventHandler _delete_listener = null;
         List<string> _data = new List<string>();
         bool disabled = false;

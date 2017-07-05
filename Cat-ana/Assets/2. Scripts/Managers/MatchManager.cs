@@ -183,7 +183,7 @@ public class MatchManager : MonoBehaviour
         string t_type = (string)_packet.Data.GetString(1);
         int duration = (int)_packet.Data.GetInt(2);
 
-        //turn_type_text.text = t_type;
+        turn_type_text.text = t_type;
         turn_info.turn_time_left = duration;
 
         switch(t_type)
@@ -197,14 +197,16 @@ public class MatchManager : MonoBehaviour
 
                     player.AdvanceTurn();
                 }
+
+                attack_button.enabled = true;
                 break;
 
             case "Actions":
                 turn_info.turn = turn_type.action;
+
+                attack_button.enabled = false;
                 break;
         }
-
-        turn_type_text.text = t_type;
     }
 
     public void UpdatePlayersPosition(RTPacket _packet)
