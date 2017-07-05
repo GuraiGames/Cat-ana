@@ -9,6 +9,8 @@ public class PlayerShadow : MonoBehaviour
 
     List<GameObject> prev_pos = new List<GameObject>();
 
+    private int stealth_distance = 2;
+
 	// Private functions
 	private void Start () 
 	{
@@ -31,7 +33,7 @@ public class PlayerShadow : MonoBehaviour
     {
         Vector2 ret = navigation_entity.GetGridPos();
 
-        if (prev_pos.Count >= 2)
+        if (prev_pos.Count >= stealth_distance)
         {
             ret = navigation_entity.GetNavMap().WorldPointToGrid(prev_pos[0]);
         }
@@ -55,6 +57,8 @@ public class PlayerShadow : MonoBehaviour
 
     public void Appear()
     {
+        prev_pos.Clear();
+
         gameObject.transform.position = _player.transform.position;
 
         gameObject.GetComponent<MeshRenderer>().enabled = true;
@@ -66,4 +70,9 @@ public class PlayerShadow : MonoBehaviour
     }
 
     public List<GameObject> GetPreviousPositions() { return prev_pos; }
+
+    public void SetStealthDistance(int set)
+    {
+        stealth_distance = set;
+    }
 }

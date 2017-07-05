@@ -19,6 +19,8 @@ public class EventManager : MonoBehaviour
 
     public MyEvent CreateEvent(string name, MyEventHandler listener)
     {
+        DeleteEvent(name);
+
         MyEvent ret = null;
 
         ret = new MyEvent(name, listener, DeleteEvent);
@@ -134,6 +136,13 @@ public class EventManager : MonoBehaviour
             _data[index] = value.ToString();
         }
 
+        public void AddGameObject(int index, GameObject go)
+        {
+            ExpandListToIndex(index);
+
+            _data[index] = go.tag = "EM" + go.GetInstanceID().ToString();
+        }
+
         public string GetString(int index)
         {
             return _data[index];
@@ -150,6 +159,15 @@ public class EventManager : MonoBehaviour
                 return true;
             else
                 return false;
+        }
+
+        public GameObject GetGameObject(int index)
+        {
+            GameObject ret = null;
+
+            ret = GameObject.FindGameObjectWithTag("EM" + _data[index]);
+
+            return ret;
         }
 
         public void Delete()

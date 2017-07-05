@@ -12,10 +12,17 @@ public class MatchManager : MonoBehaviour
     private NetworkManager net_manager = null;
 
     // UI
-    public Text opp1, opp2, opp3, player;
-    public Text timer, turn_type_text;
-    public Text latency_text;
-    public Button attack_button;
+    [SerializeField]
+    private Text opp1, opp2, opp3, player;
+
+    [SerializeField]
+    private Text timer, turn_type_text;
+
+    [SerializeField]
+    private Text latency_text;
+
+    [SerializeField]
+    private Button attack_button;
 
     // Server
     private int server_delay, latency, round_trip; //All in ms
@@ -31,6 +38,7 @@ public class MatchManager : MonoBehaviour
 
     // Turn
     private TurnInfo turn_info = new TurnInfo();
+    int players_ready_to_attack = 0;
 
     // Use this for initialization
     void Start()
@@ -60,6 +68,8 @@ public class MatchManager : MonoBehaviour
     void Update()
     {
         DecreaseTurnTime();
+
+        CheckIfCanAttack();
     }
 
     private IEnumerator SendTimeStamp()
@@ -191,21 +201,23 @@ public class MatchManager : MonoBehaviour
             case "Strategy":
                 turn_info.turn = turn_type.strategy;
 
-                for(int i = 0; i < players.Count; i++)
-                {
-                    Player player = players[i].GetComponent<Player>();
-
-                    player.AdvanceTurn();
-                }
-
                 attack_button.enabled = true;
+                attack_button.interactable = true;
                 break;
 
             case "Actions":
                 turn_info.turn = turn_type.action;
 
+                attack_button.interactable = false;
                 attack_button.enabled = false;
                 break;
+        }
+
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            Player player = players[i].GetComponent<Player>();
+            player.AdvanceTurn(turn_info);
         }
     }
 
@@ -235,11 +247,18 @@ public class MatchManager : MonoBehaviour
 
         if (player != null)
         {
+            //if(attack == "true")
+            //    player_script.SetAttack(true);
+            //else
+            //    player_script.SetAttack(false);
+
             player_script.GetNavigationEntity().MoveTo(pos_x, pos_y);
             player_script.GetPlayerShadow().GetNavigationEntity().MoveTo(shadow_x, shadow_y);
             player_script.GetPlayerShadow().AddPosition(nav_map.GridToWorldPoint(pos_x, pos_y));
 
             Debug.Log("Recived player pos. Id: " + id + ", x:" + pos_x + ", y:" + pos_y);
+
+            players_ready_to_attack++;
         }
     }
 
@@ -320,7 +339,7 @@ public class MatchManager : MonoBehaviour
     {
         Player player = GetClientPlayer().GetComponent<Player>();
 
-        player.Attack();
+        player.SetAttack(true);
 
         string id = player.GetNetworkId();
         int pos_x = (int)player.GetTargetPos().x;
@@ -333,7 +352,7 @@ public class MatchManager : MonoBehaviour
         SendPlayerPos(id, pos_x, pos_y, shadow_x, shadow_y, attack, revealed);
     }
 
-    public void OnTileClicked(EventManager.MyEvent ev)
+    public void TileClicked(int x, int y)
     {
         if (GetTurnInfo().turn == turn_type.strategy)
         {
@@ -342,8 +361,8 @@ public class MatchManager : MonoBehaviour
             GameObject player_pos = client_player.GetNavigationEntity().GetClosestNavPoint();
             
             string id = client_player.GetNetworkId();
-            int pos_x = ev.GetInt(0);
-            int pos_y = ev.GetInt(1);
+            int pos_x = x;
+            int pos_y = y;
             int shadow_x = (int)client_player.GetPlayerShadow().GetNextPos().x;
             int shadow_y = (int)client_player.GetPlayerShadow().GetNextPos().y;
             bool attack = client_player.GetAttack();
@@ -353,6 +372,42 @@ public class MatchManager : MonoBehaviour
 
             nav_map.PlaceMarker(nav_map.GridToWorldPoint(pos_x, pos_y).transform.position);
         }
+    }
+
+    public void CheckIfCanAttack()
+    {
+        if (turn_info.turn == turn_type.action && players_ready_to_attack == 4)
+        {
+            bool can_attack = true;
+
+            for (int i = 0; i < players.Count; i++)
+            {
+                Player player = players[i].GetComponent<Player>();
+
+                if (player.IsMoving())
+                    can_attack = false;
+            }
+
+            if (can_attack)
+            {
+                for (int i = 0; i < players.Count; i++)
+                {
+                    Player player = players[i].GetComponent<Player>();
+
+                    if (player.GetAttack())
+                    {
+                        player.Attack();
+                    }
+                }
+
+                players_ready_to_attack = 0;
+            }
+        }
+    }
+
+    public List<GameObject> GetPlayers()
+    {
+        return players;
     }
 
     public struct TurnInfo

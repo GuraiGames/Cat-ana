@@ -5,14 +5,16 @@ using UnityEngine.Events;
 
 public class NavigationEntity : MonoBehaviour
 {
-    [SerializeField]
-    private float speed;
+    GameManager game_manager = null;
+    EventManager event_manager = null;
 
+    // Map
     private GameObject map;
-
     private NavigationMap nav_map = null;
 
     // Movement
+    [SerializeField]
+    private float speed;
     GameObject target_point = null;
     private List<Vector3> path = new List<Vector3>();
     private bool is_moving = false;
@@ -24,8 +26,12 @@ public class NavigationEntity : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        event_manager = game_manager.GetEventManager();
         map = GameObject.FindGameObjectWithTag("Map");
         nav_map = map.gameObject.GetComponent<NavigationMap>();
+
+       
     }
 	
 	// Update is called once per frame

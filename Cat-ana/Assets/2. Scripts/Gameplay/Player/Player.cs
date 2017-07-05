@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private MatchManager match_manager = null;
     private NavigationEntity navigation_entity = null;
     private PlayerShadow _shadow = null;
 
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
 
 	void Start ()
     {
+        match_manager = GameObject.FindGameObjectWithTag("MatchManager").GetComponent<MatchManager>();
         navigation_entity = gameObject.GetComponent<NavigationEntity>();
 	}
 
@@ -61,15 +63,23 @@ public class Player : MonoBehaviour
         return _shadow.GetComponent<PlayerShadow>();
     }
 
-    public void AdvanceTurn()
+    public void AdvanceTurn(MatchManager.TurnInfo turn_info)
     {
-        _shadow.AdvanceTurn();
-        _attack = false;
+        switch(turn_info.turn)
+        {
+            case MatchManager.turn_type.strategy:
+                _shadow.AdvanceTurn();
+                _attack = false;
+                break;
+
+            case MatchManager.turn_type.action:
+                break;
+        }
     }
 
-    public void Attack()
+    public void SetAttack(bool set)
     {
-        _attack = true;
+        _attack = set;
     }
 
     public bool GetAttack()
@@ -83,6 +93,8 @@ public class Player : MonoBehaviour
 
         if (_life < 0)
             _life = 0;
+
+        Debug.Log("Damage dealt");
     }
 
     public int GetLife()
@@ -98,5 +110,50 @@ public class Player : MonoBehaviour
     public Vector2 GetTargetPos()
     {
         return target_pos;
+    }
+
+    public bool IsMoving()
+    {
+        return navigation_entity.IsMoving();
+    }
+
+    public void LoseStealth()
+    {
+        SetStealth(false);
+        Appear();
+        GetPlayerShadow().Desappear();
+
+        if(IsPlayer())
+            gameObject.GetComponent<Renderer>().material.color = new Color(0.3f, 0, 0);
+        else
+            gameObject.GetComponent<Renderer>().material.color = new Color(1, 0, 0);
+    }
+
+    public void GetStealth()
+    {
+        SetStealth(true);
+        Desappear();
+        GetPlayerShadow().Appear();
+    }
+
+    public void Attack()
+    {
+        GameObject pos = navigation_entity.GetPos();
+        List<GameObject> players = match_manager.GetPlayers();
+
+        for(int i = 0; i < players.Count; i++)
+        {
+            Player curr_player = players[i].GetComponent<Player>();
+
+            if(curr_player._network_id != _network_id)
+            {
+                if(curr_player.GetNavigationEntity().GetPos() == GetNavigationEntity().GetPos())
+                {
+                    curr_player.DealDamage(1);
+                }
+            }
+        }
+
+        LoseStealth();
     }
 }

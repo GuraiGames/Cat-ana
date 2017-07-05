@@ -28,17 +28,12 @@ public class NavigationPoint : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         match_manager = GameObject.FindGameObjectWithTag("MatchManager").GetComponent<MatchManager>();
 
         coll = gameObject.AddComponent<BoxCollider>();
         coll.isTrigger = true;
 
         coll.size = new Vector3(tile_size, 0.1f, tile_size);
-
-        event_manager = game_manager.GetEventManager();
-
-        event_manager.CreateEvent("tile_click", match_manager.OnTileClicked);
     }
 
     // Update is called once per frame
@@ -119,12 +114,9 @@ public class NavigationPoint : MonoBehaviour
 
         if (is_range_point)
         {
-            EventManager.MyEvent ev = event_manager.GetEvent("tile_click");
+            Vector2 pos = nav_map.WorldPointToGrid(gameObject);
 
-            ev.AddInt(0, (int)nav_map.WorldPointToGrid(gameObject).x);
-            ev.AddInt(1, (int)nav_map.WorldPointToGrid(gameObject).y);
-
-            ev.TriggerEvent();
+            match_manager.TileClicked((int)pos.x, (int)pos.y);
         }
     }
 
