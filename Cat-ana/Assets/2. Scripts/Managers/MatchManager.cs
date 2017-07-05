@@ -15,6 +15,7 @@ public class MatchManager : MonoBehaviour
     public Text opp1, opp2, opp3, player;
     public Text timer, turn_type_text;
     public Text latency_text;
+    public Button attack_button;
 
     // Server
     private int server_delay, latency, round_trip; //All in ms
@@ -51,6 +52,8 @@ public class MatchManager : MonoBehaviour
         StartCoroutine(DelayTurnStart());
 
         turn_info.turn = turn_type.stop;
+
+        attack_button.interactable = false;
     }
 
     // Update is called once per frame
@@ -192,7 +195,7 @@ public class MatchManager : MonoBehaviour
                 {
                     Player player = players[i].GetComponent<Player>();
 
-                    player.GetPlayerShadow().AdvanceTurn();
+                    player.AdvanceTurn();
                 }
                 break;
 
@@ -204,7 +207,7 @@ public class MatchManager : MonoBehaviour
         turn_type_text.text = t_type;
     }
 
-    public void UpdateOponentPosition(RTPacket _packet)
+    public void UpdatePlayersPosition(RTPacket _packet)
     {
         string id = _packet.Data.GetString(1);
         int pos_x = (int)_packet.Data.GetInt(2);
@@ -277,12 +280,13 @@ public class MatchManager : MonoBehaviour
     public void SendPlayerPos(string id, int pos_x, int pos_y, int shadow_x, int shadow_y, bool attack, bool reveled)
     {
         GameObject player = null;
+        Player player_script = null;
 
         for(int i = 0; i < players.Count; i++)
         {
-            Player pl = players[i].GetComponent<Player>();
+            player_script = players[i].GetComponent<Player>();
 
-            if(pl.GetNetworkId() == id)
+            if(player_script.GetNetworkId() == id)
             {
                 player = players[i];
                 break;
@@ -291,6 +295,8 @@ public class MatchManager : MonoBehaviour
 
         if(player != null)
         {
+            player_script.SetTargetPos(new Vector2(pos_x, pos_y));
+
             using (RTData data = RTData.Get())
             {
                 data.SetString(1, id);
@@ -306,6 +312,45 @@ public class MatchManager : MonoBehaviour
                 Debug.Log("Sending position to x:" + pos_x + ", y:" + pos_y);
             }
         }   
+    }
+
+    public void ClientAttack()
+    {
+        Player player = GetClientPlayer().GetComponent<Player>();
+
+        player.Attack();
+
+        string id = player.GetNetworkId();
+        int pos_x = (int)player.GetTargetPos().x;
+        int pos_y = (int)player.GetTargetPos().y;
+        int shadow_x = (int)player.GetPlayerShadow().GetNextPos().x;
+        int shadow_y = (int)player.GetPlayerShadow().GetNextPos().y;
+        bool attack = player.GetAttack();
+        bool revealed = player.OnStealth();
+
+        SendPlayerPos(id, pos_x, pos_y, shadow_x, shadow_y, attack, revealed);
+    }
+
+    public void OnTileClicked(EventManager.MyEvent ev)
+    {
+        if (GetTurnInfo().turn == turn_type.strategy)
+        {
+            Player client_player = GetClientPlayer().GetComponent<Player>();
+
+            GameObject player_pos = client_player.GetNavigationEntity().GetClosestNavPoint();
+            
+            string id = client_player.GetNetworkId();
+            int pos_x = ev.GetInt(0);
+            int pos_y = ev.GetInt(1);
+            int shadow_x = (int)client_player.GetPlayerShadow().GetNextPos().x;
+            int shadow_y = (int)client_player.GetPlayerShadow().GetNextPos().y;
+            bool attack = client_player.GetAttack();
+            bool revealed = client_player.OnStealth();
+
+            SendPlayerPos(id, pos_x, pos_y, shadow_x, shadow_y, attack, revealed);
+
+            nav_map.PlaceMarker(nav_map.GridToWorldPoint(pos_x, pos_y).transform.position);
+        }
     }
 
     public struct TurnInfo

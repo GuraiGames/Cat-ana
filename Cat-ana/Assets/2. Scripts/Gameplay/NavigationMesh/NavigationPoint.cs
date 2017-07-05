@@ -4,14 +4,8 @@ using UnityEngine;
 
 public class NavigationPoint : MonoBehaviour
 {
-    private float tile_size = 2;
-
     [HideInInspector]
     public NavigationMap nav_map = null;
-    public MatchManager match_manager = null;
-    Player client_player = null;
-
-    private BoxCollider coll = null;
 
     [SerializeField]
     private List<GameObject> neighbours = new List<GameObject>();
@@ -19,15 +13,32 @@ public class NavigationPoint : MonoBehaviour
     [SerializeField]
     public bool is_spawn_point;
 
+    private float tile_size = 2;
+
+    private BoxCollider coll = null;
+
+    private MatchManager match_manager = null;
+
+    private GameManager game_manager = null;
+
+    private EventManager event_manager = null;
+
+    Player client_player = null;
+    
     // Use this for initialization
     void Start()
     {
+        game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         match_manager = GameObject.FindGameObjectWithTag("MatchManager").GetComponent<MatchManager>();
 
         coll = gameObject.AddComponent<BoxCollider>();
         coll.isTrigger = true;
 
         coll.size = new Vector3(tile_size, 0.1f, tile_size);
+
+        event_manager = game_manager.GetEventManager();
+
+        event_manager.CreateEvent("tile_click", match_manager.OnTileClicked);
     }
 
     // Update is called once per frame
@@ -88,46 +99,76 @@ public class NavigationPoint : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (match_manager.GetTurnInfo().turn == MatchManager.turn_type.strategy)
+        if (client_player == null)
+            client_player = match_manager.GetClientPlayer().GetComponent<Player>();
+
+        // Check if point is on range
+        GameObject player_pos = client_player.GetNavigationEntity().GetClosestNavPoint();
+
+        List<GameObject> points = nav_map.GetPointsFromExpansion(1, player_pos);
+
+        bool is_range_point = false;
+        for (int i = 0; i < points.Count; i++)
         {
-            if (client_player == null)
-                client_player = match_manager.GetClientPlayer().GetComponent<Player>();
-
-            GameObject player_pos = client_player.GetNavigationEntity().GetClosestNavPoint();
-
-            List<GameObject> points = nav_map.GetPointsFromExpansion(1, player_pos);
-
-            bool is_range_point = false;
-            for (int i = 0; i < points.Count; i++)
+            if (points[i] == gameObject)
             {
-                if (points[i] == gameObject)
-                {
-                    is_range_point = true;
-                    break;
-                }
-            }
-
-            if (is_range_point)
-            {
-                string id = client_player.GetNetworkId();
-                int pos_x = (int)nav_map.WorldPointToGrid(gameObject).x;
-                int pos_y = (int)nav_map.WorldPointToGrid(gameObject).y;
-                int shadow_x = (int)client_player.GetPlayerShadow().GetNavigationEntity().GetGridPos().x;
-                int shadow_y = (int)client_player.GetPlayerShadow().GetNavigationEntity().GetGridPos().y;
-                bool attack = false;
-                bool revealed = client_player.OnStealth();
-
-                if (client_player.GetPlayerShadow().GetPreviousPositions().Count > 2)
-                {
-                    shadow_x = (int)client_player.GetPlayerShadow().GetNextPos().x;
-                    shadow_y = (int)client_player.GetPlayerShadow().GetNextPos().y;
-                }
-
-                match_manager.SendPlayerPos(id, pos_x, pos_y, shadow_x, shadow_y, attack, revealed);
-
-                nav_map.PlaceMarker(gameObject.transform.position);
+                is_range_point = true;
+                break;
             }
         }
+
+        if (is_range_point)
+        {
+            EventManager.MyEvent ev = event_manager.GetEvent("tile_click");
+
+            ev.AddInt(0, (int)nav_map.WorldPointToGrid(gameObject).x);
+            ev.AddInt(1, (int)nav_map.WorldPointToGrid(gameObject).y);
+
+            ev.TriggerEvent();
+        }
+
+        //if (match_manager.GetTurnInfo().turn == MatchManager.turn_type.strategy)
+        //{
+        //    if (client_player == null)
+        //        client_player = match_manager.GetClientPlayer().GetComponent<Player>();
+
+        //    GameObject player_pos = client_player.GetNavigationEntity().GetClosestNavPoint();
+
+        //    List<GameObject> points = nav_map.GetPointsFromExpansion(1, player_pos);
+
+        //    bool is_range_point = false;
+        //    for (int i = 0; i < points.Count; i++)
+        //    {
+        //        if (points[i] == gameObject)
+        //        {
+        //            is_range_point = true;
+        //            break;
+        //        }
+        //    }
+
+        //    if (is_range_point)
+        //    {
+        //        string id = client_player.GetNetworkId();
+        //        int pos_x = (int)nav_map.WorldPointToGrid(gameObject).x;
+        //        int pos_y = (int)nav_map.WorldPointToGrid(gameObject).y;
+        //        int shadow_x = (int)client_player.GetPlayerShadow().GetNextPos().x;
+        //        int shadow_y = (int)client_player.GetPlayerShadow().GetNextPos().y;
+        //        bool attack = client_player.GetAttack();
+        //        bool revealed = client_player.OnStealth();
+
+        //        //if (client_player.GetPlayerShadow().GetPreviousPositions().Count > 2)
+        //        //{
+        //        //    shadow_x = (int)client_player.GetPlayerShadow().GetNextPos().x;
+        //        //    shadow_y = (int)client_player.GetPlayerShadow().GetNextPos().y;
+        //        //}
+
+        //        match_manager.SendPlayerPos(id, pos_x, pos_y, shadow_x, shadow_y, attack, revealed);
+
+        //        nav_map.PlaceMarker(gameObject.transform.position);
+        //    }
+        //}
+
+        // Debug -----------------------------------------------------------------------------
 
         //client_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 

@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private NetworkManager network_manager = null;
 
+    [SerializeField]
+    private EventManager event_manager = null;
+
     public string playerID;
 
     public GameSparksUnity GetGameSparksManager()
@@ -36,5 +39,10 @@ public class GameManager : MonoBehaviour
     public NetworkManager GetNetworkManager()
     {
         return network_manager;
+    }
+
+    public EventManager GetEventManager()
+    {
+        return event_manager;
     }
 }

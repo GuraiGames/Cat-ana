@@ -88,7 +88,7 @@ public class NetworkManager : MonoBehaviour
                 match_manager.StartNewTurn(_packet);
                 break;
             case 122:
-                match_manager.UpdateOponentPosition(_packet);
+                match_manager.UpdatePlayersPosition(_packet);
                 break;
         }
     }
