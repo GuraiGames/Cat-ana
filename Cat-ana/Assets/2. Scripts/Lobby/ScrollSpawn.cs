@@ -244,23 +244,7 @@ public class ScrollSpawn : MonoBehaviour
                 }
                 else
                 {
-                    new GameSparks.Api.Requests.LogEventRequest()
-                               .SetEventKey("GET_SCROLLS")
-                               .Send((scroll_response) =>
-                               {
-                                   if (!scroll_response.HasErrors)
-                                   {
-                                       Debug.Log("Scrolls found");
-
-                                       GameSparks.Core.GSData data = scroll_response.ScriptData.GetGSData("player_scrolls");
-                                       GameSparks.Core.GSData time = scroll_response.ScriptData.GetGSData("time_now");
-                                       SetScroll(data, (long)time.GetLong("current_time"));
-                                   }
-                                   else
-                                   {
-                                       Debug.Log("Error finding scrolls");
-                                   }
-                               });
+                    GetScrolls();
                 }
             });
   
@@ -321,7 +305,7 @@ public class ScrollSpawn : MonoBehaviour
                       }
                       else
                       {
-                          OpenScroll(scroll_num);
+                          GetScrolls();
                           currency.ModifyCurrency(coins_cost, 1, false); // For Coins
                       }
                   });

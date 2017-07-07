@@ -9,6 +9,7 @@ public class ScrollRectSnap : MonoBehaviour {
     public GameObject[] main_menu_go;
     public GameObject scroll_menu;
     public RectTransform center;
+    public GameObject scrollable_panel;
     public int start_go = 1;
 
     private float[] distance;   // All buttons' distance to the center
@@ -29,7 +30,7 @@ public class ScrollRectSnap : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (scroll_menu.activeSelf)
+        if (scroll_menu.activeSelf && scrollable_panel.GetComponent<ScrollRect>().enabled)
         {
             for (int i = 0; i < main_menu_go.Length; i++)
             {
@@ -58,7 +59,7 @@ public class ScrollRectSnap : MonoBehaviour {
 
     void LerpToGO(int position)
     {
-        if (scroll_menu.activeSelf)
+        if (scroll_menu.activeSelf && scrollable_panel.GetComponent<ScrollRect>().enabled)
         {
             float new_x = Mathf.Lerp(panel.anchoredPosition.x, position, Time.deltaTime * 10f);
             Vector2 new_position = new Vector2(new_x, panel.anchoredPosition.y);
@@ -69,7 +70,7 @@ public class ScrollRectSnap : MonoBehaviour {
 
     public void ToggleDrag(bool toggle)
     {
-        if (scroll_menu.activeSelf)
+        if (scroll_menu.activeSelf && scrollable_panel.GetComponent<ScrollRect>().enabled)
         {
             dragging = toggle;
 
@@ -82,7 +83,7 @@ public class ScrollRectSnap : MonoBehaviour {
 
     public void GoToGO(int game_object_index)
     {
-        if (scroll_menu.activeSelf)
+        if (scroll_menu.activeSelf && scrollable_panel.GetComponent<ScrollRect>().enabled)
         {
             target_nearest_go = false; // Stop Lerping
             min_num = game_object_index;

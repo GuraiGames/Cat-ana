@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
 
@@ -27,6 +28,9 @@ public class UIManager : MonoBehaviour {
 
     [SerializeField]
     private GameObject global_ui;
+
+    [SerializeField]
+    private GameObject scrollable_panel;
 
     void Awake ()
     {
@@ -104,6 +108,26 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+    public void ToggleWindow(string name)
+    {
+
+        for (int i = 0; i < windows.Count; i++)
+        {
+            if (windows[i].GetName() == name)
+            {
+                if (windows[i].GetCanvas().activeSelf)
+                {
+                    windows[i].SetEnabled(false);
+                }
+                else
+                {
+                    windows[i].SetEnabled(true);
+                }
+                break;
+            }
+        }
+    }
+
     class Window
     {
         public Window(GameObject _canvas, string _name)
@@ -132,4 +156,10 @@ public class UIManager : MonoBehaviour {
     }
 
     private List<Window> windows = new List<Window>();
+
+    public void ToggleScroll()
+    {
+        scrollable_panel.GetComponent<ScrollRect>().enabled = !scrollable_panel.GetComponent<ScrollRect>().enabled;
+    }
+
 }
