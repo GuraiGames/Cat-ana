@@ -43,7 +43,7 @@ public class PlayerShadow : MonoBehaviour
 
     public void AdvanceTurn()
     {
-        if (prev_pos.Count >= 2)
+        if (prev_pos.Count >= stealth_distance)
         {
             prev_pos.RemoveAt(0);
         }

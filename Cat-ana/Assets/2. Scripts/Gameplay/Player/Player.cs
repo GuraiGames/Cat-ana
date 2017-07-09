@@ -9,8 +9,9 @@ public class Player : MonoBehaviour
     private PlayerShadow _shadow = null;
 
     private string _network_id = "";
-    private bool _is_player = false;
+    private bool _is_client = false;
     private bool _stealth = false;
+    private bool _visible = false;
     private bool _attack = false;
     private int _life = 0;
     private Vector2 target_pos = new Vector2(0, 0);
@@ -21,11 +22,11 @@ public class Player : MonoBehaviour
         navigation_entity = gameObject.GetComponent<NavigationEntity>();
 	}
 
-    public void SetInitialPlayerInfo(Vector3 pos, string network_id, bool is_player, GameObject shadow, int life = 0)
+    public void SetInitialPlayerInfo(Vector3 pos, string network_id, bool is_client, GameObject shadow, int life = 0)
     {
         gameObject.transform.position = pos;
         _network_id = network_id;
-        _is_player = is_player;
+        _is_client = is_client;
         _shadow = shadow.GetComponent<PlayerShadow>();
         _life = life;
 
@@ -34,21 +35,23 @@ public class Player : MonoBehaviour
 
     public string GetNetworkId() { return _network_id; }
 
-    public bool IsPlayer() { return _is_player; }
+    public bool IsClient() { return _is_client; }
 
     public NavigationEntity GetNavigationEntity() { return navigation_entity; }
 
     public void Desappear()
     {
         gameObject.GetComponent<MeshRenderer>().enabled = false;
+        _visible = false;
     }
 
     public void Appear()
     {
         gameObject.GetComponent<MeshRenderer>().enabled = true;
+        _visible = true;
     }
 
-    public bool OnStealth()
+    public bool GetStealth()
     {
         return _stealth;
     }
@@ -56,6 +59,11 @@ public class Player : MonoBehaviour
     public void SetStealth(bool set)
     {
         _stealth = set;
+    }
+
+    public bool GetVisible()
+    {
+        return _visible;
     }
 
     public PlayerShadow GetPlayerShadow()
@@ -120,19 +128,31 @@ public class Player : MonoBehaviour
     public void LoseStealth()
     {
         SetStealth(false);
+        _visible = true;
+
         Appear();
         GetPlayerShadow().Desappear();
 
-        if(IsPlayer())
+        if(IsClient())
             gameObject.GetComponent<Renderer>().material.color = new Color(0.3f, 0, 0);
         else
             gameObject.GetComponent<Renderer>().material.color = new Color(1, 0, 0);
     }
 
-    public void GetStealth()
+    public void GainStealth()
     {
         SetStealth(true);
-        Desappear();
+        _visible = false;
+
+        if (IsClient())
+        {
+            gameObject.GetComponent<Renderer>().material.color = new Color(0, 0.3f, 0);
+        }
+        else
+        {
+            Desappear();
+        }
+
         GetPlayerShadow().Appear();
     }
 

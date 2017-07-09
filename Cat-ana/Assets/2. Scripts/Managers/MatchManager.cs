@@ -38,7 +38,7 @@ public class MatchManager : MonoBehaviour
 
     // Turn
     private TurnInfo turn_info = new TurnInfo();
-    int players_ready_to_attack = 0;
+    int players_ready_perform_actions = 0;
 
     // Use this for initialization
     void Start()
@@ -69,7 +69,7 @@ public class MatchManager : MonoBehaviour
     {
         DecreaseTurnTime();
 
-        CheckIfCanAttack();
+        PerformActions();
     }
 
     private IEnumerator SendTimeStamp()
@@ -247,10 +247,15 @@ public class MatchManager : MonoBehaviour
 
         if (player != null)
         {
-            //if(attack == "true")
-            //    player_script.SetAttack(true);
-            //else
-            //    player_script.SetAttack(false);
+            if (attack == "true")
+                player_script.SetAttack(true);
+            else
+                player_script.SetAttack(false);
+
+            if (revealed == "true")
+                player_script.SetStealth(false);
+            else
+                player_script.SetStealth(true);
 
             player_script.GetNavigationEntity().MoveTo(pos_x, pos_y);
             player_script.GetPlayerShadow().GetNavigationEntity().MoveTo(shadow_x, shadow_y);
@@ -258,7 +263,7 @@ public class MatchManager : MonoBehaviour
 
             Debug.Log("Recived player pos. Id: " + id + ", x:" + pos_x + ", y:" + pos_y);
 
-            players_ready_to_attack++;
+            players_ready_perform_actions++;
         }
     }
 
@@ -288,7 +293,7 @@ public class MatchManager : MonoBehaviour
         {
             Player player_script = players[i].GetComponent<Player>();
 
-            if (player_script.IsPlayer())
+            if (player_script.IsClient())
             {
                 player = players[i];
                 break;
@@ -325,8 +330,8 @@ public class MatchManager : MonoBehaviour
                 data.SetInt(3, pos_y);
                 data.SetInt(4, shadow_x);
                 data.SetInt(5, shadow_y);
-                data.SetString(6, attack.ToString());
-                data.SetString(7, reveled.ToString());
+                data.SetString(6, attack.ToString().ToLower());
+                data.SetString(7, reveled.ToString().ToLower());
 
                 RT_manager.SendData(122, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data, new int[] { 0 }); // send to peerId -> 0, which is the server
 
@@ -347,7 +352,7 @@ public class MatchManager : MonoBehaviour
         int shadow_x = (int)player.GetPlayerShadow().GetNextPos().x;
         int shadow_y = (int)player.GetPlayerShadow().GetNextPos().y;
         bool attack = player.GetAttack();
-        bool revealed = player.OnStealth();
+        bool revealed = player.GetStealth();
 
         SendPlayerPos(id, pos_x, pos_y, shadow_x, shadow_y, attack, revealed);
     }
@@ -366,7 +371,7 @@ public class MatchManager : MonoBehaviour
             int shadow_x = (int)client_player.GetPlayerShadow().GetNextPos().x;
             int shadow_y = (int)client_player.GetPlayerShadow().GetNextPos().y;
             bool attack = client_player.GetAttack();
-            bool revealed = client_player.OnStealth();
+            bool revealed = client_player.GetStealth();
 
             SendPlayerPos(id, pos_x, pos_y, shadow_x, shadow_y, attack, revealed);
 
@@ -374,33 +379,46 @@ public class MatchManager : MonoBehaviour
         }
     }
 
-    public void CheckIfCanAttack()
+    public void PerformActions()
     {
-        if (turn_info.turn == turn_type.action && players_ready_to_attack == 4)
+        if (turn_info.turn == turn_type.action && players_ready_perform_actions == 4)
         {
-            bool can_attack = true;
+            bool can_perform = true;
 
             for (int i = 0; i < players.Count; i++)
             {
                 Player player = players[i].GetComponent<Player>();
 
                 if (player.IsMoving())
-                    can_attack = false;
+                    can_perform = false;
             }
 
-            if (can_attack)
+            if (can_perform)
             {
                 for (int i = 0; i < players.Count; i++)
                 {
                     Player player = players[i].GetComponent<Player>();
 
+                    // Attack
                     if (player.GetAttack())
                     {
                         player.Attack();
                     }
+
+                    // SetStealth
+                    if(player.GetStealth())
+                    {
+                        if(player.GetVisible())
+                            player.GainStealth();
+                    }
+                    else
+                    {
+                        if (!player.GetVisible())
+                            player.LoseStealth();
+                    }
                 }
 
-                players_ready_to_attack = 0;
+                players_ready_perform_actions = 0;
             }
         }
     }
