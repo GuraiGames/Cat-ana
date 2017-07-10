@@ -181,6 +181,7 @@ public class MatchManager : MonoBehaviour
         {
             player_go.GetComponent<Renderer>().material.color = new Color(0, 0.3f, 0);
             player_shadow_go.GetComponent<Renderer>().material.color = new Color(0, 1, 0);
+            SetLifeText(3);
         }
         else
         {
