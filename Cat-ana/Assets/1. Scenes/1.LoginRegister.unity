@@ -4410,7 +4410,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5114408, y: 0.09528875}
   m_AnchorMax: {x: 0.5114408, y: 0.09528875}
-  m_AnchoredPosition: {x: 4.4775, y: 49}
+  m_AnchoredPosition: {x: 4.477501, y: 49}
   m_SizeDelta: {x: 142, y: 39}
   m_Pivot: {x: 0.52978235, y: 0.5}
 --- !u!114 &327255128
@@ -4686,7 +4686,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5114408, y: 0.20169707}
   m_AnchorMax: {x: 0.5114408, y: 0.20169707}
-  m_AnchoredPosition: {x: -84, y: 52.999}
+  m_AnchoredPosition: {x: -84, y: 52.998993}
   m_SizeDelta: {x: 142, y: 42.705}
   m_Pivot: {x: 0.53411317, y: 0.5000005}
 --- !u!114 &361605629
@@ -11070,6 +11070,7 @@ GameObject:
   - component: {fileID: 832702308}
   - component: {fileID: 832702307}
   - component: {fileID: 832702306}
+  - component: {fileID: 832702309}
   m_Layer: 5
   m_Name: Facebook
   m_TagString: Untagged
@@ -11094,7 +11095,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5114408, y: 0.09528875}
   m_AnchorMax: {x: 0.5114408, y: 0.09528875}
-  m_AnchoredPosition: {x: 94, y: 100.88}
+  m_AnchoredPosition: {x: 92.1, y: 95.742}
   m_SizeDelta: {x: 142, y: 39}
   m_Pivot: {x: 0.52978235, y: 0.5}
 --- !u!114 &832702306
@@ -11136,7 +11137,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 832702307}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 832702309}
+        m_MethodName: FacebookConnect_bttn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &832702307
@@ -11174,6 +11186,17 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 832702304}
+--- !u!114 &832702309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 832702304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604ac169ceeb9884d92f75949bc3cc80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &843580970
 GameObject:
   m_ObjectHideFlags: 0
