@@ -17,6 +17,9 @@ public class NavigationPoint : MonoBehaviour
 
     private BoxCollider coll = null;
 
+    private List<Player> players_on_tile = new List<Player>();
+
+    // Managers
     private MatchManager match_manager = null;
 
     private GameManager game_manager = null;
@@ -92,6 +95,79 @@ public class NavigationPoint : MonoBehaviour
         neighbours.Add(neighbour);
     }
 
+    public Vector3 AskForPlayerPosition(GameObject player)
+    {
+        Vector3 ret = new Vector3(0, 0, 0);
+
+        List<GameObject> players = match_manager.GetPlayers();
+        Player player_script = null;
+
+        for(int i = 0; i < players.Count; i++)
+        {
+            if(players[i] == player)
+            {
+                player_script = player.GetComponent<Player>();
+                break;
+            }
+        }
+
+        if (player_script != null)
+        {
+            if(!players_on_tile.Contains(player_script))
+                 players_on_tile.Add(player_script);
+
+            ret = GetTilePartitionPosition(players_on_tile.Count);
+        }
+
+        return ret;
+    }
+
+    public void PlayerLeavesTile(GameObject player)
+    {
+        List<GameObject> players = match_manager.GetPlayers();
+        Player player_script = null;
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i] == player)
+            {
+                player_script = player.GetComponent<Player>();
+                break;
+            }
+        }
+
+        if (player_script != null)
+        {
+            players_on_tile.Remove(player_script);
+        }
+    }
+
+    private Vector3 GetTilePartitionPosition(int index)
+    {
+        Vector3 ret = new Vector3(-1, -1, -1);
+
+        if (index > 4 || index <= 0)
+        {
+            switch(index)
+            {
+                case 1:
+                    ret = new Vector3(gameObject.transform.position.x - (tile_size / 3), gameObject.transform.position.y, gameObject.transform.position.z + (tile_size / 3));
+                    break;
+                case 2:
+                    ret = new Vector3(gameObject.transform.position.x + (tile_size / 3), gameObject.transform.position.y, gameObject.transform.position.z + (tile_size / 3));
+                    break;
+                case 3:
+                    ret = new Vector3(gameObject.transform.position.x - (tile_size / 3), gameObject.transform.position.y, gameObject.transform.position.z - (tile_size / 3));
+                    break;
+                case 4:
+                    ret = new Vector3(gameObject.transform.position.x + (tile_size / 3), gameObject.transform.position.y, gameObject.transform.position.z - (tile_size / 3));
+                    break;
+            }
+        }
+
+        return ret;
+    }
+
     private void OnMouseDown()
     {
         if (client_player == null)
@@ -119,5 +195,4 @@ public class NavigationPoint : MonoBehaviour
             match_manager.TileClicked((int)pos.x, (int)pos.y);
         }
     }
-
 }

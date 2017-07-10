@@ -85,6 +85,40 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void MoveTo(int grid_x, int grid_y)
+    {
+        // Get current point
+        NavigationPoint curr_nav_point = navigation_entity.GetNavMap().GetClosestNavPoint(gameObject.transform.position).GetComponent<NavigationPoint>();
+
+        // Ask for path and check if the position is different to the actual
+        if(navigation_entity.MoveTo(grid_x, grid_y))
+        {
+            // Tell the tile that we are leaving
+            curr_nav_point.PlayerLeavesTile(gameObject);
+        }
+
+        // Get path
+        List<Vector3> path = navigation_entity.GetCurrentPath();
+
+        // Avoid overlap
+        if (path.Count > 0)
+        {
+            // Get last point
+            GameObject final_point = navigation_entity.GetNavMap().GetClosestNavPoint(path[0]);
+
+            NavigationPoint final_point_script = final_point.GetComponent<NavigationPoint>();
+
+            // Change the last point to the correct tile position depending of how much players there are on it
+            Vector3 new_pos = final_point_script.AskForPlayerPosition(this.gameObject);
+
+            path[0] = new_pos;
+        }
+        else
+        {
+            curr_nav_point.AskForPlayerPosition(this.gameObject);
+        }
+    }
+
     public void SetAttack(bool set)
     {
         _attack = set;

@@ -309,4 +309,30 @@ public class NavigationMap : MonoBehaviour
 
         position_marker_instance = Instantiate(position_marker, new Vector3(pos.x, pos.y, pos.z), Quaternion.identity);
     }
+
+    public GameObject GetClosestNavPoint(Vector3 pos)
+    {
+        GameObject ret = null;
+
+        List<GameObject> points = GetPoints();
+
+        float closest_distance = 0;
+
+        if (points.Count > 0)
+        {
+            closest_distance = Vector3.Distance(pos, points[0].transform.position);
+            ret = points[0];
+        }
+
+        for (int i = 0; i < points.Count; i++)
+        {
+            if (Vector3.Distance(pos, points[i].transform.position) < closest_distance)
+            {
+                closest_distance = Vector3.Distance(pos, points[i].transform.position);
+                ret = points[i];
+            }
+        }
+
+        return ret;
+    }
 }

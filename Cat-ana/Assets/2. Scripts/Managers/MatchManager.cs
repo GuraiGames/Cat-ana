@@ -262,7 +262,7 @@ public class MatchManager : MonoBehaviour
             else
                 player_script.SetStealth(true);
 
-            player_script.GetNavigationEntity().MoveTo(pos_x, pos_y);
+            player_script.MoveTo(pos_x, pos_y);
             player_script.GetPlayerShadow().GetNavigationEntity().MoveTo(shadow_x, shadow_y);
             player_script.GetPlayerShadow().AddPosition(nav_map.GridToWorldPoint(pos_x, pos_y));
             player_script.SetLife(life);

@@ -30,8 +30,6 @@ public class NavigationEntity : MonoBehaviour
         event_manager = game_manager.GetEventManager();
         map = GameObject.FindGameObjectWithTag("Map");
         nav_map = map.gameObject.GetComponent<NavigationMap>();
-
-       
     }
 	
 	// Update is called once per frame
@@ -55,28 +53,16 @@ public class NavigationEntity : MonoBehaviour
         }
 	}
 
+    public NavigationMap GetNavigationMap()
+    {
+        return nav_map;
+    }
+
     public GameObject GetClosestNavPoint()
     {
         GameObject ret = null;
 
-        List<GameObject> points = nav_map.GetPoints();
-
-        float closest_distance = 0;
-
-        if (points.Count > 0)
-        {
-            closest_distance = Vector3.Distance(gameObject.transform.position, points[0].transform.position);
-            ret = points[0];
-        }
-
-        for (int i = 0; i < points.Count; i++)
-        {
-            if(Vector3.Distance(gameObject.transform.position, points[i].transform.position) < closest_distance)
-            {
-                closest_distance = Vector3.Distance(gameObject.transform.position, points[i].transform.position);
-                ret = points[i];
-            }
-        }
+        ret = nav_map.GetClosestNavPoint(transform.position);
 
         return ret;
     }
@@ -90,19 +76,26 @@ public class NavigationEntity : MonoBehaviour
         return ret;
     }
 
-    public void MoveTo(GameObject nav_point_target)
+    public bool MoveTo(GameObject nav_point_target)
     {
         if (is_moving)
-            return;
+            return false;
 
-        path = nav_map.GetPath(GetClosestNavPoint(), nav_point_target);
+        GameObject curr_pos = GetClosestNavPoint();
+
+        if (curr_pos == nav_point_target)
+            return false;
+
+        path = nav_map.GetPath(curr_pos, nav_point_target);
         target_point = nav_point_target;
         is_moving = true;
+
+        return true;
     }
 
-    public void MoveTo(int grid_x, int grid_y)
+    public bool MoveTo(int grid_x, int grid_y)
     {
-        MoveTo(nav_map.GridToWorldPoint(grid_x, grid_y));
+        return MoveTo(nav_map.GridToWorldPoint(grid_x, grid_y));
     }
 
     public bool IsMoving() { return is_moving; }
@@ -122,4 +115,9 @@ public class NavigationEntity : MonoBehaviour
     }
 
     public NavigationMap GetNavMap() { return nav_map; }
+
+    public List<Vector3> GetCurrentPath()
+    {
+        return path;
+    }
 }
