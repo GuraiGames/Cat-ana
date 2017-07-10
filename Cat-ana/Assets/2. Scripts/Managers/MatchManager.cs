@@ -24,6 +24,9 @@ public class MatchManager : MonoBehaviour
     [SerializeField]
     private Button attack_button;
 
+    [SerializeField]
+    private Text client_life_text;
+
     // Server
     private int server_delay, latency, round_trip; //All in ms
     private int opponent_count = 0;
@@ -230,6 +233,7 @@ public class MatchManager : MonoBehaviour
         int shadow_y = (int)_packet.Data.GetInt(5);
         string attack = _packet.Data.GetString(6);
         string revealed = _packet.Data.GetString(7);
+        int life = (int)_packet.Data.GetInt(8);
 
         GameObject player = null;
         Player player_script = null;
@@ -260,6 +264,7 @@ public class MatchManager : MonoBehaviour
             player_script.GetNavigationEntity().MoveTo(pos_x, pos_y);
             player_script.GetPlayerShadow().GetNavigationEntity().MoveTo(shadow_x, shadow_y);
             player_script.GetPlayerShadow().AddPosition(nav_map.GridToWorldPoint(pos_x, pos_y));
+            player_script.SetLife(life);
 
             Debug.Log("Recived player pos. Id: " + id + ", x:" + pos_x + ", y:" + pos_y);
 
@@ -381,7 +386,7 @@ public class MatchManager : MonoBehaviour
 
     public void PerformActions()
     {
-        if (turn_info.turn == turn_type.action && players_ready_perform_actions == 4)
+        if (turn_info.turn == turn_type.action && players_ready_perform_actions == players.Count)
         {
             bool can_perform = true;
 
@@ -426,6 +431,32 @@ public class MatchManager : MonoBehaviour
     public List<GameObject> GetPlayers()
     {
         return players;
+    }
+
+    public void KillPlayer(GameObject player)
+    {
+        Player player_script = null;
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            player_script = players[i].GetComponent<Player>();
+
+            if (players[i] == player)
+                break;
+        }
+
+        if (player_script == null)
+            return;
+
+        players.Remove(player);
+
+        player_script.GetPlayerShadow().gameObject.SetActive(false);
+        player.SetActive(false);
+    }
+
+    public void SetLifeText(int set)
+    {
+        client_life_text.text = "Life: " + set;
     }
 
     public struct TurnInfo

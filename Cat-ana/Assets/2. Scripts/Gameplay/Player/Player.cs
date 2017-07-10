@@ -101,13 +101,22 @@ public class Player : MonoBehaviour
 
         if (_life < 0)
             _life = 0;
+    }
 
-        Debug.Log("Damage dealt");
+    public void SetLife(int set)
+    {
+        if(set >= 0)
+            _life = set;
     }
 
     public int GetLife()
     {
         return _life;
+    }
+
+    public bool IsDead()
+    {
+        return (_life == 0);
     }
 
     public void SetTargetPos(Vector2 pos)
@@ -163,13 +172,23 @@ public class Player : MonoBehaviour
 
         for(int i = 0; i < players.Count; i++)
         {
-            Player curr_player = players[i].GetComponent<Player>();
+            Player player_to_attack = players[i].GetComponent<Player>();
 
-            if(curr_player._network_id != _network_id)
+            if(player_to_attack._network_id != _network_id)
             {
-                if(curr_player.GetNavigationEntity().GetPos() == GetNavigationEntity().GetPos())
+                if(player_to_attack.GetNavigationEntity().GetPos() == GetNavigationEntity().GetPos())
                 {
-                    curr_player.DealDamage(1);
+                    if(player_to_attack.IsClient())
+                    {
+                        match_manager.SetLifeText(player_to_attack.GetLife());
+                    }
+
+                    if(player_to_attack.IsDead())
+                    {
+                        match_manager.KillPlayer(players[i]);
+                    }
+
+                    break;
                 }
             }
         }
