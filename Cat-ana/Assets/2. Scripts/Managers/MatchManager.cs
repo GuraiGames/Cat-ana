@@ -25,7 +25,16 @@ public class MatchManager : MonoBehaviour
     private Button attack_button;
 
     [SerializeField]
+    private Text state_text;
+
+    [SerializeField]
     private Text client_life_text;
+
+    [SerializeField]
+    private Button finish_player_turn;
+
+    [SerializeField]
+    private Button card1, card2, card3;
 
     // Server
     private int server_delay, latency, round_trip; //All in ms
@@ -40,6 +49,7 @@ public class MatchManager : MonoBehaviour
     private List<GameObject> players = new List<GameObject>();
 
     // Turn
+    private action curr_action = action.wait;
     private TurnInfo turn_info = new TurnInfo();
     int players_ready_perform_actions = 0;
 
@@ -63,16 +73,95 @@ public class MatchManager : MonoBehaviour
         StartCoroutine(DelayTurnStart());
 
         turn_info.turn = turn_type.stop;
+        curr_action = action.wait;
 
-        attack_button.interactable = false;
+        attack_button.gameObject.SetActive(false);
+        finish_player_turn.gameObject.SetActive(false);
+        state_text.gameObject.SetActive(false);
+
+        card1.gameObject.SetActive(false);
+        card2.gameObject.SetActive(false);
+        card3.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        DecreaseTurnTime();
+        switch(curr_action)
+        {
+            case action.wait:
+                break;
+            case action.card_select_target:
+                state_text.gameObject.SetActive(true);
+                state_text.text = "Select target";
 
-        PerformActions();
+                if (turn_info.turn != turn_type.strategy)
+                {
+                    curr_action = action.wait;
+                    state_text.gameObject.SetActive(false);
+                }
+                
+                break;
+            case action.check_if_all_players_finished_moving:
+                {
+                    if (turn_info.turn == turn_type.action && players_ready_perform_actions == players.Count)
+                    {
+                        bool can_perform = true;
+
+                        for (int i = 0; i < players.Count; i++)
+                        {
+                            Player player = players[i].GetComponent<Player>();
+
+                            if (player.IsMoving())
+                                can_perform = false;
+                        }
+
+                        if (can_perform)
+                            curr_action = action.perform_attacks;
+                    }
+                }
+                break;
+            case action.perform_attacks:
+                {
+                    for (int i = 0; i < players.Count; i++)
+                    {
+                        Player player = players[i].GetComponent<Player>();
+
+                        // Attack
+                        if (player.GetAttack())
+                        {
+                            player.Attack();
+                        }
+
+                        // SetStealth
+                        if (player.GetStealth())
+                        {
+                            if (player.GetVisible())
+                                player.GainStealth();
+                        }
+                        else
+                        {
+                            if (!player.GetVisible())
+                                player.LoseStealth();
+                        }
+                    }
+
+                    players_ready_perform_actions = 0;
+                    curr_action = action.wait;
+                }
+                break;
+            case action.client_die:
+                {
+                    finish_player_turn.gameObject.SetActive(false);
+                    attack_button.gameObject.SetActive(false);
+                    nav_map.DeleteMarker();
+
+                    curr_action = action.wait;
+                }
+                break;
+        }
+
+        DecreaseTurnTime();
     }
 
     private IEnumerator SendTimeStamp()
@@ -205,15 +294,19 @@ public class MatchManager : MonoBehaviour
             case "Strategy":
                 turn_info.turn = turn_type.strategy;
 
-                attack_button.enabled = true;
-                attack_button.interactable = true;
+                state_text.gameObject.SetActive(false);
+                attack_button.gameObject.SetActive(true);
+                finish_player_turn.gameObject.SetActive(true);
                 break;
 
             case "Actions":
                 turn_info.turn = turn_type.action;
 
-                attack_button.interactable = false;
-                attack_button.enabled = false;
+                state_text.gameObject.SetActive(true);
+                state_text.text = "Actions!";
+
+                finish_player_turn.gameObject.SetActive(false);
+                attack_button.gameObject.SetActive(false);
                 break;
         }
 
@@ -221,6 +314,13 @@ public class MatchManager : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             Player player = players[i].GetComponent<Player>();
+
+            if (player.IsDead())
+            {
+                KillPlayer(players[i]);
+                continue;
+            }
+
             player.AdvanceTurn(turn_info);
         }
     }
@@ -235,23 +335,17 @@ public class MatchManager : MonoBehaviour
         string attack = _packet.Data.GetString(6);
         string revealed = _packet.Data.GetString(7);
         int life = (int)_packet.Data.GetInt(8);
+        int num_card = (int)_packet.Data.GetInt(9);
 
         GameObject player = null;
         Player player_script = null;
 
-        for (int i = 0; i < players.Count; i++)
-        {
-            player_script = players[i].GetComponent<Player>();
-
-            if (player_script.GetNetworkId() == id)
-            {
-                player = players[i];
-                break;
-            }
-        }
+        player = GetPlayerById(id);
 
         if (player != null)
         {
+            player_script = player.GetComponent<Player>();
+
             if (attack == "true")
                 player_script.SetAttack(true);
             else
@@ -266,10 +360,101 @@ public class MatchManager : MonoBehaviour
             player_script.GetPlayerShadow().GetNavigationEntity().MoveTo(shadow_x, shadow_y);
             player_script.GetPlayerShadow().AddPosition(nav_map.GridToWorldPoint(pos_x, pos_y));
             player_script.SetLife(life);
+            player_script.SetNumCards(num_card);
 
             Debug.Log("Recived player pos. Id: " + id + ", x:" + pos_x + ", y:" + pos_y);
 
             players_ready_perform_actions++;
+
+            curr_action = action.check_if_all_players_finished_moving;
+        }
+    }
+
+    public void ClientCardObtained(RTPacket _packet)
+    {
+        string name = _packet.Data.GetString(1);
+
+        Player client_player = GetClientPlayer().GetComponent<Player>();
+
+        client_player.TakeCard(name);
+
+        UpdateCardsUI();
+    }
+
+    public void UpdateCardsUI()
+    {
+        Player client_player = GetClientPlayer().GetComponent<Player>();
+
+        switch (client_player.GetCardsCount())
+        {
+            case 0:
+                card1.gameObject.SetActive(false);
+                card2.gameObject.SetActive(false);
+                card3.gameObject.SetActive(false);
+                break;
+            case 1:
+                card1.gameObject.SetActive(true);
+                card1.GetComponentInChildren<Text>().text = client_player.GetCardNameByIndex(0);
+                break;
+            case 2:
+                card1.gameObject.SetActive(true);
+                card1.GetComponentInChildren<Text>().text = client_player.GetCardNameByIndex(0);
+
+                card2.gameObject.SetActive(true);
+                card2.GetComponentInChildren<Text>().text = client_player.GetCardNameByIndex(1);
+                break;
+            case 3:
+                card1.gameObject.SetActive(true);
+                card1.GetComponentInChildren<Text>().text = client_player.GetCardNameByIndex(0);
+
+                card2.gameObject.SetActive(true);
+                card2.GetComponentInChildren<Text>().text = client_player.GetCardNameByIndex(1);
+
+                card3.gameObject.SetActive(true);
+                card3.GetComponentInChildren<Text>().text = client_player.GetCardNameByIndex(2);
+                break;
+        }
+    }
+
+    public void CardUseRecieved(RTPacket _packet)
+    {
+        string card_name = _packet.Data.GetString(1);
+        int pos_x = (int)_packet.Data.GetInt(2);
+        int pos_y = (int)_packet.Data.GetInt(3);
+        string id = _packet.Data.GetString(4);
+        string target_id = _packet.Data.GetString(5);
+
+        GameObject player = null;
+        Player player_script = null;
+
+        GameObject target = null;
+        Player target_player_script = null;
+
+        player = GetPlayerById(id);
+        target = GetPlayerById(target_id);
+
+        if(player != null)
+            player_script = player.GetComponent<Player>();
+        
+        if (target != null)
+            target_player_script = target.GetComponent<Player>();
+
+        player_script.UseCard(card_name, target_player_script);
+
+        UpdateCardsUI();
+    }
+
+    public void CardUseSend(string card_name, int pos_x, int pos_y, string id, string target_id)
+    {
+        using (RTData data = RTData.Get())
+        {
+            data.SetString(1, card_name);
+            data.SetInt(2, pos_x);
+            data.SetInt(3, pos_y);
+            data.SetString(1, id);
+            data.SetString(1, target_id);
+
+            RT_manager.SendData(122, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data, new int[] { 0 }); // send to peerId -> 0, which is the server
         }
     }
 
@@ -309,24 +494,35 @@ public class MatchManager : MonoBehaviour
         return player;
     }
 
-    public void SendPlayerPos(string id, int pos_x, int pos_y, int shadow_x, int shadow_y, bool attack, bool reveled)
+    public GameObject GetPlayerById(string id)
     {
-        GameObject player = null;
-        Player player_script = null;
+        GameObject ret = null;
 
-        for(int i = 0; i < players.Count; i++)
+        for (int i = 0; i < players.Count; i++)
         {
-            player_script = players[i].GetComponent<Player>();
+            Player player_script = players[i].GetComponent<Player>();
 
-            if(player_script.GetNetworkId() == id)
+            if (player_script.GetInstanceID().ToString() == id)
             {
-                player = players[i];
+                ret = players[i];
                 break;
             }
         }
 
+        return ret;
+    }
+
+    public void SendPlayerPos(string id, int pos_x, int pos_y, int shadow_x, int shadow_y, bool attack, bool reveled, int num_cards)
+    {
+        GameObject player = null;
+        Player player_script = null;
+
+        player = GetPlayerById(id);
+
         if(player != null)
         {
+            player_script = player.GetComponent<Player>();
+
             player_script.SetTargetPos(new Vector2(pos_x, pos_y));
 
             using (RTData data = RTData.Get())
@@ -338,6 +534,7 @@ public class MatchManager : MonoBehaviour
                 data.SetInt(5, shadow_y);
                 data.SetString(6, attack.ToString().ToLower());
                 data.SetString(7, reveled.ToString().ToLower());
+                data.SetInt(9, num_cards);
 
                 RT_manager.SendData(122, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data, new int[] { 0 }); // send to peerId -> 0, which is the server
 
@@ -352,15 +549,7 @@ public class MatchManager : MonoBehaviour
 
         player.SetAttack(true);
 
-        string id = player.GetNetworkId();
-        int pos_x = (int)player.GetTargetPos().x;
-        int pos_y = (int)player.GetTargetPos().y;
-        int shadow_x = (int)player.GetPlayerShadow().GetNextPos().x;
-        int shadow_y = (int)player.GetPlayerShadow().GetNextPos().y;
-        bool attack = player.GetAttack();
-        bool revealed = player.GetStealth();
-
-        SendPlayerPos(id, pos_x, pos_y, shadow_x, shadow_y, attack, revealed);
+        attack_button.gameObject.SetActive(false);
     }
 
     public void TileClicked(int x, int y)
@@ -370,63 +559,33 @@ public class MatchManager : MonoBehaviour
             Player client_player = GetClientPlayer().GetComponent<Player>();
 
             GameObject player_pos = client_player.GetNavigationEntity().GetClosestNavPoint();
-            
-            string id = client_player.GetNetworkId();
-            int pos_x = x;
-            int pos_y = y;
-            int shadow_x = (int)client_player.GetPlayerShadow().GetNextPos().x;
-            int shadow_y = (int)client_player.GetPlayerShadow().GetNextPos().y;
-            bool attack = client_player.GetAttack();
-            bool revealed = client_player.GetStealth();
 
-            SendPlayerPos(id, pos_x, pos_y, shadow_x, shadow_y, attack, revealed);
+            client_player.SetTargetPos(new Vector2(x, y));
 
-            nav_map.PlaceMarker(nav_map.GridToWorldPoint(pos_x, pos_y).transform.position);
+            nav_map.PlaceMarker(nav_map.GridToWorldPoint(x, y).transform.position);
         }
     }
 
-    public void PerformActions()
+    public void EndPlayerTurn()
     {
-        if (turn_info.turn == turn_type.action && players_ready_perform_actions == players.Count)
-        {
-            bool can_perform = true;
+        Player player = GetClientPlayer().GetComponent<Player>();
 
-            for (int i = 0; i < players.Count; i++)
-            {
-                Player player = players[i].GetComponent<Player>();
+        string id = player.GetNetworkId();
+        int pos_x = (int)player.GetTargetPos().x;
+        int pos_y = (int)player.GetTargetPos().y;
+        int shadow_x = (int)player.GetPlayerShadow().GetNextPos().x;
+        int shadow_y = (int)player.GetPlayerShadow().GetNextPos().y;
+        bool attack = player.GetAttack();
+        bool revealed = player.GetStealth();
+        int num_cards = player.GetCardsCount();
 
-                if (player.IsMoving())
-                    can_perform = false;
-            }
+        SendPlayerPos(id, pos_x, pos_y, shadow_x, shadow_y, attack, revealed, num_cards);
 
-            if (can_perform)
-            {
-                for (int i = 0; i < players.Count; i++)
-                {
-                    Player player = players[i].GetComponent<Player>();
+        finish_player_turn.gameObject.SetActive(false);
+        attack_button.gameObject.SetActive(false);
 
-                    // Attack
-                    if (player.GetAttack())
-                    {
-                        player.Attack();
-                    }
-
-                    // SetStealth
-                    if(player.GetStealth())
-                    {
-                        if(player.GetVisible())
-                            player.GainStealth();
-                    }
-                    else
-                    {
-                        if (!player.GetVisible())
-                            player.LoseStealth();
-                    }
-                }
-
-                players_ready_perform_actions = 0;
-            }
-        }
+        state_text.gameObject.SetActive(true);
+        state_text.text = "Waiting for the other players...";
     }
 
     public List<GameObject> GetPlayers()
@@ -436,15 +595,7 @@ public class MatchManager : MonoBehaviour
 
     public void KillPlayer(GameObject player)
     {
-        Player player_script = null;
-
-        for (int i = 0; i < players.Count; i++)
-        {
-            player_script = players[i].GetComponent<Player>();
-
-            if (players[i] == player)
-                break;
-        }
+        Player player_script = player.GetComponent<Player>();
 
         if (player_script == null)
             return;
@@ -453,11 +604,17 @@ public class MatchManager : MonoBehaviour
 
         player_script.GetPlayerShadow().gameObject.SetActive(false);
         player.SetActive(false);
+
+        if (player_script.IsClient())
+            curr_action = action.client_die;
     }
 
     public void SetLifeText(int set)
     {
-        client_life_text.text = "Life: " + set;
+        if (set > 0)
+            client_life_text.text = "Life: " + set;
+        else
+            client_life_text.text = "Ur ded m8";
     }
 
     public struct TurnInfo
@@ -471,5 +628,16 @@ public class MatchManager : MonoBehaviour
         strategy,
         action,
         stop,
+    }
+
+    public enum action
+    {
+        wait,
+        player_finished_moving,
+        check_if_all_players_finished_moving,
+        perform_attacks,
+        client_die,
+
+        card_select_target,
     }
 }

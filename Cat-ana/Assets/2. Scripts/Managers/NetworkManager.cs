@@ -90,6 +90,12 @@ public class NetworkManager : MonoBehaviour
             case 122:
                 match_manager.UpdatePlayersPosition(_packet);
                 break;
+            case 123:
+                match_manager.CardUseRecieved(_packet);
+                break;
+            case 144:
+                match_manager.ClientCardObtained(_packet);
+                break;
         }
     }
     // -----

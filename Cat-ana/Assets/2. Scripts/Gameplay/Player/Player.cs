@@ -14,7 +14,11 @@ public class Player : MonoBehaviour
     private bool _visible = false;
     private bool _attack = false;
     private int _life = 0;
+    private int _num_cards = 0;
+
     private Vector2 target_pos = new Vector2(0, 0);
+
+    private List<Card> cards = new List<Card>();
 
 	void Start ()
     {
@@ -76,8 +80,10 @@ public class Player : MonoBehaviour
         switch(turn_info.turn)
         {
             case MatchManager.turn_type.strategy:
-                _shadow.AdvanceTurn();
-                _attack = false;
+                {
+                    _shadow.AdvanceTurn();
+                    _attack = false;
+                }
                 break;
 
             case MatchManager.turn_type.action:
@@ -217,16 +223,106 @@ public class Player : MonoBehaviour
                         match_manager.SetLifeText(player_to_attack.GetLife());
                     }
 
-                    if(player_to_attack.IsDead())
-                    {
-                        match_manager.KillPlayer(players[i]);
-                    }
-
                     break;
                 }
             }
         }
 
         LoseStealth();
+    }
+
+    public void TakeCard(string name)
+    {
+        if (cards.Count >= 3)
+            return;
+
+        Card card = new Card(name, this);
+
+        cards.Add(card);
+
+        _num_cards = cards.Count;
+    }
+
+    public void UseCard(string name, Player target = null)
+    {
+        if (IsClient())
+        {
+            Card card = null;
+
+            for (int i = 0; i < cards.Count; i++)
+            {
+                if (cards[i].GetName() == name)
+                {
+                    card = cards[i];
+                    break;
+                }
+            }
+
+            if (card == null)
+                return;
+
+            cards.Remove(card);
+        }
+
+        DoCardEffects(name, target);
+
+        _num_cards--;
+    }
+
+    private void DoCardEffects(string name, Player target)
+    {
+        if (_num_cards <= 0)
+            return;
+
+        switch (name)
+        {
+            case "Raven":
+                if(target != null)
+                    target.LoseStealth();
+                break;
+
+            case "Stealth":
+                GainStealth();
+                break;
+        }
+    }
+
+    public void SetNumCards(int set)
+    {
+        if (!IsClient())
+            _num_cards = set;
+        else
+            _num_cards = cards.Count;
+    }
+
+    public int GetCardsCount()
+    {
+        return _num_cards;
+    }
+
+    public string GetCardNameByIndex(int index)
+    {
+        return cards[index].GetName();
+    }
+
+    public class Card
+    {
+        public Card(string name, Player owner)
+        {
+            _name = name;
+            _owner = owner;
+        }
+        public string GetName()
+        {
+            return _name;
+        }
+
+        public Player GetOwner()
+        {
+            return _owner;
+        }
+
+        private string _name;
+        private Player _owner;
     }
 }

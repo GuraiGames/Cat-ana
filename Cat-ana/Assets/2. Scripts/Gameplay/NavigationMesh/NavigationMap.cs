@@ -310,6 +310,12 @@ public class NavigationMap : MonoBehaviour
         position_marker_instance = Instantiate(position_marker, new Vector3(pos.x, pos.y, pos.z), Quaternion.identity);
     }
 
+    public void DeleteMarker()
+    {
+        Destroy(position_marker_instance);
+        position_marker_instance = null;
+    }
+
     public GameObject GetClosestNavPoint(Vector3 pos)
     {
         GameObject ret = null;
