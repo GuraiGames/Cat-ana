@@ -325,4 +325,13 @@ public class Player : MonoBehaviour
         private string _name;
         private Player _owner;
     }
+
+    private void OnMouseDown()
+    {
+        if (!IsClient())
+        {
+            match_manager.target = this;
+            match_manager.curr_action = MatchManager.action.card_target_selected;
+        }
+    }
 }

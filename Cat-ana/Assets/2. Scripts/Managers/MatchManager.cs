@@ -42,14 +42,19 @@ public class MatchManager : MonoBehaviour
 
     // Map
     private NavigationMap nav_map = null;
+    private int turn = 0;
 
     // Players
     [SerializeField]
     private GameObject player_prefab;
     private List<GameObject> players = new List<GameObject>();
 
+    // Card
+    string last_clicked_card = "";
+    public Player target = null;
+
     // Turn
-    private action curr_action = action.wait;
+    public action curr_action = action.wait;
     private TurnInfo turn_info = new TurnInfo();
     int players_ready_perform_actions = 0;
 
@@ -93,14 +98,31 @@ public class MatchManager : MonoBehaviour
                 break;
             case action.card_select_target:
                 state_text.gameObject.SetActive(true);
-                state_text.text = "Select target";
+                state_text.text = "Choose a target";
 
                 if (turn_info.turn != turn_type.strategy)
                 {
-                    curr_action = action.wait;
                     state_text.gameObject.SetActive(false);
+
+                    curr_action = action.wait;
                 }
                 
+                break;
+            case action.card_target_selected:
+                {
+                    if (turn_info.turn != turn_type.strategy)
+                    {
+                        state_text.gameObject.SetActive(false);
+                        break;
+                    }
+
+                    Player client = GetClientPlayer().GetComponent<Player>();
+                    CardUseSend(last_clicked_card, (int)client.GetNavigationEntity().GetGridPos().x, (int)client.GetNavigationEntity().GetGridPos().y, client.GetInstanceID().ToString(), target.GetInstanceID().ToString());
+
+                    state_text.gameObject.SetActive(false);
+
+                    curr_action = action.wait;
+                }
                 break;
             case action.check_if_all_players_finished_moving:
                 {
@@ -297,6 +319,21 @@ public class MatchManager : MonoBehaviour
                 state_text.gameObject.SetActive(false);
                 attack_button.gameObject.SetActive(true);
                 finish_player_turn.gameObject.SetActive(true);
+
+                for (int i = 0; i < players.Count; i++)
+                {
+                    Player player = players[i].GetComponent<Player>();
+
+                    if (player.IsDead() && turn > 1)
+                    {
+                        KillPlayer(players[i]);
+                        continue;
+                    }
+
+                    player.AdvanceTurn(turn_info);
+                }
+
+                turn++;
                 break;
 
             case "Actions":
@@ -308,20 +345,6 @@ public class MatchManager : MonoBehaviour
                 finish_player_turn.gameObject.SetActive(false);
                 attack_button.gameObject.SetActive(false);
                 break;
-        }
-
-
-        for (int i = 0; i < players.Count; i++)
-        {
-            Player player = players[i].GetComponent<Player>();
-
-            if (player.IsDead())
-            {
-                KillPlayer(players[i]);
-                continue;
-            }
-
-            player.AdvanceTurn(turn_info);
         }
     }
 
@@ -617,6 +640,42 @@ public class MatchManager : MonoBehaviour
             client_life_text.text = "Ur ded m8";
     }
 
+    public void OnCardClick(int card)
+    {
+        if (turn_info.turn != turn_type.strategy)
+            return;
+
+        string name = "";
+
+        switch(card)
+        {
+            case 1:
+                name = card1.GetComponentInChildren<Text>().text;
+                break;
+            case 2:
+                name = card2.GetComponentInChildren<Text>().text;
+                break;
+            case 3:
+                name = card3.GetComponentInChildren<Text>().text;
+                break;
+        }
+
+        switch (name)
+        {
+            case "Raven":
+                last_clicked_card = "Raven";
+                curr_action = action.card_select_target;
+                break;
+
+            case "Stealth":
+                last_clicked_card = "Stealth";
+                Player client = GetClientPlayer().GetComponent<Player>();
+
+                CardUseSend("Stealth", (int)client.GetNavigationEntity().GetGridPos().x, (int)client.GetNavigationEntity().GetGridPos().y, client.GetInstanceID().ToString(), "0");
+                break;
+        }
+    }
+
     public struct TurnInfo
     { 
         public turn_type turn;
@@ -639,5 +698,6 @@ public class MatchManager : MonoBehaviour
         client_die,
 
         card_select_target,
+        card_target_selected,
     }
 }

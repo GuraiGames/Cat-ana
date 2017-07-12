@@ -6,6 +6,7 @@ public class PlayerShadow : MonoBehaviour
 {
     private GameObject _player = null;
     private NavigationEntity navigation_entity = null;
+    private MatchManager match_manager = null;
 
     List<GameObject> prev_pos = new List<GameObject>();
 
@@ -15,6 +16,7 @@ public class PlayerShadow : MonoBehaviour
 	private void Start () 
 	{
         navigation_entity = gameObject.GetComponent<NavigationEntity>();
+        match_manager = GameObject.FindGameObjectWithTag("MatchManager").GetComponent<MatchManager>();
     }
 
     public void SetInitialPlayerShadowInfo(GameObject player)
@@ -74,5 +76,16 @@ public class PlayerShadow : MonoBehaviour
     public void SetStealthDistance(int set)
     {
         stealth_distance = set;
+    }
+
+    private void OnMouseDown()
+    {
+        Player player = _player.GetComponent<Player>();
+
+        if (!player.IsClient())
+        {
+            match_manager.target = player;
+            match_manager.curr_action = MatchManager.action.card_target_selected;
+        }
     }
 }
