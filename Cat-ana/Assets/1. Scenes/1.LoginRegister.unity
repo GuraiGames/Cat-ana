@@ -4686,7 +4686,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5114408, y: 0.20169707}
   m_AnchorMax: {x: 0.5114408, y: 0.20169707}
-  m_AnchoredPosition: {x: -95.15596, y: 47.11}
+  m_AnchoredPosition: {x: -95.15596, y: 47.109985}
   m_SizeDelta: {x: 142, y: 42.705}
   m_Pivot: {x: 0.53411317, y: 0.5000005}
 --- !u!114 &361605629
@@ -11096,7 +11096,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5114408, y: 0.20169707}
   m_AnchorMax: {x: 0.5114408, y: 0.20169707}
-  m_AnchoredPosition: {x: 104.84, y: 47.11}
+  m_AnchoredPosition: {x: 104.84, y: 47.109985}
   m_SizeDelta: {x: 142, y: 42.705}
   m_Pivot: {x: 0.53411317, y: 0.5000005}
 --- !u!114 &832702306
@@ -11140,7 +11140,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 832702309}
-        m_MethodName: FacebookConnect_bttn
+        m_MethodName: CallFBInit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11198,6 +11198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604ac169ceeb9884d92f75949bc3cc80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fbAuthToken: 
 --- !u!1 &843580970
 GameObject:
   m_ObjectHideFlags: 0
@@ -24359,6 +24360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604ac169ceeb9884d92f75949bc3cc80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fbAuthToken: 
 --- !u!114 &2018072980
 MonoBehaviour:
   m_ObjectHideFlags: 0
