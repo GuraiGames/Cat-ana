@@ -245,25 +245,6 @@ public class Player : MonoBehaviour
 
     public void UseCard(string name, Player target = null)
     {
-        if (IsClient())
-        {
-            Card card = null;
-
-            for (int i = 0; i < cards.Count; i++)
-            {
-                if (cards[i].GetName() == name)
-                {
-                    card = cards[i];
-                    break;
-                }
-            }
-
-            if (card == null)
-                return;
-
-            cards.Remove(card);
-        }
-
         DoCardEffects(name, target);
 
         _num_cards--;
@@ -305,6 +286,12 @@ public class Player : MonoBehaviour
         return cards[index].GetName();
     }
 
+    public void RemoveCardAtIndex(int index)
+    {
+        cards.RemoveAt(index);
+        _num_cards = cards.Count;
+    }
+
     public class Card
     {
         public Card(string name, Player owner)
@@ -322,8 +309,19 @@ public class Player : MonoBehaviour
             return _owner;
         }
 
+        public void SetTarget(Player target)
+        {
+            _target = target;
+        }
+
+        public Player GetTarget()
+        {
+            return _target;
+        }
+
         private string _name;
         private Player _owner;
+        private Player _target;
     }
 
     private void OnMouseDown()

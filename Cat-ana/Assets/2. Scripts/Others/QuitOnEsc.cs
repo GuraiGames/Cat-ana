@@ -13,14 +13,11 @@ public class QuitOnEsc : MonoBehaviour
 	private void Update () 
 	{
         if (Input.GetKey("escape"))
-            Application.Quit();
+            Kill();
     }
-	
-	
-	// Public functions
-	
-	// Public variables
-	
-	// Private variables
-	
+
+    public void Kill()
+    {
+        System.Diagnostics.Process.GetCurrentProcess().Kill();
+    }
 }

@@ -52,6 +52,7 @@ public class MatchManager : MonoBehaviour
     // Card
     string last_clicked_card = "";
     public Player target = null;
+    public List<Player.Card> cards_to_attack = new List<Player.Card>();
 
     // Turn
     public action curr_action = action.wait;
@@ -145,6 +146,8 @@ public class MatchManager : MonoBehaviour
                 break;
             case action.perform_attacks:
                 {
+                    players_ready_perform_actions = 0;
+
                     for (int i = 0; i < players.Count; i++)
                     {
                         Player player = players[i].GetComponent<Player>();
@@ -168,7 +171,13 @@ public class MatchManager : MonoBehaviour
                         }
                     }
 
-                    players_ready_perform_actions = 0;
+                    for(int i = 0; i < cards_to_attack.Count; i++)
+                    {
+                        Player.Card card = cards_to_attack[i];
+                        card.GetOwner().UseCard(card.GetName(), card.GetTarget());
+                    }
+                    cards_to_attack.Clear();
+
                     curr_action = action.wait;
                 }
                 break;
@@ -466,9 +475,10 @@ public class MatchManager : MonoBehaviour
         if (target != null)
             target_player_script = target.GetComponent<Player>();
 
-        player_script.UseCard(card_name, target_player_script);
+        Player.Card card = new Player.Card(card_name, player_script);
+        card.SetTarget(target_player_script);
 
-        UpdateCardsUI();
+        cards_to_attack.Add(card);
     }
 
     public void CardUseSend(string card_name, int pos_x, int pos_y, string id, string target_id)
@@ -649,18 +659,22 @@ public class MatchManager : MonoBehaviour
         if (turn_info.turn != turn_type.strategy)
             return;
 
+        Player client = GetClientPlayer().GetComponent<Player>();
         string name = "";
 
         switch(card)
         {
             case 1:
                 name = card1.GetComponentInChildren<Text>().text;
+                client.RemoveCardAtIndex(0);
                 break;
             case 2:
                 name = card2.GetComponentInChildren<Text>().text;
+                client.RemoveCardAtIndex(1);
                 break;
             case 3:
                 name = card3.GetComponentInChildren<Text>().text;
+                client.RemoveCardAtIndex(2);
                 break;
         }
 
@@ -673,11 +687,12 @@ public class MatchManager : MonoBehaviour
 
             case "Stealth":
                 last_clicked_card = "Stealth";
-                Player client = GetClientPlayer().GetComponent<Player>();
 
                 CardUseSend("Stealth", (int)client.GetNavigationEntity().GetGridPos().x, (int)client.GetNavigationEntity().GetGridPos().y, client.GetInstanceID().ToString(), "0");
                 break;
         }
+
+        UpdateCardsUI();
     }
 
     public struct TurnInfo
