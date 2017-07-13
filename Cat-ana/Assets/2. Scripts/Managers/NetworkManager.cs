@@ -93,7 +93,7 @@ public class NetworkManager : MonoBehaviour
             case 123:
                 match_manager.CardUseRecieved(_packet);
                 break;
-            case 144:
+            case 124:
                 match_manager.ClientCardObtained(_packet);
                 break;
         }
