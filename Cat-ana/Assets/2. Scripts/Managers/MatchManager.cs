@@ -314,36 +314,40 @@ public class MatchManager : MonoBehaviour
         switch(t_type)
         {
             case "Strategy":
-                turn_info.turn = turn_type.strategy;
-
-                state_text.gameObject.SetActive(false);
-                attack_button.gameObject.SetActive(true);
-                finish_player_turn.gameObject.SetActive(true);
-
-                for (int i = 0; i < players.Count; i++)
                 {
-                    Player player = players[i].GetComponent<Player>();
+                    turn_info.turn = turn_type.strategy;
 
-                    if (player.IsDead() && turn > 1)
+                    state_text.gameObject.SetActive(false);
+                    attack_button.gameObject.SetActive(true);
+                    finish_player_turn.gameObject.SetActive(true);
+
+                    for (int i = 0; i < players.Count; i++)
                     {
-                        KillPlayer(players[i]);
-                        continue;
+                        Player player = players[i].GetComponent<Player>();
+
+                        if (player.IsDead() && turn > 1)
+                        {
+                            KillPlayer(players[i]);
+                            continue;
+                        }
+
+                        player.AdvanceTurn(turn_info);
                     }
 
-                    player.AdvanceTurn(turn_info);
+                    turn++;
                 }
-
-                turn++;
                 break;
 
             case "Actions":
-                turn_info.turn = turn_type.action;
+                {
+                    turn_info.turn = turn_type.action;
 
-                state_text.gameObject.SetActive(true);
-                state_text.text = "Actions!";
+                    state_text.gameObject.SetActive(true);
+                    state_text.text = "Actions!";
 
-                finish_player_turn.gameObject.SetActive(false);
-                attack_button.gameObject.SetActive(false);
+                    finish_player_turn.gameObject.SetActive(false);
+                    attack_button.gameObject.SetActive(false);
+                }
                 break;
         }
     }
@@ -525,7 +529,7 @@ public class MatchManager : MonoBehaviour
         {
             Player player_script = players[i].GetComponent<Player>();
 
-            if (player_script.GetInstanceID().ToString() == id)
+            if (player_script.GetNetworkId() == id)
             {
                 ret = players[i];
                 break;
