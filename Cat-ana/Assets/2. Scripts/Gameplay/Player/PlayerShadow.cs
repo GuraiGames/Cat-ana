@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerShadow : MonoBehaviour 
 {
-    private GameObject _player = null;
+    private Player _player = null;
     private NavigationEntity navigation_entity = null;
     private MatchManager match_manager = null;
 
@@ -21,7 +21,7 @@ public class PlayerShadow : MonoBehaviour
 
     public void SetInitialPlayerShadowInfo(GameObject player)
     {
-        _player = player;
+        _player = player.GetComponent<Player>();
         gameObject.GetComponent<Player>().enabled = false;
         gameObject.transform.position = player.transform.position;
     }
@@ -80,11 +80,9 @@ public class PlayerShadow : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Player player = _player.GetComponent<Player>();
-
-        if (!player.IsClient())
+        if (!_player.IsClient())
         {
-            match_manager.target = player;
+            match_manager.target = _player;
             match_manager.curr_action = MatchManager.action.card_target_selected;
         }
     }

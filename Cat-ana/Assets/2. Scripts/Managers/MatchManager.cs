@@ -118,7 +118,7 @@ public class MatchManager : MonoBehaviour
                     }
 
                     Player client = GetClientPlayer().GetComponent<Player>();
-                    CardUseSend(last_clicked_card, (int)client.GetNavigationEntity().GetGridPos().x, (int)client.GetNavigationEntity().GetGridPos().y, client.GetInstanceID().ToString(), target.GetInstanceID().ToString());
+                    CardUseSend(last_clicked_card, (int)client.GetNavigationEntity().GetGridPos().x, (int)client.GetNavigationEntity().GetGridPos().y, client.GetInstanceID().ToString(), target.GetNetworkId().ToString());
 
                     state_text.gameObject.SetActive(false);
 
@@ -495,6 +495,8 @@ public class MatchManager : MonoBehaviour
 
             RT_manager.SendData(123, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data, new int[] { 0 }); // send to peerId -> 0, which is the server
         }
+
+        target = null;
     }
 
     private void DecreaseTurnTime()
