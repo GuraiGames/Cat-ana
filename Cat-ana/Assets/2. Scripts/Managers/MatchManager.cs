@@ -491,7 +491,7 @@ public class MatchManager : MonoBehaviour
             data.SetString(1, id);
             data.SetString(1, target_id);
 
-            RT_manager.SendData(122, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data, new int[] { 0 }); // send to peerId -> 0, which is the server
+            RT_manager.SendData(123, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data, new int[] { 0 }); // send to peerId -> 0, which is the server
         }
     }
 
