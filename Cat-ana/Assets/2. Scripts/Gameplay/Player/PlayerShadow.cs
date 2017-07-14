@@ -7,7 +7,10 @@ public class PlayerShadow : MonoBehaviour
     private Player _player = null;
     private NavigationEntity navigation_entity = null;
     private MatchManager match_manager = null;
+
+    // Components
     private GameObject player_marker = null;
+    private GameObject player_model = null;
 
     List<GameObject> prev_pos = new List<GameObject>();
 
@@ -22,6 +25,7 @@ public class PlayerShadow : MonoBehaviour
 
     public void SetInitialPlayerShadowInfo(GameObject player)
     {
+        player_model = gameObject.transform.GetChild(0).gameObject;
         player_marker = gameObject.transform.GetChild(1).gameObject;
         _player = player.GetComponent<Player>();
         gameObject.GetComponent<Player>().enabled = false;
@@ -56,7 +60,8 @@ public class PlayerShadow : MonoBehaviour
     public void Desappear()
     {
         prev_pos.Clear();
-        gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
+        player_model.GetComponent<MeshRenderer>().enabled = false;
+        player_marker.GetComponent<MeshRenderer>().enabled = false;
     }
 
     public void Appear()
@@ -65,7 +70,8 @@ public class PlayerShadow : MonoBehaviour
 
         gameObject.transform.position = _player.transform.position;
 
-        gameObject.GetComponentInChildren<MeshRenderer>().enabled = true;
+        player_model.GetComponent<MeshRenderer>().enabled = true;
+        player_marker.GetComponent<MeshRenderer>().enabled = true;
     }
 
     public NavigationEntity GetNavigationEntity()

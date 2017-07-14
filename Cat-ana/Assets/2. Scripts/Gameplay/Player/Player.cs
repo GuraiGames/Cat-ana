@@ -7,7 +7,10 @@ public class Player : MonoBehaviour
     private MatchManager match_manager = null;
     private NavigationEntity navigation_entity = null;
     private PlayerShadow _shadow = null;
+
+    // Components
     private GameObject player_marker = null;
+    private GameObject player_model = null;
 
     private string _network_id = "";
     private bool _is_client = false;
@@ -29,6 +32,7 @@ public class Player : MonoBehaviour
 
     public void SetInitialPlayerInfo(Vector3 pos, string network_id, bool is_client, GameObject shadow, int life = 0)
     {
+        player_model = gameObject.transform.GetChild(0).gameObject;
         player_marker = gameObject.transform.GetChild(1).gameObject;
         gameObject.transform.position = pos;
         _network_id = network_id;
@@ -47,13 +51,15 @@ public class Player : MonoBehaviour
 
     public void Desappear()
     {
-        gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
+        player_model.GetComponent<MeshRenderer>().enabled = false;
+        player_marker.GetComponent<MeshRenderer>().enabled = false;
         _visible = false;
     }
 
     public void Appear()
     {
-        gameObject.GetComponentInChildren<MeshRenderer>().enabled = true;
+        player_model.GetComponent<MeshRenderer>().enabled = true;
+        player_marker.GetComponent<MeshRenderer>().enabled = true;
         _visible = true;
     }
 

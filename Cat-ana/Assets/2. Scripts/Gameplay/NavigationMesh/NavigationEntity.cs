@@ -49,6 +49,7 @@ public class NavigationEntity : MonoBehaviour
             else
             {
                 transform.position = Vector3.MoveTowards(transform.position, path[path.Count - 1], speed * Time.deltaTime);
+                gameObject.transform.eulerAngles = new Vector3(gameObject.transform.position.x, AngleFromTwoPoints(new Vector2(transform.position.z, transform.position.x), new Vector2(path[path.Count - 1].x, path[path.Count - 1].z)) + 75, gameObject.transform.position.z);
             }
         }
 	}
@@ -119,5 +120,10 @@ public class NavigationEntity : MonoBehaviour
     public List<Vector3> GetCurrentPath()
     {
         return path;
+    }
+
+    float AngleFromTwoPoints(Vector2 p1, Vector2 p2)
+    {
+        return Mathf.Atan2(p2.y - p1.y, p2.x - p1.x) * Mathf.Rad2Deg;
     }
 }
