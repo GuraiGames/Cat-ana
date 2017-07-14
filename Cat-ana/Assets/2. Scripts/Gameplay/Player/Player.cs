@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     private MatchManager match_manager = null;
     private NavigationEntity navigation_entity = null;
     private PlayerShadow _shadow = null;
+    private GameObject player_marker = null;
 
     private string _network_id = "";
     private bool _is_client = false;
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
 
     public void SetInitialPlayerInfo(Vector3 pos, string network_id, bool is_client, GameObject shadow, int life = 0)
     {
+        player_marker = gameObject.transform.GetChild(1).gameObject;
         gameObject.transform.position = pos;
         _network_id = network_id;
         _is_client = is_client;
@@ -45,13 +47,13 @@ public class Player : MonoBehaviour
 
     public void Desappear()
     {
-        gameObject.GetComponent<MeshRenderer>().enabled = false;
+        gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
         _visible = false;
     }
 
     public void Appear()
     {
-        gameObject.GetComponent<MeshRenderer>().enabled = true;
+        gameObject.GetComponentInChildren<MeshRenderer>().enabled = true;
         _visible = true;
     }
 
@@ -183,19 +185,18 @@ public class Player : MonoBehaviour
         GetPlayerShadow().Desappear();
 
         if(IsClient())
-            gameObject.GetComponent<Renderer>().material.color = new Color(0.3f, 0, 0);
+            player_marker.GetComponent<Renderer>().material.color = new Color(0.3f, 0, 0);
         else
-            gameObject.GetComponent<Renderer>().material.color = new Color(1, 0, 0);
+            player_marker.GetComponent<Renderer>().material.color = new Color(1, 0, 0);
     }
 
     public void GainStealth()
     {
         SetStealth(true);
         _visible = false;
-
         if (IsClient())
         {
-            gameObject.GetComponent<Renderer>().material.color = new Color(0, 0.3f, 0);
+            player_marker.GetComponent<Renderer>().material.color = new Color(0, 0.3f, 0);
         }
         else
         {
@@ -322,6 +323,11 @@ public class Player : MonoBehaviour
         private string _name;
         private Player _owner;
         private Player _target;
+    }
+
+    public void SetMarkerColor(Color color)
+    {
+        player_marker.GetComponent<Renderer>().material.color = color;
     }
 
     private void OnMouseDown()

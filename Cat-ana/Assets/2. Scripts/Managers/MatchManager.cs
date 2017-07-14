@@ -299,8 +299,8 @@ public class MatchManager : MonoBehaviour
 
         if (local_player)
         {
-            player_go.GetComponent<Renderer>().material.color = new Color(0, 0.3f, 0);
-            player_shadow_go.GetComponent<Renderer>().material.color = new Color(0, 1, 0);
+            player_script.SetMarkerColor(new Color(0, 0.3f, 0));
+            player_shadow_script.SetMarkerColor(new Color(0, 1, 0));
             SetLifeText(3);
         }
         else
