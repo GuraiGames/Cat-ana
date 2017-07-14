@@ -490,8 +490,8 @@ public class MatchManager : MonoBehaviour
             data.SetString(1, card_name);
             data.SetInt(2, pos_x);
             data.SetInt(3, pos_y);
-            data.SetString(1, id);
-            data.SetString(1, target_id);
+            data.SetString(4, id);
+            data.SetString(5, target_id);
 
             RT_manager.SendData(123, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data, new int[] { 0 }); // send to peerId -> 0, which is the server
         }
