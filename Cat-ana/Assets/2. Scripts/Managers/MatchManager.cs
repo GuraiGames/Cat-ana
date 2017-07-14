@@ -454,6 +454,8 @@ public class MatchManager : MonoBehaviour
 
     public void CardUseRecieved(RTPacket _packet)
     {
+        Debug.Log("recivi el packete wey");
+
         string card_name = _packet.Data.GetString(1);
         int pos_x = (int)_packet.Data.GetInt(2);
         int pos_y = (int)_packet.Data.GetInt(3);

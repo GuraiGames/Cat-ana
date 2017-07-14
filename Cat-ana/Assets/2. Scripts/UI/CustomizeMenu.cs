@@ -49,6 +49,25 @@ public class CustomizeMenu : MonoBehaviour {
             else
             {
                 Debug.Log("Skin list loaded succesfully");
+
+                new GameSparks.Api.Requests.AccountDetailsRequest().Send((details_response) =>
+                {
+                    if(details_response.HasErrors)
+                    {
+                        Debug.Log("too bad :(");
+                    }
+                    else
+                    {
+                        Debug.Log("I've got the info muahahaha");
+
+                        foreach(var skin in details_response.VirtualGoods.BaseData)
+                        {
+                            string skin_code = skin.Key.ToString();
+
+                            Debug.Log(skin_code);
+                        }
+                    }
+                });
             }
 
             //GSData scriptData = response.ScriptData;
