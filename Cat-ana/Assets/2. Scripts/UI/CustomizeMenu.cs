@@ -8,22 +8,23 @@ public class CustomizeMenu : MonoBehaviour {
     [SerializeField]
     private Button skins_button;
 
-    int tot_skins_amount = 0; 
-
     [SerializeField]
     private Button weapons_button;
-
-    int tot_weapons_amount = 0;
 
     [SerializeField]
     private Button cards_button;
 
-    int tot_cards_amount = 0;
-
     [SerializeField]
     private GameObject background_panel;
 
+    [SerializeField]
+    private GameObject item_slot;
+
+    int tot_skins_amount = 0;
+    int tot_weapons_amount = 0;
+    int tot_cards_amount = 0;
     int unlocked_items = 0;
+    int increment = 20; 
 
     // Use this for initialization
     void Start () {
@@ -69,9 +70,12 @@ public class CustomizeMenu : MonoBehaviour {
                 }
 
                 Debug.Log("TOTAL SKINS: " + tot_skins_amount);
-
+               
                 for(int i = 0; i < tot_skins_amount; i++)
                 {
+                    GameObject new_slot = Instantiate(item_slot, new Vector3(0,0,0), Quaternion.identity) as GameObject;
+                    new_slot.transform.parent = GameObject.Find("Slot Panel").transform;
+                    new_slot.transform.localScale = new Vector3(new_slot.transform.localScale.x/110, new_slot.transform.localScale.y/110, new_slot.transform.localScale.z/110);
 
                 }
 
