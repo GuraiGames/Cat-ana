@@ -23,6 +23,8 @@ public class CustomizeMenu : MonoBehaviour {
     [SerializeField]
     private GameObject background_panel;
 
+    int unlocked_items = 0;
+
     // Use this for initialization
     void Start () {
 		
@@ -60,10 +62,13 @@ public class CustomizeMenu : MonoBehaviour {
                 GameSparks.Core.GSData scriptData = response.ScriptData;
                 GameSparks.Core.GSEnumerable<GameSparks.Api.Responses.ListVirtualGoodsResponse._VirtualGood> virtualGoods = response.VirtualGoods;
 
+               
                 foreach (var skin in virtualGoods)
                 {
                     tot_skins_amount++;                   
                 }
+
+                Debug.Log("TOTAL SKINS: " + tot_skins_amount);
 
                 for(int i = 0; i < tot_skins_amount; i++)
                 {
@@ -84,12 +89,17 @@ public class CustomizeMenu : MonoBehaviour {
 
                         Debug.Log("I've got the info muahahaha");
 
+                       
+
                         foreach(var skin in details_response.VirtualGoods.BaseData)
                         {
                             string skin_code = skin.Key.ToString();
+                            unlocked_items++; 
 
                             Debug.Log(skin_code);
                         }
+
+                        Debug.Log("UNLOCKED SKINS: " + unlocked_items); 
 
                         // -----
 
@@ -117,12 +127,12 @@ public class CustomizeMenu : MonoBehaviour {
 
             if (response.HasErrors)
             {
-                Debug.Log("Error: skin list can not be loaded");
+                Debug.Log("Error: weapons list can not be loaded");
             }
 
             else
             {
-                Debug.Log("Skin list loaded succesfully");
+                Debug.Log("weapons list loaded succesfully");
             }
 
             //GSData scriptData = response.ScriptData;
@@ -144,12 +154,12 @@ public class CustomizeMenu : MonoBehaviour {
 
             if (response.HasErrors)
             {
-                Debug.Log("Error: skin list can not be loaded");
+                Debug.Log("Error: cards list can not be loaded");
             }
 
             else
             {
-                Debug.Log("Skin list loaded succesfully");
+                Debug.Log("Card list loaded succesfully");
             }
 
             //GSData scriptData = response.ScriptData;
