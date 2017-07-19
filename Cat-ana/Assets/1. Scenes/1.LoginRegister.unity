@@ -344,7 +344,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2, y: -0.0000014305}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1731, y: 773}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &9912422
@@ -384,7 +384,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 9912420}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -7104,14 +7104,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1751283566}
-        m_MethodName: WeaponsButtonPressed
-        m_Mode: 1
+        m_MethodName: ButtonPressed
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: WEAPON
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -14605,17 +14605,17 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1321673359}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9912421}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2426, y: 51.021454}
-  m_SizeDelta: {x: 4853, y: 73}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.28114593, y: 0.00021362002}
+  m_SizeDelta: {x: 1731.3, y: 773}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1321673361
 MonoBehaviour:
@@ -14760,7 +14760,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.44170836, y: 0.90414816}
   m_AnchorMax: {x: 0.9303298, y: 1}
-  m_AnchoredPosition: {x: 338.55435, y: 443.03256}
+  m_AnchoredPosition: {x: 338.55432, y: 443.0322}
   m_SizeDelta: {x: 889.291, y: 93.93478}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1355201105
@@ -16036,7 +16036,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1511213594}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -16044,10 +16044,10 @@ RectTransform:
   m_Father: {fileID: 1751283563}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.028687501, y: 0.058814824}
-  m_AnchorMax: {x: 0.9057917, y: 0.8698519}
-  m_AnchoredPosition: {x: 65, y: -17}
-  m_SizeDelta: {x: 135, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -52}
+  m_SizeDelta: {x: 1849, y: 884}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1511213596
 MonoBehaviour:
@@ -16645,14 +16645,14 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1751283566}
-        m_MethodName: SkinsButtonPressed
-        m_Mode: 1
+        m_MethodName: ButtonPressed
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: SKIN
           m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -18000,14 +18000,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1751283566}
-        m_MethodName: CardsButtonPressed
-        m_Mode: 1
+        m_MethodName: ButtonPressed
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: CARD
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -18966,6 +18966,7 @@ MonoBehaviour:
   cards_button: {fileID: 1705561753}
   background_panel: {fileID: 1511213594}
   item_slot: {fileID: 1859350430080270, guid: 3b8a9f3daaee00041922894914dc1828, type: 2}
+  tot_items_amount: 0
 --- !u!1 &1763563891
 GameObject:
   m_ObjectHideFlags: 0
@@ -21249,14 +21250,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1751283566}
-        m_MethodName: SkinsButtonPressed
-        m_Mode: 1
+        m_MethodName: ButtonPressed
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: SKIN
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
