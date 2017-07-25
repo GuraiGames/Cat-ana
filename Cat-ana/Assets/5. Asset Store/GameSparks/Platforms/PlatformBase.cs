@@ -271,8 +271,10 @@ namespace GameSparks.Platforms
                 {
                     case RuntimePlatform.OSXEditor:
                     case RuntimePlatform.OSXPlayer:
+#if !UNITY_2017_1_OR_NEWER
                     case RuntimePlatform.OSXDashboardPlayer:             
                         return "MACOS";
+#endif
 
                     case RuntimePlatform.WindowsPlayer:
                     case RuntimePlatform.WindowsEditor:

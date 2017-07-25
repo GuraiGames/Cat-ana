@@ -1,21 +1,47 @@
 using UnityEditor;
 using UnityEngine;
+#if UNITY_2017_1_OR_NEWER
+using UnityEditor.Build;
+#endif
 
 namespace GameSparks.Editor
 {
 
 	[InitializeOnLoad]
+#if UNITY_2017_1_OR_NEWER
+	public class GameSparksBuildSettings : IActiveBuildTargetChanged
+#else
 	public class GameSparksBuildSettings
+#endif
 	{
 		static GameSparksBuildSettings()
 		{
+#if !UNITY_2017_1_OR_NEWER
 			EditorUserBuildSettings.activeBuildTargetChanged += PlatformSwitch;
 			PlatformSwitch();
+#endif
 		}
 
+#if UNITY_2017_1_OR_NEWER
+		public int callbackOrder
+		{ 
+			get 
+			{ 
+				return 0; 
+			} 
+		}
+
+		public void OnActiveBuildTargetChanged(BuildTarget previousTarget, BuildTarget newTarget)
+		{
+			if (newTarget == BuildTarget.WSAPlayer)
+			{
+				PlayerSettings.WSA.SetCapability(PlayerSettings.WSACapability.InternetClientServer, true);
+			}
+		}
+#else
 		public  static void PlatformSwitch()
 		{
-			#if UNITY_5
+			#if UNITY_5 || UNITY_5_3_OR_NEWER
 			if (EditorUserBuildSettings.activeBuildTarget == BuildTarget.WSAPlayer)
 			{
 			PlayerSettings.WSA.SetCapability(PlayerSettings.WSACapability.InternetClientServer, true);
@@ -28,6 +54,7 @@ namespace GameSparks.Editor
 			#endif
 
 		}
+#endif
 	}
 	
 

@@ -60,7 +60,7 @@ public class GameSparksTestUI : MonoBehaviour
 
     void Awake ()
 	{
-#if UNITY_5
+#if UNITY_5 || UNITY_5_3_OR_NEWER
         Application.logMessageReceivedThreaded += HandleLog;
         //Application.logMessageReceived += HandleLog;
 #else
