@@ -17,6 +17,9 @@ public class LoginUI : MonoBehaviour {
     private ScrollSpawn scroll;
 
     [SerializeField]
+    private Button test_3_button;
+
+    [SerializeField]
     private Text name;
 
     [SerializeField]
@@ -30,9 +33,18 @@ public class LoginUI : MonoBehaviour {
         game_manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         error_panel.SetActive(false);
     }
+
+    public void Test3Autenthication()
+    {
+        username.text = "test3";
+        password.text = "1234";
+
+        ButtonPressed(); 
+    }
 	
 	public void ButtonPressed()
     {
+        
         Debug.Log("Login attempt. User: " + username.text + "Pass: " + password.text);
 
         Text curr_text = error_panel.GetComponentInChildren<Text>();

@@ -20,7 +20,8 @@ public class CustomizeMenu : MonoBehaviour
 
     [SerializeField]
     private GameObject item_slot;
-                              
+
+    private string item_blocked_tex_path = "ItemTextures/Item_Locked";
     private string test_path = "ItemTextures/Common_TextureName_1" ;
     private string test_1_path = "ItemTextures/Common_Test_1";
     private string test_2_path = "ItemTextures/Common_Test_2";
@@ -134,7 +135,7 @@ public class CustomizeMenu : MonoBehaviour
 
                     SetImageFromShortCode(); 
 
-                    new_slot.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(test_1_path);
+                    new_slot.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(item_blocked_tex_path);
 
                     Debug.Log("path " + test_path);
 
@@ -158,6 +159,9 @@ public class CustomizeMenu : MonoBehaviour
                         // Here we "unlock" the ones that the player has -----
 
                         Debug.Log("I've got the info muahahaha");
+
+                        GameSparks.Core.GSData VirtualGoods = details_response.VirtualGoods; 
+
 
                         foreach (var items in details_response.VirtualGoods.BaseData)
                         {
