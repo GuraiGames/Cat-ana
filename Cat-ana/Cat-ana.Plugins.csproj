@@ -103,6 +103,12 @@
     <Reference Include="Facebook.Unity.Settings">
       <HintPath>Assets\FacebookSDK\Plugins\Settings\Facebook.Unity.Settings.dll</HintPath>
     </Reference>
+    <Reference Include="ChannelPurchase">
+      <HintPath>Assets\Plugins\UnityChannel\ChannelPurchase.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityStore">
+      <HintPath>Assets\Plugins\UnityChannel\UnityStore.dll</HintPath>
+    </Reference>
     <Reference Include="Editor">
       <HintPath>Assets\Plugins\UnityPurchasing\Bin\Editor.dll</HintPath>
     </Reference>
@@ -127,18 +133,13 @@
     <Reference Include="winrt">
       <HintPath>Assets\Plugins\UnityPurchasing\winrt\winrt.dll</HintPath>
     </Reference>
-    <Reference Include="ChannelPurchase">
-      <HintPath>Assets\Plugins\UnityChannel\ChannelPurchase.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityStore">
-      <HintPath>Assets\Plugins\UnityChannel\UnityStore.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\UnityChannel\XiaomiSupport\AppStoreSettings.cs" />
     <Compile Include="Assets\Plugins\UnityPurchasing\script\ComboBox.cs" />
     <Compile Include="Assets\Plugins\UnityPurchasing\script\Demo\DemoInventory.cs" />
     <Compile Include="Assets\Plugins\UnityPurchasing\script\IAPButton.cs" />
+    <Compile Include="Assets\Plugins\UnityPurchasing\script\IAPConfigurationHelper.cs" />
     <Compile Include="Assets\Plugins\UnityPurchasing\script\IAPDemo.cs" />
     <Compile Include="Assets\Plugins\UnityPurchasing\script\PurchasingCheck.cs" />
   </ItemGroup>
@@ -156,6 +157,7 @@
     <None Include="Assets\GameSparks\README.txt" />
     <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver.txt" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\UnityPurchasing\script\link.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

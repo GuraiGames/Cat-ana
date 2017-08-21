@@ -28,6 +28,10 @@ public class CustomizeMenu : MonoBehaviour
     private string test_3_path = "ItemTextures/Common_Test_3";
     private string test_4_path = "ItemTextures/Common_Test_4";
 
+    private string shortcode = ":)";
+    private int id = -1;
+    List<int> displayed_slots_id; 
+
     public int tot_items_amount = 0;
     int unlocked_items = 0;
     float distance_between_slots = 5.5f;
@@ -54,6 +58,21 @@ public class CustomizeMenu : MonoBehaviour
     private void SetImageFromShortCode()
     {
 
+    }
+
+    private void ChangeSlotImages(List<int> slots_id)
+    {
+        //slots_id.Sort();
+
+        //// Get the ShortCode
+
+        //for(int i = 0; i < slots_id.Count;i++)
+        //{
+        //    //Get ShortCode from id
+        //    shortcode = "COMMON_HEAVYBREATHING_1";
+           
+        //    displayed_slots[i].GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(shortcode); 
+        //}
     }
 
 
@@ -160,16 +179,19 @@ public class CustomizeMenu : MonoBehaviour
 
                         Debug.Log("I've got the info muahahaha");
 
-                        GameSparks.Core.GSData VirtualGoods = details_response.VirtualGoods; 
+                        GameSparks.Core.GSData VirtualGoodsData = details_response.VirtualGoods;
 
+                       string VirtualGoodsJSON = VirtualGoodsData.JSON;
+
+                        Debug.Log(VirtualGoodsJSON);
 
                         foreach (var items in details_response.VirtualGoods.BaseData)
                         {
-                            string short_code = items.Key.ToString();
+                              string short_code = items.Key.ToString();
                           
-                            unlocked_items++;
+                              unlocked_items++;
 
-                            Debug.Log(short_code);
+                              Debug.Log(short_code);
                         }
 
                         Debug.Log("TOTAL ITEMS UNLOCKED: " + unlocked_items);
